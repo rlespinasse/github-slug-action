@@ -9,3 +9,4 @@ slug_ref() {
 
 echo ::set-env name=GITHUB_REF_SLUG::$(slug_ref $GITHUB_REF)
 echo ::set-env name=GITHUB_HEAD_REF_SLUG::$(slug_ref $GITHUB_HEAD_REF)
+echo ::set-env name=GITHUB_BASE_REF_SLUG::$(slug_ref $GITHUB_BASE_REF)
