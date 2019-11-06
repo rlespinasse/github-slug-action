@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-@test "slug" {
+@test "slug_ref" {
   source entrypoint.sh
 
   i=0
