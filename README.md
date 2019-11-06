@@ -27,11 +27,3 @@ This action slug and expose some github variables.
     echo ${{ env.GITHUB_HEAD_REF_SLUG }}
     echo ${{ env.GITHUB_BASE_REF_SLUG }}
 ```
-
-# Test
-
-To run test locally, run:
-
-```shell script
-docker run -w /workdir -v $(pwd):/workdir dduportal/bats:latest ./
-```
