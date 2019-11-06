@@ -1,0 +1,6 @@
+# action.yml
+name: 'GitHub Slug'
+description: 'Action to slug and expose some github variables'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
