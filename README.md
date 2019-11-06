@@ -10,9 +10,10 @@ This action slug and expose some github variables.
 
 ## Environement Variables
 
-### `GITHUB_REF_SLUG`
-
-Slug from `GITHUB_REF` env variables
+| GitHub environment variable | Slug variable |
+| - | - |
+| GITHUB_REF | GITHUB_REF_SLUG |
+| GITHUB_HEAD_REF | GITHUB_HEAD_REF_SLUG |
 
 ## Example usage
 
@@ -21,4 +22,6 @@ Slug from `GITHUB_REF` env variables
 - name: Print slug variables
   run: |
     echo ${{ env.GITHUB_REF_SLUG }}
+    echo ${{ env.GITHUB_HEAD_REF_SLUG }}
+    echo ${{ env.GITHUB_BASE_REF_SLUG }}
 ```
