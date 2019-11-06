@@ -1,0 +1,28 @@
+{
+  "name": "github-slug-action",
+  "version": "1.0.1",
+  "license": "MIT",
+  "scripts": {
+    "test": "docker run -w /workdir -v $(pwd):/workdir dduportal/bats:latest ./tests",
+    "release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/rlespinasse/github-slug-action.git"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^3.0.5",
+    "@semantic-release/git": "^7.0.18",
+    "semantic-release": "^15.13.30"
+  },
+  "release": {
+    "tagFormat": "${version}",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
+  }
+}

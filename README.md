@@ -20,7 +20,7 @@ This action slug and expose some github variables.
 ## Example usage
 
 ```yaml
-- uses: rlespinasse/github-slug-action@1.0.1
+- uses: rlespinasse/github-slug-action@master
 - name: Print slug variables
   run: |
     echo ${{ env.GITHUB_REF_SLUG }}

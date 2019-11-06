@@ -1,17 +1,16 @@
 name: ci
-
 on: push
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-
-      - name: Check out code
-        uses: actions/checkout@v1
-
-      - name: Tests
-        uses: ./.github/actions/bats
-
+      - uses: actions/checkout@v1
+      - uses: ./.github/actions/bats
+      - uses: cycjimmy/semantic-release-action@v2
+        if: github.ref == 'refs/heads/master'
+        with:
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
