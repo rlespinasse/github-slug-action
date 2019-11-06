@@ -14,6 +14,7 @@ This action slug and expose some github variables.
 | - | - |
 | GITHUB_REF | GITHUB_REF_SLUG |
 | GITHUB_HEAD_REF | GITHUB_HEAD_REF_SLUG |
+| GITHUB_BASE_REF | GITHUB_BASE_REF_SLUG |
 
 ## Example usage
 
