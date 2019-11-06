@@ -9,13 +9,13 @@
 @test "Slug a feature branch" {
   test_sluf_ref \
     "refs/heads/feat/new_feature" \
-    "new-feature"
+    "feat-new-feature"
 }
 
 @test "Slug a fix branch" {
   test_sluf_ref \
     "refs/heads/fix/issue_number" \
-    "issue-number"
+    "fix-issue-number"
 }
 
 @test "Slug a simple tag" {
