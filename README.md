@@ -6,7 +6,8 @@ This action slug and expose some github variables.
 
 - put the variable content in lower case,
 - replace any caracter by `-` except `0-9` and `a-z`,
-- limit the string size to 63 caracters
+- remove leading and trailing `-` caracter,
+- limit the string size to 63 caracters.
 
 ## Environement Variables
 
