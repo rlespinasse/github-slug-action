@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-/sbin/bats ./
+/sbin/bats ./tests
