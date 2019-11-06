@@ -17,5 +17,8 @@ Slug from `GITHUB_REF` env variables
 ## Example usage
 
 ```yaml
-uses: rlespinasse/github-slug-action@master
+- uses: rlespinasse/github-slug-action@master
+- name: Print slug variables
+  run: |
+    echo ${{ env.GITHUB_REF_SLUG }}
 ```
