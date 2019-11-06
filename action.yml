@@ -4,3 +4,6 @@ description: 'Action to slug and expose some github variables'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+branding:
+  icon: 'crop'  
+  color: 'orange'
