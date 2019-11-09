@@ -11,7 +11,7 @@ This action slug and expose some github variables.
 
 Slug will also provide a shortened version of GITHUB_SHA reduced to `8` characters.
 
-## Environement Variables
+## Environment Variables
 
 | GitHub environment variable | Slug variable |
 | - | - |
