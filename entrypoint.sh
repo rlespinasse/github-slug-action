@@ -15,4 +15,4 @@ short_sha(){
 echo ::set-env name=GITHUB_REF_SLUG::"$(slug_ref "$GITHUB_REF")"
 echo ::set-env name=GITHUB_HEAD_REF_SLUG::"$(slug_ref "$GITHUB_HEAD_REF")"
 echo ::set-env name=GITHUB_BASE_REF_SLUG::"$(slug_ref "$GITHUB_BASE_REF")"
-echo ::set-env name=GITHUB_SHORT_SHA::"$(short_sha "$GITHUB_SHA")"
+echo ::set-env name=GITHUB_SHA_SHORT::"$(short_sha "$GITHUB_SHA")"

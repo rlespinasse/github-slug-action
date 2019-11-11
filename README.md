@@ -9,7 +9,8 @@ This action slug and expose some github variables.
 - remove leading and trailing `-` caracter,
 - limit the string size to 63 caracters.
 
-Slug will also provide a shortened version of GITHUB_SHA reduced to `8` characters.
+Others `Slug`-ish commands are available:
+- `Short SHA` a variable will limit the string size to 8 caracters.
 
 ## Environment Variables
 
@@ -21,7 +22,7 @@ Slug will also provide a shortened version of GITHUB_SHA reduced to `8` characte
 
 | GitHub environment variable | Short variable |
 | - | - |
-| GITHUB_SHA | GITHUB_SHORT_SHA |
+| GITHUB_SHA | GITHUB_SHA_SHORT |
 
 ## Example usage
 
@@ -32,5 +33,5 @@ Slug will also provide a shortened version of GITHUB_SHA reduced to `8` characte
     echo ${{ env.GITHUB_REF_SLUG }}
     echo ${{ env.GITHUB_HEAD_REF_SLUG }}
     echo ${{ env.GITHUB_BASE_REF_SLUG }}
-    echo ${{ env.GITHUB_SHORT_SHA }}
+    echo ${{ env.GITHUB_SHA_SHORT }}
 ```
