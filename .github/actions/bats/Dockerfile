@@ -1,5 +1,3 @@
-FROM dduportal/bats:latest
+FROM bats/bats:latest
 
-COPY entrypoint.sh /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["./tests"]

@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "license": "MIT",
   "scripts": {
-    "test": "docker run -w /workdir -v $(pwd):/workdir dduportal/bats:latest ./tests",
+    "test": "docker run -w /workdir -v $(pwd):/workdir bats/bats:latest ./tests",
     "release": "semantic-release"
   },
   "repository": {
