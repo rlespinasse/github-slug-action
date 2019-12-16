@@ -5,12 +5,12 @@ This action slug and expose some github variables.
 `Slug` a variable will
 
 - put the variable content in lower case,
-- replace any caracter by `-` except `0-9` and `a-z`,
-- remove leading and trailing `-` caracter,
-- limit the string size to 63 caracters.
+- replace any character by `-` except `0-9` and `a-z`,
+- remove leading and trailing `-` character,
+- limit the string size to 63 characters.
 
 Others `Slug`-ish commands are available:
-- `Short SHA` a variable will limit the string size to 8 caracters.
+- `Short SHA` a variable will limit the string size to 8 characters.
 
 ## Environment Variables
 
