@@ -21,13 +21,13 @@
 @test "Slug a simple tag" {
   test_sluf_ref \
     "refs/tags/v1.0.0" \
-    "v1-0-0"
+    "v1.0.0"
 }
 
 @test "Slug a complex tag" {
   test_sluf_ref \
     "refs/tags/product@1.0.0-rc.2" \
-    "product-1-0-0-rc-2"
+    "product-1.0.0-rc.2"
 }
 
 @test "Slug a reference with upper case letters" {
