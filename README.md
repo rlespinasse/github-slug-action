@@ -5,7 +5,7 @@ This action slug and expose some github variables.
 `Slug` a variable will
 
 - put the variable content in lower case,
-- replace any character by `-` except `0-9` and `a-z`,
+- replace any character by `-` except `0-9`, `a-z`and `.`,
 - remove leading and trailing `-` character,
 - limit the string size to 63 characters.
 
