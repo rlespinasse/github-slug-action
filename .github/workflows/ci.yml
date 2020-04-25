@@ -5,7 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: ./.github/actions/bats
+      - uses: docker://ffurrer/bats:latest
+        with:
+          args: "--recursive ."
       - uses: cycjimmy/semantic-release-action@v2
         with:
           branches: |

@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "license": "MIT",
   "scripts": {
-    "test": "docker run -w /workdir -v $(pwd):/workdir bats/bats:latest ./tests",
+    "test": "docker run -w /workdir -v $(pwd):/workdir ffurrer/bats:latest --recursive .",
     "release": "semantic-release"
   },
   "repository": {

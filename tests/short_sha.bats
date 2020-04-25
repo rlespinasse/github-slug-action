@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-@test "Short long hash" {
+@test "short_sha: long hash" {
   test_short_sha \
     "a35a1a486a260cfd99c5b6f8c6034a2929ba9b3f" \
     "a35a1a48"
