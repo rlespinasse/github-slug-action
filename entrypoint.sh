@@ -1,5 +1,19 @@
 #!/bin/sh -l
 
+slug() {
+  echo "$1" |
+    tr "[:upper:]" "[:lower:]" |
+    sed -r 's/[~\^]+//g;s/[^a-zA-Z0-9.]+/-/g;s/^-+\|-+$//g;s/^-*//;s/-*$//' |
+    cut -c1-63
+}
+
+slug_url() {
+  echo "$1" |
+    tr "[:upper:]" "[:lower:]" |
+    sed -r 's/[~\^]+//g;s/[^a-zA-Z0-9]+/-/g;s/^-+\|-+$//g;s/^-*//;s/-*$//' |
+    cut -c1-63
+}
+
 slug_ref() {
   echo "$1" |
     tr "[:upper:]" "[:lower:]" |
@@ -18,6 +32,9 @@ short_sha() {
   echo "$1" |
     cut -c1-8
 }
+
+echo ::set-env name=GITHUB_REPOSITORY_SLUG::"$(slug "$GITHUB_REPOSITORY")"
+echo ::set-env name=GITHUB_REPOSITORY_SLUG_URL::"$(slug_url "$GITHUB_REPOSITORY")"
 
 echo ::set-env name=GITHUB_REF_SLUG::"$(slug_ref "$GITHUB_REF")"
 echo ::set-env name=GITHUB_HEAD_REF_SLUG::"$(slug_ref "$GITHUB_HEAD_REF")"

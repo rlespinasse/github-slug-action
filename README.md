@@ -24,14 +24,16 @@ Others `Slug`-ish commands are available:
 
 - name: Print slug/short variables
   run: |
-    echo "Slug reference variables"
+    echo "Slug variables"
     echo " - ${{ env.GITHUB_REF_SLUG }}"
     echo " - ${{ env.GITHUB_HEAD_REF_SLUG }}"
     echo " - ${{ env.GITHUB_BASE_REF_SLUG }}"
-    echo "Slug URL reference variables"
+    echo " - ${{ env.GITHUB_REPOSITORY_SLUG }}"
+    echo "Slug URL variables"
     echo " - ${{ env.GITHUB_REF_SLUG_URL }}"
     echo " - ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
     echo " - ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
+    echo " - ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
     echo "Short SHA variables"
     echo " - ${{ env.GITHUB_SHA_SHORT }}"
 ```
@@ -53,30 +55,27 @@ _If neither a branch or tag is available for the event type, the variable will n
 | refs/tags/product@1.0.0-rc.2   | product-1.0.0-rc.2  | product-1-0-0-rc-2  |
 | refs/heads/New_Awesome_Product | new-awesome-product | new-awesome-product |
 
+> **NOTE :**
+> GITHUB_REF_SLUG_URL is design to be used as subdomain in an URL.
+
 _Additional variables (only set for forked repositories) :_
 
 - `GITHUB_HEAD_REF_SLUG`/`GITHUB_HEAD_REF_SLUG_URL`, The branch of the head repository **GITHUB_HEAD_REF**
 - `GITHUB_BASE_REF_SLUG`/`GITHUB_BASE_REF_SLUG_URL`, The branch of the base repository **GITHUB_BASE_REF**
 
-#### Use in an URL
+### GITHUB_REPOSITORY_SLUG
 
-In an URL, use `GITHUB_REF_SLUG_URL` instead of **GITHUB_REF_SLUG** as subdomain to be compliant.
+Slug the environment variable **GITHUB_REPOSITORY**
+
+The owner and repository name.
+
+| GITHUB_REPOSITORY          | GITHUB_REPOSITORY_SLUG     | GITHUB_REPOSITORY_SLUG_URL |
+|----------------------------|----------------------------|----------------------------|
+| octocat/Hello-World        | octocat-hello-world        | octocat-hello-world        |
+| rlespinasse/Hello-World.go | rlespinasse-hello-world.go | rlespinasse-hello-world-go |
 
 > **NOTE :**
-> GITHUB_REF_SLUG can be used in an URL only as part of the _resource path_.
-
-```yaml
-- name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v2.x
-
-- name: Deploy dummy application using slug in the 'subdomain' part
-  run: |
-    ./deploy-application.sh --url "https://${{ env.GITHUB_REF_SLUG_URL }}.staging.app.mycompagny.com"
-
-- name: Deploy dummy application using slug in the 'resource path' part
-  run: |
-    ./deploy-application.sh --url "https://staging.app.mycompagny.com/${{ env.GITHUB_REF_SLUG }}"
-```
+> GITHUB_REF_SLUG_URL is design to be used as subdomain in an URL.
 
 ### GITHUB_SHA_SHORT
 
@@ -87,3 +86,23 @@ The commit SHA that triggered the workflow
 | GITHUB_SHA                               | GITHUB_SHA_SHORT |
 |------------------------------------------|------------------|
 | ffac537e6cbbf934b08745a378932722df287a53 | ffac537e         |
+
+### Use slug variable in an URL
+
+In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>_SLUG** as subdomain to be compliant.
+
+> **NOTE :**
+> <GITHUB_VARIABLE>_SLUG can be used in an URL only as part of the _resource path_.
+
+```yaml
+- name: Inject slug/short variables
+  uses: rlespinasse/github-slug-action@v2.x
+
+- name: Deploy dummy application using slug in the 'subdomain' part
+  run: |
+    ./deploy-application.sh --url "https://${{ env.<GITHUB_VARIABLE>_SLUG_URL }}.staging.app.mycompagny.com"
+
+- name: Deploy dummy application using slug in the 'resource path' part
+  run: |
+    ./deploy-application.sh --url "https://staging.app.mycompagny.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
+```
