@@ -1,9 +1,9 @@
 # action.yml
-name: 'GitHub Slug'
-description: 'Action to slug and expose some github variables'
+name: "GitHub Slug"
+description: "Action to slug and expose some github variables"
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
 branding:
-  icon: 'crop'  
-  color: 'orange'
+  icon: "crop"
+  color: "orange"
