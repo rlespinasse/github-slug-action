@@ -1,11 +1,14 @@
 # Security Policy
 
-## Supported Versions
+## Supported Versions and Branches
 
-| Version | Supported          |
-|---------|--------------------|
-| 1.1.x   | :white_check_mark: |
-| < 1.0.x | :x:                |
+| Version | Branch | Supported          |
+|---------|--------|--------------------|
+| 2.x     | v2.x   | :white_check_mark: |
+| 1.1.x   | v1.1.x | :white_check_mark: |
+| < 1.0.x | master | :x:                |
+
+A GitHub repository can used one of the available branches as action inside its workflows.
 
 ## Reporting a Vulnerability
 

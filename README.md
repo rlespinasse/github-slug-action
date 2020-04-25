@@ -18,7 +18,7 @@ Others `Slug`-ish commands are available:
 ## Exposed environment variables
 
 ```yaml
-- uses: rlespinasse/github-slug-action@v1.1.x
+- uses: rlespinasse/github-slug-action@v2.x
 - name: Print slug variables
   run: |
     echo ${{ env.GITHUB_REF_SLUG }}
