@@ -40,7 +40,7 @@ Others `Slug`-ish commands are available:
 
 Read [default environment variables](https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables) page for more information.
 
-### GITHUB_REF_SLUG(_URL)
+### GITHUB_REF_SLUG / GITHUB_REF_SLUG_URL
 
 Slug the environment variable **GITHUB_REF**
 
@@ -63,7 +63,7 @@ _Additional variables (only set for forked repositories) :_
 - `GITHUB_HEAD_REF_SLUG`/`GITHUB_HEAD_REF_SLUG_URL`, The branch of the head repository **GITHUB_HEAD_REF**
 - `GITHUB_BASE_REF_SLUG`/`GITHUB_BASE_REF_SLUG_URL`, The branch of the base repository **GITHUB_BASE_REF**
 
-### GITHUB_REPOSITORY_SLUG
+### GITHUB_REPOSITORY_SLUG / GITHUB_REPOSITORY_SLUG_URL
 
 Slug the environment variable **GITHUB_REPOSITORY**
 
@@ -75,7 +75,7 @@ The owner and repository name.
 | rlespinasse/Hello-World.go | rlespinasse-hello-world.go | rlespinasse-hello-world-go |
 
 > **NOTE :**
-> GITHUB_REF_SLUG_URL is design to be used as subdomain in an URL.
+> GITHUB_REPOSITORY_SLUG_URL is design to be used as subdomain in an URL.
 
 ### GITHUB_SHA_SHORT
 
