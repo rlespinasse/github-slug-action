@@ -106,3 +106,8 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>_SLUG*
   run: |
     ./deploy-application.sh --url "https://staging.app.mycompagny.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
 ```
+
+## Troubleshooting
+
+When using this action on Windows or Macos, this error is display `##[error]Container action is only supported on Linux`.
+Currently, this action don't support a system other than Linux due to Github Action Limitation.
