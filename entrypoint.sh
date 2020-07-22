@@ -33,15 +33,23 @@ short_sha() {
     cut -c1-8
 }
 
+get_event_keyvalue() {
+  if [ -f "$GITHUB_EVENT_PATH" ]; then
+    jq -r ".$1" "$GITHUB_EVENT_PATH" | grep -v "null"
+  fi
+}
+
 echo ::set-env name=GITHUB_REPOSITORY_SLUG::"$(slug "$GITHUB_REPOSITORY")"
 echo ::set-env name=GITHUB_REPOSITORY_SLUG_URL::"$(slug_url "$GITHUB_REPOSITORY")"
 
 echo ::set-env name=GITHUB_REF_SLUG::"$(slug_ref "$GITHUB_REF")"
 echo ::set-env name=GITHUB_HEAD_REF_SLUG::"$(slug_ref "$GITHUB_HEAD_REF")"
 echo ::set-env name=GITHUB_BASE_REF_SLUG::"$(slug_ref "$GITHUB_BASE_REF")"
+echo ::set-env name=GITHUB_EVENT_REF_SLUG::"$(slug_ref "$(get_event_keyvalue "ref")")"
 
 echo ::set-env name=GITHUB_REF_SLUG_URL::"$(slug_url_ref "$GITHUB_REF")"
 echo ::set-env name=GITHUB_HEAD_REF_SLUG_URL::"$(slug_url_ref "$GITHUB_HEAD_REF")"
 echo ::set-env name=GITHUB_BASE_REF_SLUG_URL::"$(slug_url_ref "$GITHUB_BASE_REF")"
+echo ::set-env name=GITHUB_EVENT_REF_SLUG_URL::"$(slug_url_ref "$(get_event_keyvalue "ref")")"
 
 echo ::set-env name=GITHUB_SHA_SHORT::"$(short_sha "$GITHUB_SHA")"
