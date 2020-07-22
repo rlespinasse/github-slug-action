@@ -11,7 +11,6 @@
     "url": "http://github.com/rlespinasse/github-slug-action.git"
   },
   "devDependencies": {
-    "npm": ">=6.14.6",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/git": "9.0.0",
     "semantic-release": "17.0.7"
