@@ -115,11 +115,30 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG
 
 ## Troubleshooting
 
-When using this action on Windows or Macos, this error is display `##[error]Container action is only supported on Linux`.
-Currently, this action don't support a system other than Linux due to Github Action Limitation.
+### Missing master branch
+
+If your workflow fail on the `Set up job` task with this kind of log :
+
+```
+Download action repository 'rlespinasse/github-slug-action@master'
+##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
+```
+
+Use the current branch `v2.x` or a version tag (see [releases pages][6]).
+
+The master branch EOL is set on **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
+
+### Can't run on Windows or Macos
+
+When using this action on Windows or Macos workflows, A `##[error]Container action is only supported on Linux` error can be see in your workflow logs.
+Currently, this action don't support a system other than Linux due to Github Action Limitation on `Container`-based action.
 
 [1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
 [2]: https://github.com/rlespinasse/github-slug-action/actions
 [3]: https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables
 [4]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#create
 [5]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#delete
+[6]: https://github.com/rlespinasse/github-slug-action/releases
+[7]: https://github.com/rlespinasse/github-slug-action/issues/15
+
+
