@@ -1,7 +1,7 @@
 # GitHub Slug action
 
 [![Actions Status][1]][2]
-<a href="https://github.com/search?o=desc&q=rlespinasse%2Frlespinasse/github-slug-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code" target="_blank" title="Public workflows that use this action."><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-git-master.endbug.vercel.app%2Fapi%2Fgithub-actions%2Fused-by%3Faction%3Drlespinasse%2Fgithub-slug-action%26badge%3Dtrue" alt="Public workflows that use this action."></a>
+[![Public workflows that use this action.][8]][9]
 
 This action slug and expose some github variables.
 
@@ -141,5 +141,6 @@ Currently, this action don't support a system other than Linux due to Github Act
 [5]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#delete
 [6]: https://github.com/rlespinasse/github-slug-action/releases
 [7]: https://github.com/rlespinasse/github-slug-action/issues/15
-
+[8]: https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-git-master.endbug.vercel.app%2Fapi%2Fgithub-actions%2Fused-by%3Faction%3Drlespinasse%2Fgithub-slug-action%26badge%3Dtrue
+[9]: https://github.com/search?o=desc&q=rlespinasse%2Frlespinasse/github-slug-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
 
