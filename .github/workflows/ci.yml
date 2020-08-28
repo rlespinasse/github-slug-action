@@ -1,13 +1,15 @@
 name: Build
 on: [push, pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: docker://ffurrer/bats:latest
-        with:
-          args: "--recursive ."
+      - uses: actions/checkout@v2
+      - run: |
+          npm install
+      - run: |
+          npm run all
       - uses: cycjimmy/semantic-release-action@v2
         with:
           semantic_version: 17.0.7
@@ -21,3 +23,43 @@ jobs:
             @semantic-release/git@9.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  test: # make sure the action works on a clean machine without building
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: 
+          - ubuntu-latest
+          - macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+      - run: |
+          echo $GITHUB_REPOSITORY_SLUG
+          echo $GITHUB_REPOSITORY_SLUG_URL
+          echo $GITHUB_REF_SLUG
+          echo $GITHUB_HEAD_REF_SLUG
+          echo $GITHUB_BASE_REF_SLUG
+          echo $GITHUB_EVENT_REF_SLUG
+          echo $GITHUB_REF_SLUG_URL
+          echo $GITHUB_HEAD_REF_SLUG_URL
+          echo $GITHUB_BASE_REF_SLUG_URL
+          echo $GITHUB_EVENT_REF_SLUG_URL
+          echo $GITHUB_SHA_SHORT
+
+  test-win: 
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+      - run: |
+          echo $env:GITHUB_REPOSITORY_SLUG
+          echo $env:GITHUB_REPOSITORY_SLUG_URL
+          echo $env:GITHUB_REF_SLUG
+          echo $env:GITHUB_HEAD_REF_SLUG
+          echo $env:GITHUB_BASE_REF_SLUG
+          echo $env:GITHUB_EVENT_REF_SLUG
+          echo $env:GITHUB_REF_SLUG_URL
+          echo $env:GITHUB_HEAD_REF_SLUG_URL
+          echo $env:GITHUB_BASE_REF_SLUG_URL
+          echo $env:GITHUB_EVENT_REF_SLUG_URL
+          echo $env:GITHUB_SHA_SHORT
