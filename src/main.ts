@@ -32,19 +32,31 @@ async function run(): Promise<void> {
 }
 
 function exportSlugRef(ouputKey: string, inputKey: string): void {
-  core.exportVariable(ouputKey, slugref(process.env[inputKey]!))
+  const envVar = process.env[inputKey]
+  if (envVar != null) {
+    core.exportVariable(ouputKey, slugref(envVar))
+  }
 }
 
 function exportSlug(ouputKey: string, inputKey: string): void {
-  core.exportVariable(ouputKey, slugurl(process.env[inputKey]!))
+  const envVar = process.env[inputKey]
+  if (envVar != null) {
+    core.exportVariable(ouputKey, slugurl(envVar))
+  }
 }
 
 function exportSlugUrlRef(ouputKey: string, inputKey: string): void {
-  core.exportVariable(ouputKey, slugurlref(process.env[inputKey]!))
+  const envVar = process.env[inputKey]
+  if (envVar != null) {
+    core.exportVariable(ouputKey, slugurlref(envVar))
+  }
 }
 
 function exportShortSha(ouputKey: string, inputKey: string): void {
-  core.exportVariable(ouputKey, shortsha(process.env[inputKey]!))
+  const envVar = process.env[inputKey]
+  if (envVar != null) {
+    core.exportVariable(ouputKey, shortsha(envVar))
+  }
 }
 
 run()

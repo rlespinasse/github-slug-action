@@ -117,16 +117,28 @@ function run() {
     });
 }
 function exportSlugRef(ouputKey, inputKey) {
-    core.exportVariable(ouputKey, slug_1.slugref(process.env[inputKey]));
+    const envVar = process.env[inputKey];
+    if (envVar != null) {
+        core.exportVariable(ouputKey, slug_1.slugref(envVar));
+    }
 }
 function exportSlug(ouputKey, inputKey) {
-    core.exportVariable(ouputKey, slug_1.slugurl(process.env[inputKey]));
+    const envVar = process.env[inputKey];
+    if (envVar != null) {
+        core.exportVariable(ouputKey, slug_1.slugurl(envVar));
+    }
 }
 function exportSlugUrlRef(ouputKey, inputKey) {
-    core.exportVariable(ouputKey, slug_1.slugurlref(process.env[inputKey]));
+    const envVar = process.env[inputKey];
+    if (envVar != null) {
+        core.exportVariable(ouputKey, slug_1.slugurlref(envVar));
+    }
 }
 function exportShortSha(ouputKey, inputKey) {
-    core.exportVariable(ouputKey, slug_1.shortsha(process.env[inputKey]));
+    const envVar = process.env[inputKey];
+    if (envVar != null) {
+        core.exportVariable(ouputKey, slug_1.shortsha(envVar));
+    }
 }
 run();
 
