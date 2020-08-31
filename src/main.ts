@@ -3,12 +3,15 @@ import {slugref, slugurl, slugurlref, shortsha} from './slug'
 
 async function run(): Promise<void> {
   try {
-    let eventPath = process.env['GITHUB_EVENT_PATH']
+    const eventPath = process.env['GITHUB_EVENT_PATH']
     if (eventPath != null) {
-      const eventData = await import(eventPath!)
-      
+      const eventData = await import(eventPath)
+
       core.exportVariable('GITHUB_EVENT_REF_SLUG', slugref(eventData.ref))
-      core.exportVariable('GITHUB_EVENT_REF_SLUG_URL', slugurlref(eventData.ref))
+      core.exportVariable(
+        'GITHUB_EVENT_REF_SLUG_URL',
+        slugurlref(eventData.ref)
+      )
     }
 
     exportSlugRef('GITHUB_REPOSITORY_SLUG', 'GITHUB_REPOSITORY')

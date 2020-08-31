@@ -92,23 +92,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(186));
 const slug_1 = __webpack_require__(565);
-//TODO
-// echo ::set-env name=GITHUB_EVENT_REF_SLUG::"$(slug_ref "$(get_event_keyvalue "ref")")"
-// echo ::set-env name=GITHUB_EVENT_REF_SLUG_URL::"$(slug_url_ref "$(get_event_keyvalue "ref")")"
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const eventPath = process.env['GITHUB_EVENT_PATH'];
+            if (eventPath != null) {
+                const eventData = yield Promise.resolve().then(() => __importStar(require(eventPath)));
+                core.exportVariable('GITHUB_EVENT_REF_SLUG', slug_1.slugref(eventData.ref));
+                core.exportVariable('GITHUB_EVENT_REF_SLUG_URL', slug_1.slugurlref(eventData.ref));
+            }
             exportSlugRef('GITHUB_REPOSITORY_SLUG', 'GITHUB_REPOSITORY');
             exportSlug('GITHUB_REPOSITORY_SLUG_URL', 'GITHUB_REPOSITORY');
             exportSlugRef('GITHUB_REF_SLUG', 'GITHUB_REF');
             exportSlugRef('GITHUB_HEAD_REF_SLUG', 'GITHUB_HEAD_REF');
             exportSlugRef('GITHUB_BASE_REF_SLUG', 'GITHUB_BASE_REF');
-            // echo ::set-env name=GITHUB_EVENT_REF_SLUG::"$(slug_ref "$(get_event_keyvalue "ref")")"
             exportSlugUrlRef('GITHUB_REF_SLUG_URL', 'GITHUB_REF');
             exportSlugUrlRef('GITHUB_HEAD_REF_SLUG_URL', 'GITHUB_HEAD_REF');
             exportSlugUrlRef('GITHUB_BASE_REF_SLUG_URL', 'GITHUB_BASE_REF');
-            // exportSlugUrlRef('GITHUB_EVENT_REF_SLUG_URL','')
-            // echo ::set-env name=GITHUB_EVENT_REF_SLUG_URL::"$(slug_url_ref "$(get_event_keyvalue "ref")")"
             exportShortSha('GITHUB_SHA_SHORT', 'GITHUB_SHA');
         }
         catch (error) {
