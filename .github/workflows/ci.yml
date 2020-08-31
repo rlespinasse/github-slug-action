@@ -34,6 +34,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
       - run: |
+          cat $GITHUB_EVENT_PATH
+      - run: |
           echo $GITHUB_REPOSITORY_SLUG
           echo $GITHUB_REPOSITORY_SLUG_URL
           echo $GITHUB_REF_SLUG
