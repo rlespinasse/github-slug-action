@@ -4,7 +4,7 @@ import {slugref, slugurl, slugurlref, shortsha} from './slug'
 async function run(): Promise<void> {
   try {
     const eventPath = process.env['GITHUB_EVENT_PATH']
-    if (eventPath) {
+    if (null != eventPath && eventPath) {
       const eventData = await import(eventPath)
 
       core.exportVariable('GITHUB_EVENT_REF_SLUG', slugref(eventData.ref))
@@ -33,28 +33,28 @@ async function run(): Promise<void> {
 
 function exportSlugRef(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (envVar) {
+  if (null != envVar && envVar) {
     core.exportVariable(ouputKey, slugref(envVar))
   }
 }
 
 function exportSlug(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (envVar) {
+  if (null != envVar && envVar) {
     core.exportVariable(ouputKey, slugurl(envVar))
   }
 }
 
 function exportSlugUrlRef(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (envVar) {
+  if (null != envVar && envVar) {
     core.exportVariable(ouputKey, slugurlref(envVar))
   }
 }
 
 function exportShortSha(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (envVar) {
+  if (null != envVar && envVar) {
     core.exportVariable(ouputKey, shortsha(envVar))
   }
 }
