@@ -4,14 +4,15 @@ import {slugref, slugurl, slugurlref, shortsha} from './slug'
 async function run(): Promise<void> {
   try {
     const eventPath = process.env['GITHUB_EVENT_PATH']
-    if (null != eventPath && eventPath) {
+    if (eventPath) {
       const eventData = await import(eventPath)
-
-      core.exportVariable('GITHUB_EVENT_REF_SLUG', slugref(eventData.ref))
-      core.exportVariable(
-        'GITHUB_EVENT_REF_SLUG_URL',
-        slugurlref(eventData.ref)
-      )
+      if (eventData.hasOwnProperty('ref')) {
+        core.exportVariable('GITHUB_EVENT_REF_SLUG', slugref(eventData.ref))
+        core.exportVariable(
+          'GITHUB_EVENT_REF_SLUG_URL',
+          slugurlref(eventData.ref)
+        )
+      }
     }
 
     exportSlugRef('GITHUB_REPOSITORY_SLUG', 'GITHUB_REPOSITORY')
@@ -33,28 +34,28 @@ async function run(): Promise<void> {
 
 function exportSlugRef(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (null != envVar && envVar) {
+  if (envVar) {
     core.exportVariable(ouputKey, slugref(envVar))
   }
 }
 
 function exportSlug(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (null != envVar && envVar) {
+  if (envVar) {
     core.exportVariable(ouputKey, slugurl(envVar))
   }
 }
 
 function exportSlugUrlRef(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (null != envVar && envVar) {
+  if (envVar) {
     core.exportVariable(ouputKey, slugurlref(envVar))
   }
 }
 
 function exportShortSha(ouputKey: string, inputKey: string): void {
   const envVar = process.env[inputKey]
-  if (null != envVar && envVar) {
+  if (envVar) {
     core.exportVariable(ouputKey, shortsha(envVar))
   }
 }

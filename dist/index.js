@@ -96,10 +96,12 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const eventPath = process.env['GITHUB_EVENT_PATH'];
-            if (null != eventPath && eventPath) {
+            if (eventPath) {
                 const eventData = yield Promise.resolve().then(() => __importStar(require(eventPath)));
-                core.exportVariable('GITHUB_EVENT_REF_SLUG', slug_1.slugref(eventData.ref));
-                core.exportVariable('GITHUB_EVENT_REF_SLUG_URL', slug_1.slugurlref(eventData.ref));
+                if (eventData.hasOwnProperty('ref')) {
+                    core.exportVariable('GITHUB_EVENT_REF_SLUG', slug_1.slugref(eventData.ref));
+                    core.exportVariable('GITHUB_EVENT_REF_SLUG_URL', slug_1.slugurlref(eventData.ref));
+                }
             }
             exportSlugRef('GITHUB_REPOSITORY_SLUG', 'GITHUB_REPOSITORY');
             exportSlug('GITHUB_REPOSITORY_SLUG_URL', 'GITHUB_REPOSITORY');
@@ -118,25 +120,25 @@ function run() {
 }
 function exportSlugRef(ouputKey, inputKey) {
     const envVar = process.env[inputKey];
-    if (null != envVar && envVar) {
+    if (envVar) {
         core.exportVariable(ouputKey, slug_1.slugref(envVar));
     }
 }
 function exportSlug(ouputKey, inputKey) {
     const envVar = process.env[inputKey];
-    if (null != envVar && envVar) {
+    if (envVar) {
         core.exportVariable(ouputKey, slug_1.slugurl(envVar));
     }
 }
 function exportSlugUrlRef(ouputKey, inputKey) {
     const envVar = process.env[inputKey];
-    if (null != envVar && envVar) {
+    if (envVar) {
         core.exportVariable(ouputKey, slug_1.slugurlref(envVar));
     }
 }
 function exportShortSha(ouputKey, inputKey) {
     const envVar = process.env[inputKey];
-    if (null != envVar && envVar) {
+    if (envVar) {
         core.exportVariable(ouputKey, slug_1.shortsha(envVar));
     }
 }
