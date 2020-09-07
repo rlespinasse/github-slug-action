@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          npm install
+          npm ci
       - run: |
           npm run all
       - uses: cycjimmy/semantic-release-action@v2
