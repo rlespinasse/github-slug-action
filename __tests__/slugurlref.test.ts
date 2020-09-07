@@ -1,10 +1,7 @@
 import {slugurlref} from '../src/slug'
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
 
 function test_slug_url_ref(input: string, expected: string) {
-  var actual = slugurlref(input)
+  let actual = slugurlref(input)
   expect(actual).toEqual(expected)
 }
 

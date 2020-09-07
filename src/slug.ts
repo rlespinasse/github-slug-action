@@ -17,11 +17,3 @@ export function slugurlref(envVar: string): string {
 export function shortsha(envVar: string): string {
   return envVar.substring(0, 8)
 }
-
-export function slug(envVar: string): string {
-  return envVar
-    .toLowerCase()
-    .replace(RegExp('refs/(heads|tags)/'), '')
-    .replace(new RegExp('[_/@]', 'g'), '-')
-    .substring(0, 63)
-}

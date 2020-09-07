@@ -481,7 +481,7 @@ function escapeProperty(s) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.slug = exports.shortsha = exports.slugurlref = exports.slugurl = exports.slugref = void 0;
+exports.shortsha = exports.slugurlref = exports.slugurl = exports.slugref = void 0;
 function slugref(envVar) {
     return envVar
         .toLowerCase()
@@ -502,14 +502,6 @@ function shortsha(envVar) {
     return envVar.substring(0, 8);
 }
 exports.shortsha = shortsha;
-function slug(envVar) {
-    return envVar
-        .toLowerCase()
-        .replace(RegExp('refs/(heads|tags)/'), '')
-        .replace(new RegExp('[_/@]', 'g'), '-')
-        .substring(0, 63);
-}
-exports.slug = slug;
 
 
 /***/ }),

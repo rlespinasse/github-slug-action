@@ -153,10 +153,6 @@ Use the current branch `v2.x` or a version tag (see [releases pages][6]).
 
 The master branch EOL is set on **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
 
-### Windows or MacOS
-
-This action is compatible with Windows and MacOS
-
 [1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
 [2]: https://github.com/rlespinasse/github-slug-action/actions
 [3]: https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables

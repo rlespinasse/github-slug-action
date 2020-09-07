@@ -1,10 +1,7 @@
 import {shortsha} from '../src/slug'
-import * as process from 'process'
-import * as cp from 'child_process'
-import * as path from 'path'
 
 function test_short_sha(input: string, expected: string) {
-  var actual = shortsha(input)
+  let actual = shortsha(input)
   expect(actual).toEqual(expected)
 }
 
