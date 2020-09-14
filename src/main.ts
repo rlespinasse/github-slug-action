@@ -15,7 +15,7 @@ async function run(): Promise<void> {
       }
     }
 
-    exportSlugRef('GITHUB_REPOSITORY_SLUG', 'GITHUB_REPOSITORY')
+    exportSlug('GITHUB_REPOSITORY_SLUG', 'GITHUB_REPOSITORY')
     exportSlugUrl('GITHUB_REPOSITORY_SLUG_URL', 'GITHUB_REPOSITORY')
 
     exportSlugRef('GITHUB_REF_SLUG', 'GITHUB_REF')
