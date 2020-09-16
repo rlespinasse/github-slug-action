@@ -25,6 +25,10 @@ test('slug_url: a number', () => {
   test_slug_url('4.2', '4-2')
 })
 
+test('slug_url: trailing', () => {
+  test_slug_url('.path.to.', 'path-to')
+})
+
 test('slug_url: a very long string', () => {
   test_slug_url(
     'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',

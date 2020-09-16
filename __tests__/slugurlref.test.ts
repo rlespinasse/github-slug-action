@@ -35,3 +35,11 @@ test('slug_url_ref: a very long name', () => {
     'an-awesome-feature-very-very-very-very-very-very-very-long-more'
   )
 })
+
+test('slug_url_ref: test trailing', () => {
+  test_slug_url_ref('refs/heads/-an-awesome-Feature-', 'an-awesome-feature')
+})
+
+test('slug_url_ref: test trailing with dot', () => {
+  test_slug_url_ref('refs/heads/.an-awesome-Feature.', 'an-awesome-feature')
+})

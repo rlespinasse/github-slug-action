@@ -92,54 +92,84 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(186));
 const slug_1 = __webpack_require__(565);
+/**
+ * Inputs environments variables keys from Github actions job
+ * see https://docs.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables
+ */
+const GITHUB_REPOSITORY = 'GITHUB_REPOSITORY';
+const GITHUB_REF = 'GITHUB_REF';
+const GITHUB_HEAD_REF = 'GITHUB_HEAD_REF';
+const GITHUB_BASE_REF = 'GITHUB_BASE_REF';
+const GITHUB_SHA = 'GITHUB_SHA';
+const GITHUB_EVENT_PATH = 'GITHUB_EVENT_PATH';
+/**
+ * Slugged outputs environments variables keys
+ */
+const GITHUB_REPOSITORY_SLUG = 'GITHUB_REPOSITORY_SLUG';
+const GITHUB_REPOSITORY_SLUG_URL = 'GITHUB_REPOSITORY_SLUG_URL';
+const GITHUB_REF_SLUG = 'GITHUB_REF_SLUG';
+const GITHUB_HEAD_REF_SLUG = 'GITHUB_HEAD_REF_SLUG';
+const GITHUB_BASE_REF_SLUG = 'GITHUB_BASE_REF_SLUG';
+const GITHUB_REF_SLUG_URL = 'GITHUB_REF_SLUG_URL';
+const GITHUB_HEAD_REF_SLUG_URL = 'GITHUB_HEAD_REF_SLUG_URL';
+const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL';
+const GITHUB_SHA_SHORT = 'GITHUB_SHA_SHORT';
+const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
+const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const eventPath = process.env['GITHUB_EVENT_PATH'];
+            const eventPath = process.env[GITHUB_EVENT_PATH];
             if (eventPath) {
                 const eventData = yield Promise.resolve().then(() => __importStar(require(eventPath)));
                 if (eventData.hasOwnProperty('ref')) {
-                    core.exportVariable('GITHUB_EVENT_REF_SLUG', slug_1.slugref(eventData.ref));
-                    core.exportVariable('GITHUB_EVENT_REF_SLUG_URL', slug_1.slugurlref(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG, slug_1.slugref(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG_URL, slug_1.slugurlref(eventData.ref));
                 }
             }
-            exportSlugRef('GITHUB_REPOSITORY_SLUG', 'GITHUB_REPOSITORY');
-            exportSlug('GITHUB_REPOSITORY_SLUG_URL', 'GITHUB_REPOSITORY');
-            exportSlugRef('GITHUB_REF_SLUG', 'GITHUB_REF');
-            exportSlugRef('GITHUB_HEAD_REF_SLUG', 'GITHUB_HEAD_REF');
-            exportSlugRef('GITHUB_BASE_REF_SLUG', 'GITHUB_BASE_REF');
-            exportSlugUrlRef('GITHUB_REF_SLUG_URL', 'GITHUB_REF');
-            exportSlugUrlRef('GITHUB_HEAD_REF_SLUG_URL', 'GITHUB_HEAD_REF');
-            exportSlugUrlRef('GITHUB_BASE_REF_SLUG_URL', 'GITHUB_BASE_REF');
-            exportShortSha('GITHUB_SHA_SHORT', 'GITHUB_SHA');
+            exportSlug(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG);
+            exportSlugUrl(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG_URL);
+            exportSlugRef(GITHUB_REF, GITHUB_REF_SLUG);
+            exportSlugRef(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG);
+            exportSlugRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG);
+            exportSlugUrlRef(GITHUB_REF, GITHUB_REF_SLUG_URL);
+            exportSlugUrlRef(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG_URL);
+            exportSlugUrlRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_URL);
+            exportShortSha(GITHUB_SHA, GITHUB_SHA_SHORT);
         }
         catch (error) {
             core.setFailed(error.message);
         }
     });
 }
-function exportSlugRef(ouputKey, inputKey) {
+function exportSlug(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(ouputKey, slug_1.slugref(envVar));
+        core.exportVariable(outputKey, slug_1.slug(envVar));
     }
 }
-function exportSlug(ouputKey, inputKey) {
+function exportSlugRef(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(ouputKey, slug_1.slugurl(envVar));
+        core.exportVariable(outputKey, slug_1.slugref(envVar));
     }
 }
-function exportSlugUrlRef(ouputKey, inputKey) {
+function exportSlugUrl(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(ouputKey, slug_1.slugurlref(envVar));
+        core.exportVariable(outputKey, slug_1.slugurl(envVar));
     }
 }
-function exportShortSha(ouputKey, inputKey) {
+function exportSlugUrlRef(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(ouputKey, slug_1.shortsha(envVar));
+        core.exportVariable(outputKey, slug_1.slugurlref(envVar));
+    }
+}
+function exportShortSha(inputKey, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        core.exportVariable(outputKey, slug_1.shortsha(envVar));
     }
 }
 run();
@@ -481,27 +511,80 @@ function escapeProperty(s) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shortsha = exports.slugurlref = exports.slugurl = exports.slugref = void 0;
+exports.shortsha = exports.slugurlref = exports.slugurl = exports.slugref = exports.slug = void 0;
+const MAX_SLUG_STRING_SIZE = 63;
+const SHORT_SHA_SIZE = 8;
+/**
+ * slug will take envVar and then :
+ * - put the variable content in lower case
+ * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
+function slug(envVar) {
+    return trailHyphen(replaceAnyNonAlphanumericCaracter(envVar.toLowerCase())).substring(0, MAX_SLUG_STRING_SIZE);
+}
+exports.slug = slug;
+/**
+ * slug will take envVar and then :
+ * - remove refs/(heads|tags)/
+ * - put the variable content in lower case
+ * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
 function slugref(envVar) {
-    return envVar
-        .toLowerCase()
-        .replace(RegExp('refs/(heads|tags)/'), '')
-        .replace(new RegExp('[_/@]', 'g'), '-')
-        .substring(0, 63);
+    return slug(removeRef(envVar.toLowerCase()));
 }
 exports.slugref = slugref;
+/**
+ * slug will take envVar and then :
+ * - put the variable content in lower case
+ * - replace any character by `-` except `0-9`, `a-z`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
 function slugurl(envVar) {
-    return slugref(envVar).replace(new RegExp('[.]', 'g'), '-');
+    return slug(replaceAnyDotToHyphen(envVar));
 }
 exports.slugurl = slugurl;
+/**
+ * slug will take envVar and then :
+ * - remove refs/(heads|tags)/
+ * - put the variable content in lower case
+ * - replace any character by `-` except `0-9`, `a-z`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
 function slugurlref(envVar) {
     return slugurl(slugref(envVar));
 }
 exports.slugurlref = slugurlref;
+/**
+ * slug will take envVar and then :
+ * - limit the string size to 8 characters
+ * @param envVar to be slugged
+ */
 function shortsha(envVar) {
-    return envVar.substring(0, 8);
+    return envVar.substring(0, SHORT_SHA_SIZE);
 }
 exports.shortsha = shortsha;
+function trailHyphen(envVar) {
+    return envVar.replace(RegExp('^-*', 'g'), '').replace(RegExp('-*$', 'g'), '');
+}
+function replaceAnyNonAlphanumericCaracter(envVar) {
+    return envVar.replace(RegExp('[^a-z0-9.]', 'g'), '-');
+}
+function replaceAnyDotToHyphen(envVar) {
+    return envVar.replace(RegExp('[.]', 'g'), '-');
+}
+function removeRef(envVar) {
+    return envVar.replace(RegExp('^refs/(heads|tags)/'), '');
+}
 
 
 /***/ }),

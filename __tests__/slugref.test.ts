@@ -29,6 +29,14 @@ test('slug_ref: a reference with upper case letters', () => {
   test_slug_ref('refs/heads/New_Awesome_Product', 'new-awesome-product')
 })
 
+test('slug_ref: test trailing', () => {
+  test_slug_ref('refs/heads/-trailing-feat-', 'trailing-feat')
+})
+
+test('slug_ref: test refs inside string', () => {
+  test_slug_ref('refs/heads/-refs/tags/feature/-', 'refs-tags-feature')
+})
+
 test('slug_ref: a very long name', () => {
   test_slug_ref(
     'refs/heads/an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
