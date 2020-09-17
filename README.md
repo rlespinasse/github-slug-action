@@ -114,29 +114,9 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG
     ./deploy-application.sh --url "https://staging.app.mycompagny.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
 ```
 
-## Code in Main
+## Contribute
 
-Install the dependencies  
-```bash
-$ npm install
-```
-
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
-```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
-```
+Follow [Developers guide](DEVELOPERS.md)
 
 ## Troubleshooting
 
@@ -144,7 +124,7 @@ $ npm test
 
 If your workflow fail on the `Set up job` task with this kind of log :
 
-```
+```text
 Download action repository 'rlespinasse/github-slug-action@master'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
 ```
@@ -162,4 +142,3 @@ The master branch EOL is set on **2020-10-25** after a 6-month deprecation perio
 [7]: https://github.com/rlespinasse/github-slug-action/issues/15
 [8]: https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-git-master.endbug.vercel.app%2Fapi%2Fgithub-actions%2Fused-by%3Faction%3Drlespinasse%2Fgithub-slug-action%26badge%3Dtrue
 [9]: https://github.com/search?o=desc&q=rlespinasse%2Frlespinasse/github-slug-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
-

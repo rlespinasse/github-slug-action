@@ -4,6 +4,7 @@
 
 | Version | Branch | Supported          |
 |---------|--------|--------------------|
+| 3.x     | v3.x   | :white_check_mark: |
 | 2.x     | v2.x   | :white_check_mark: |
 | 1.1.x   | v1.1.x | :white_check_mark: |
 | < 1.0.x | master | :x:                |
