@@ -1,9 +1,9 @@
-# action.yml
 name: "GitHub Slug"
 description: "Action to slug and expose some github variables"
+author: 'rlespinasse'
 runs:
-  using: "docker"
-  image: "Dockerfile"
+  using: 'node12'
+  main: 'dist/index.js'
 branding:
   icon: "crop"
   color: "orange"

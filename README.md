@@ -114,13 +114,17 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG
     ./deploy-application.sh --url "https://staging.app.mycompagny.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
 ```
 
+## Contribute
+
+Follow [Developers guide](DEVELOPERS.md)
+
 ## Troubleshooting
 
 ### Missing master branch
 
 If your workflow fail on the `Set up job` task with this kind of log :
 
-```
+```text
 Download action repository 'rlespinasse/github-slug-action@master'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
 ```
@@ -128,11 +132,6 @@ Download action repository 'rlespinasse/github-slug-action@master'
 Use the current branch `v2.x` or a version tag (see [releases pages][6]).
 
 The master branch EOL is set on **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
-
-### Can't run on Windows or Macos
-
-When using this action on Windows or Macos workflows, A `##[error]Container action is only supported on Linux` error can be see in your workflow logs.
-Currently, this action don't support a system other than Linux due to Github Action Limitation on `Container`-based action.
 
 [1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
 [2]: https://github.com/rlespinasse/github-slug-action/actions
@@ -143,4 +142,3 @@ Currently, this action don't support a system other than Linux due to Github Act
 [7]: https://github.com/rlespinasse/github-slug-action/issues/15
 [8]: https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-git-master.endbug.vercel.app%2Fapi%2Fgithub-actions%2Fused-by%3Faction%3Drlespinasse%2Fgithub-slug-action%26badge%3Dtrue
 [9]: https://github.com/search?o=desc&q=rlespinasse%2Frlespinasse/github-slug-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
-
