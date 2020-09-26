@@ -134,6 +134,13 @@ The master branch EOL is set on **2020-10-25** after a 6-month deprecation perio
 When using this action on Windows or Macos workflows, A `##[error]Container action is only supported on Linux` error can be see in your workflow logs.
 Currently, this action don't support a system other than Linux due to Github Action Limitation on `Container`-based action.
 
+On the `v3.x` branch, this GitHub action have been rewrite to be able to run on Windows or Macos workflow.
+
+```yaml
+- name: Inject slug/short variables
+  uses: rlespinasse/github-slug-action@v3.x
+```
+
 [1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
 [2]: https://github.com/rlespinasse/github-slug-action/actions
 [3]: https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables
