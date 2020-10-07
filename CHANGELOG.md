@@ -1,3 +1,10 @@
+## [2.1.1](http://github.com/rlespinasse/github-slug-action/compare/2.1.0...2.1.1) (2020-10-07)
+
+
+### Bug Fixes
+
+* remove set-env due to CVE fix ([d678898](http://github.com/rlespinasse/github-slug-action/commit/d678898ce55139d0005c35618747506fbeb2d1ed))
+
 # [2.1.0](http://github.com/rlespinasse/github-slug-action/compare/2.0.0...2.1.0) (2020-07-28)
 
 
