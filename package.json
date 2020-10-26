@@ -56,8 +56,8 @@
       "@semantic-release/github"
     ],
     "branches": [
-      "v1.1.x",
-      "v2.x"
+      "v2.x",
+      "v3.x"
     ]
   }
 }
