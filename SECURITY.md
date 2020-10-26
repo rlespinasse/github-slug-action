@@ -6,8 +6,8 @@
 |---------|--------|--------------------|
 | 3.x     | v3.x   | :white_check_mark: |
 | 2.x     | v2.x   | :white_check_mark: |
-| 1.1.x   | v1.1.x | :white_check_mark: |
-| < 1.0.x | master | :x:                |
+| 1.1.x   | v1.1.x | :x:                |
+| < 1.x   |        | :x:                |
 
 A GitHub repository can used one of the available branches as action inside its workflows.
 
