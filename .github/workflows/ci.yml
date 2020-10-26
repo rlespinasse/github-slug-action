@@ -15,8 +15,8 @@ jobs:
           semantic_version: 17.0.7
           branches: |
             [
-              'v1.1.x',
-              'v2.x'
+              'v2.x',
+              'v3.x'
             ]
           extra_plugins: |
             @semantic-release/changelog@5.0.1
