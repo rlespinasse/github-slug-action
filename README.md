@@ -21,7 +21,7 @@ Others `Slug`-ish commands are available:
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v2.x
+  uses: rlespinasse/github-slug-action@v3.x
 
 - name: Print slug/short variables
   run: |
@@ -103,7 +103,7 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v2.x
+  uses: rlespinasse/github-slug-action@v3.x
 
 - name: Deploy dummy application using slug in the 'subdomain' part
   run: |
@@ -129,7 +129,7 @@ Download action repository 'rlespinasse/github-slug-action@master'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
 ```
 
-Use the current branch `v2.x` or a version tag (see [releases pages][6]).
+Use the current branch `v3.x` or a version tag (see [releases pages][6]).
 
 The master branch EOL is set on **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
 
