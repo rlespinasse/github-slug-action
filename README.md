@@ -129,9 +129,11 @@ Download action repository 'rlespinasse/github-slug-action@master'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
 ```
 
-Use the current branch `v3.x` or a version tag (see [releases pages][6]).
+Please, use the current branch `v3.x` or a version tag (see [releases pages][6]) in order to fix your workflow.
 
-The master branch EOL is set on **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
+> The master branch don't exists anymore.
+>
+> The master branch EOL have been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
 
 [1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
 [2]: https://github.com/rlespinasse/github-slug-action/actions
