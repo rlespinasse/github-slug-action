@@ -6,7 +6,7 @@
 
 * **Ensure the bug was not already reported** by searching on GitHub under [Issues][2].
 
-* If you're unable to find an open issue addressing the problem, [open a 'Bug' issue][3].
+* If you're unable to find an open issue addressing the problem, [open a 'Bug' issue][4].
 Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
 
 ## Did you write a patch that fixes a bug
@@ -18,7 +18,7 @@ Include the relevant issue number if applicable.
 
 ## Do you intend to add a new feature or change an existing one
 
-* Suggest your change by [opening a 'Feature request' issue][3] and start writing code.
+* Suggest your change by [opening a 'Feature request' issue][5] and start writing code.
 
 ## Do you have questions about the source code
 
@@ -29,3 +29,5 @@ Thanks!
 [1]: https://github.com/rlespinasse/github-slug-action/security/policy
 [2]: https://github.com/rlespinasse/github-slug-action/issues
 [3]: https://github.com/rlespinasse/github-slug-action/issues/new
+[4]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=bug&template=bug_report.md&title=
+[5]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
