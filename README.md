@@ -3,7 +3,7 @@
 [![Actions Status][1]][2]
 [![Public workflows that use this action.][8]][9]
 
-This action slug and expose some github variables.
+GitHub Action to expose slug value of GitHub environment variables inside your GitHub workflow.
 
 `Slug` a variable will
 
