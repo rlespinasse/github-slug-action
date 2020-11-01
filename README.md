@@ -2,8 +2,9 @@
 
 [![Actions Status][1]][2]
 [![Public workflows that use this action.][8]][9]
+[![Licence][11]][10]
 
-GitHub Action to expose slug value of GitHub environment variables inside your GitHub workflow.
+This GitHub Action will expose the slug value of all [GitHub environment variables][10] inside your GitHub workflow.
 
 `Slug` a variable will
 
@@ -17,7 +18,7 @@ Others `Slug`-ish commands are available:
 - `Slug URL` a variable will be like the `slug` variable but the `.` character will also be replaced by `-`
 - `Short SHA` a variable will limit the string size to 8 characters
 
-## Exposed environment variables
+## Exposed GitHub environment variables
 
 ```yaml
 - name: Inject slug/short variables
@@ -143,4 +144,7 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 [6]: https://github.com/rlespinasse/github-slug-action/releases
 [7]: https://github.com/rlespinasse/github-slug-action/issues/15
 [8]: https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-git-master.endbug.vercel.app%2Fapi%2Fgithub-actions%2Fused-by%3Faction%3Drlespinasse%2Fgithub-slug-action%26badge%3Dtrue
-[9]: https://github.com/search?o=desc&q=rlespinasse%2Frlespinasse/github-slug-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+[9]: https://github.com/search?o=desc&q=rlespinasse/github-slug-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
+[10]: https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
+[11]: https://img.shields.io/github/license/rlespinasse/github-slug-action
+[12]: https://github.com/rlespinasse/github-slug-action/blob/v3.x/LICENSE
