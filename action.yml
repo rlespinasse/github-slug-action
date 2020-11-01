@@ -1,9 +1,9 @@
-name: "GitHub Slug"
-description: "Action to slug and expose some github variables"
+name: "GitHub Slug Action"
+description: "GitHub Action to expose slug value of environment variables inside your GitHub workflow"
 author: 'rlespinasse'
 runs:
   using: 'node12'
   main: 'dist/index.js'
 branding:
-  icon: "crop"
-  color: "orange"
+  icon: "minimize"
+  color: "blue"
