@@ -45,6 +45,8 @@ Others `Slug`-ish commands are available:
 
 Read [default environment variables][3] page for more information.
 
+**TIP:** Use [Dependabot][14] to maintain your `github-slug-action` version updated in your GitHub workflows.
+
 ### GITHUB_REF_SLUG / GITHUB_REF_SLUG_URL
 
 Slug the environment variable **GITHUB_REF**
@@ -150,3 +152,4 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 [11]: https://img.shields.io/github/license/rlespinasse/github-slug-action
 [12]: https://github.com/rlespinasse/github-slug-action/blob/v3.x/LICENSE
 [13]: https://github.com/rlespinasse/github-slug-action/workflows/Lint/badge.svg
+[14]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot
