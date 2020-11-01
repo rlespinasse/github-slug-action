@@ -1,8 +1,9 @@
 # GitHub Slug action
 
 [![Actions Status][1]][2]
+![GitHub Super-Linter][13]
 [![Public workflows that use this action.][8]][9]
-[![Licence][11]][10]
+[![Licence][11]][12]
 
 This GitHub Action will expose the slug value of all [GitHub environment variables][10] inside your GitHub workflow.
 
@@ -148,3 +149,4 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 [10]: https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
 [11]: https://img.shields.io/github/license/rlespinasse/github-slug-action
 [12]: https://github.com/rlespinasse/github-slug-action/blob/v3.x/LICENSE
+[13]: https://github.com/rlespinasse/github-slug-action/workflows/Lint/badge.svg
