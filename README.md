@@ -111,11 +111,11 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG
 
 - name: Deploy dummy application using slug in the 'subdomain' part
   run: |
-    ./deploy-application.sh --url "https://${{ env.<GITHUB_VARIABLE>_SLUG_URL }}.staging.app.mycompagny.com"
+    ./deploy-application.sh --url "https://${{ env.<GITHUB_VARIABLE>_SLUG_URL }}.staging.app.mycompany.com"
 
 - name: Deploy dummy application using slug in the 'resource path' part
   run: |
-    ./deploy-application.sh --url "https://staging.app.mycompagny.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
+    ./deploy-application.sh --url "https://staging.app.mycompany.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
 ```
 
 ## Contribute
