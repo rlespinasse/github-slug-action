@@ -139,6 +139,12 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 >
 > The master branch EOL have been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
 
+## Thanks for talking about us
+
+- [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][15] (in french :fr:)
+- [Github Actions : enfin des pipelines accessibles aux développeurs][16] (in french :fr:)
+- The next one is you. _Don't hesitate to add you to this list._
+
 [1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
 [2]: https://github.com/rlespinasse/github-slug-action/actions
 [3]: https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables
@@ -153,3 +159,5 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 [12]: https://github.com/rlespinasse/github-slug-action/blob/v3.x/LICENSE
 [13]: https://github.com/rlespinasse/github-slug-action/workflows/Lint/badge.svg
 [14]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot
+[15]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
+[16]: https://www.youtube.com/watch?v=RHnTJBwcE98
