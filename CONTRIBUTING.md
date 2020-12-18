@@ -22,7 +22,7 @@ Include the relevant issue number if applicable.
 
 ## Do you have questions about the source code
 
-* [open a issue][3] with your question.
+* [open an issue][3] with your question.
 
 Thanks!
 
