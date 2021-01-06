@@ -50,6 +50,7 @@ jobs:
           echo $GITHUB_BASE_REF_SLUG_URL
           echo $GITHUB_EVENT_REF_SLUG_URL
           echo $GITHUB_SHA_SHORT
+          echo $GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT
 
   test-win:
     runs-on: windows-latest
@@ -68,3 +69,4 @@ jobs:
           echo $env:GITHUB_BASE_REF_SLUG_URL
           echo $env:GITHUB_EVENT_REF_SLUG_URL
           echo $env:GITHUB_SHA_SHORT
+          echo $env:GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT
