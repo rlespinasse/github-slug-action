@@ -1,10 +1,5 @@
 import * as core from '@actions/core'
-import * as github from '@actions/github'
-import {EventPayloads} from '@octokit/webhooks'
 import {slugref, slug, slugurl, slugurlref, shortsha} from './slug'
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import WebhookPayloadPullRequest = EventPayloads.WebhookPayloadPullRequest
 
 /**
  * Inputs environments variables keys from Github actions job
@@ -45,6 +40,11 @@ async function run(): Promise<void> {
           GITHUB_EVENT_REF_SLUG_URL,
           slugurlref(eventData.ref)
         )
+      } else if (eventData.hasOwnProperty('pull_request')) {
+        core.exportVariable(
+          GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT,
+          shortsha(eventData.pull_request.head.sha)
+        )
       }
     }
 
@@ -61,7 +61,6 @@ async function run(): Promise<void> {
     exportSlugUrlRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_URL)
 
     exportShortSha(GITHUB_SHA, GITHUB_SHA_SHORT)
-    exportPullRequestHeadShortSha(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT)
   } catch (error) {
     core.setFailed(error.message)
   }
@@ -99,16 +98,6 @@ function exportShortSha(inputKey: string, outputKey: string): void {
   const envVar = process.env[inputKey]
   if (envVar) {
     core.exportVariable(outputKey, shortsha(envVar))
-  }
-}
-
-function exportPullRequestHeadShortSha(outputKey: string): void {
-  if (github.context.eventName !== 'pull_request') {
-    return
-  }
-  const payload = github.context.payload as WebhookPayloadPullRequest
-  if (payload.pull_request.head.sha) {
-    core.exportVariable(outputKey, shortsha(payload.pull_request.head.sha))
   }
 }
 

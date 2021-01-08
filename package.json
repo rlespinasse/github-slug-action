@@ -26,9 +26,7 @@
   ],
   "author": "rlespinasse",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
-    "@octokit/webhooks": "^7.21.0"
+    "@actions/core": "^1.2.6"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
