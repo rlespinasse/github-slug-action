@@ -28,19 +28,20 @@ Others `Slug`-ish commands are available:
 - name: Print slug/short variables
   run: |
     echo "Slug variables"
-    echo "   ref        : ${{ env.GITHUB_REF_SLUG }}"
-    echo "   head ref   : ${{ env.GITHUB_HEAD_REF_SLUG }}"
-    echo "   base ref   : ${{ env.GITHUB_BASE_REF_SLUG }}"
-    echo "   event ref  : ${{ env.GITHUB_EVENT_REF_SLUG }}"
-    echo "   repository : ${{ env.GITHUB_REPOSITORY_SLUG }}"
+    echo "   ref                 : ${{ env.GITHUB_REF_SLUG }}"
+    echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG }}"
+    echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG }}"
+    echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG }}"
+    echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG }}"
     echo "Slug URL variables"
-    echo "   ref        : ${{ env.GITHUB_REF_SLUG_URL }}"
-    echo "   head ref   : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
-    echo "   base ref   : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
-    echo "   event ref  : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
-    echo "   repository : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
+    echo "   ref                 : ${{ env.GITHUB_REF_SLUG_URL }}"
+    echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
+    echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
+    echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
+    echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
     echo "Short SHA variables"
-    echo "   sha        : ${{ env.GITHUB_SHA_SHORT }}"
+    echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
+    echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
 ```
 
 Read [default environment variables][3] page for more information.
@@ -97,6 +98,15 @@ The commit SHA that triggered the workflow
 | GITHUB_SHA                               | GITHUB_SHA_SHORT |
 | ---------------------------------------- | ---------------- |
 | ffac537e6cbbf934b08745a378932722df287a53 | ffac537e         |
+
+### GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT
+
+Short the value of `github.event.pull_request.head.sha` that represents the last commit
+used for triggering an action for a pull request.
+
+| github.event.pull_request.head.sha       | GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT |
+| ---------------------------------------- | ---------------------------------------- |
+| ffac537e6cbbf934b08745a378932722df287a53 | ffac537e                                 |
 
 ### Use slug variable in an URL
 

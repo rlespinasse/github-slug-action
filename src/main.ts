@@ -26,6 +26,8 @@ const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL'
 const GITHUB_SHA_SHORT = 'GITHUB_SHA_SHORT'
 const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG'
 const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL'
+const GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT =
+  'GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT'
 
 async function run(): Promise<void> {
   try {
@@ -37,6 +39,11 @@ async function run(): Promise<void> {
         core.exportVariable(
           GITHUB_EVENT_REF_SLUG_URL,
           slugurlref(eventData.ref)
+        )
+      } else if (eventData.hasOwnProperty('pull_request')) {
+        core.exportVariable(
+          GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT,
+          shortsha(eventData.pull_request.head.sha)
         )
       }
     }

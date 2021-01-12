@@ -116,6 +116,7 @@ const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL';
 const GITHUB_SHA_SHORT = 'GITHUB_SHA_SHORT';
 const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
 const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL';
+const GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT = 'GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -125,6 +126,9 @@ function run() {
                 if (eventData.hasOwnProperty('ref')) {
                     core.exportVariable(GITHUB_EVENT_REF_SLUG, slug_1.slugref(eventData.ref));
                     core.exportVariable(GITHUB_EVENT_REF_SLUG_URL, slug_1.slugurlref(eventData.ref));
+                }
+                else if (eventData.hasOwnProperty('pull_request')) {
+                    core.exportVariable(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT, slug_1.shortsha(eventData.pull_request.head.sha));
                 }
             }
             exportSlug(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG);
