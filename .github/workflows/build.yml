@@ -17,7 +17,7 @@ jobs:
           npm run all
       - uses: cycjimmy/semantic-release-action@v2
         with:
-          semantic_version: 17.0.7
+          semantic_version: 17.3.4
           branches: |
             [
               'v3.x',
