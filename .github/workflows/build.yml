@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - v3.x
+      - v4.x
   pull_request:
 
 jobs:
@@ -20,8 +20,8 @@ jobs:
           semantic_version: 17.0.7
           branches: |
             [
-              'v2.x',
-              'v3.x'
+              'v3.x',
+              'v4.x'
             ]
           extra_plugins: |
             @semantic-release/changelog@5.0.1

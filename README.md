@@ -23,7 +23,7 @@ Others `Slug`-ish commands are available:
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v3.x
+  uses: rlespinasse/github-slug-action@v4.x
 
 - name: Print slug/short variables
   run: |
@@ -117,7 +117,7 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v3.x
+  uses: rlespinasse/github-slug-action@v4.x
 
 - name: Deploy dummy application using slug in the 'subdomain' part
   run: |
@@ -143,7 +143,7 @@ Download action repository 'rlespinasse/github-slug-action@master'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
 ```
 
-Please, use the current branch `v3.x` or a version tag (see [releases pages][6]) in order to fix your workflow.
+Please, use the current branch `v4.x` or a version tag (see [releases pages][6]) in order to fix your workflow.
 
 > The master branch don't exists anymore.
 >
@@ -166,7 +166,7 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 [9]: https://github.com/search?o=desc&q=rlespinasse/github-slug-action+path%3A.github%2Fworkflows+language%3AYAML&s=&type=Code
 [10]: https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
 [11]: https://img.shields.io/github/license/rlespinasse/github-slug-action
-[12]: https://github.com/rlespinasse/github-slug-action/blob/v3.x/LICENSE
+[12]: https://github.com/rlespinasse/github-slug-action/blob/v4.x/LICENSE
 [13]: https://github.com/rlespinasse/github-slug-action/workflows/Lint/badge.svg
 [14]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot
 [15]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
