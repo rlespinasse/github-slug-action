@@ -105,18 +105,18 @@ const GITHUB_EVENT_PATH = 'GITHUB_EVENT_PATH';
 /**
  * Slugged outputs environments variables keys
  */
-const GITHUB_REPOSITORY_SLUG = 'GITHUB_REPOSITORY_SLUG';
-const GITHUB_REPOSITORY_SLUG_URL = 'GITHUB_REPOSITORY_SLUG_URL';
-const GITHUB_REF_SLUG = 'GITHUB_REF_SLUG';
-const GITHUB_HEAD_REF_SLUG = 'GITHUB_HEAD_REF_SLUG';
-const GITHUB_BASE_REF_SLUG = 'GITHUB_BASE_REF_SLUG';
-const GITHUB_REF_SLUG_URL = 'GITHUB_REF_SLUG_URL';
-const GITHUB_HEAD_REF_SLUG_URL = 'GITHUB_HEAD_REF_SLUG_URL';
-const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL';
-const GITHUB_SHA_SHORT = 'GITHUB_SHA_SHORT';
-const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
-const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL';
-const GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT = 'GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT';
+const SLUG_GITHUB_REPOSITORY = 'SLUG_GITHUB_REPOSITORY';
+const SLUG_URL_GITHUB_REPOSITORY = 'SLUG_URL_GITHUB_REPOSITORY';
+const SLUG_GITHUB_REF = 'SLUG_GITHUB_REF';
+const SLUG_GITHUB_HEAD_REF = 'SLUG_GITHUB_HEAD_REF';
+const SLUG_GITHUB_BASE_REF = 'SLUG_GITHUB_BASE_REF';
+const SLUG_URL_GITHUB_REF = 'SLUG_URL_GITHUB_REF';
+const SLUG_URL_GITHUB_HEAD_REF = 'SLUG_URL_GITHUB_HEAD_REF';
+const SLUG_URL_GITHUB_BASE_REF = 'SLUG_URL_GITHUB_BASE_REF';
+const SHORT_GITHUB_SHA = 'SHORT_GITHUB_SHA';
+const SLUG_GITHUB_EVENT_REF = 'SLUG_GITHUB_EVENT_REF';
+const SLUG_URL_GITHUB_EVENT_REF = 'SLUG_URL_GITHUB_EVENT_REF';
+const SHORT_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA = 'SHORT_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -124,22 +124,22 @@ function run() {
             if (eventPath) {
                 const eventData = yield Promise.resolve().then(() => __importStar(require(eventPath)));
                 if (eventData.hasOwnProperty('ref')) {
-                    core.exportVariable(GITHUB_EVENT_REF_SLUG, slug_1.slugref(eventData.ref));
-                    core.exportVariable(GITHUB_EVENT_REF_SLUG_URL, slug_1.slugurlref(eventData.ref));
+                    core.exportVariable(SLUG_GITHUB_EVENT_REF, slug_1.slugref(eventData.ref));
+                    core.exportVariable(SLUG_URL_GITHUB_EVENT_REF, slug_1.slugurlref(eventData.ref));
                 }
                 else if (eventData.hasOwnProperty('pull_request')) {
-                    core.exportVariable(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT, slug_1.shortsha(eventData.pull_request.head.sha));
+                    core.exportVariable(SHORT_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA, slug_1.shortsha(eventData.pull_request.head.sha));
                 }
             }
-            exportSlug(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG);
-            exportSlugUrl(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG_URL);
-            exportSlugRef(GITHUB_REF, GITHUB_REF_SLUG);
-            exportSlugRef(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG);
-            exportSlugRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG);
-            exportSlugUrlRef(GITHUB_REF, GITHUB_REF_SLUG_URL);
-            exportSlugUrlRef(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG_URL);
-            exportSlugUrlRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_URL);
-            exportShortSha(GITHUB_SHA, GITHUB_SHA_SHORT);
+            exportSlug(GITHUB_REPOSITORY, SLUG_GITHUB_REPOSITORY);
+            exportSlugUrl(GITHUB_REPOSITORY, SLUG_URL_GITHUB_REPOSITORY);
+            exportSlugRef(GITHUB_REF, SLUG_GITHUB_REF);
+            exportSlugRef(GITHUB_HEAD_REF, SLUG_GITHUB_HEAD_REF);
+            exportSlugRef(GITHUB_BASE_REF, SLUG_GITHUB_BASE_REF);
+            exportSlugUrlRef(GITHUB_REF, SLUG_URL_GITHUB_REF);
+            exportSlugUrlRef(GITHUB_HEAD_REF, SLUG_URL_GITHUB_HEAD_REF);
+            exportSlugUrlRef(GITHUB_BASE_REF, SLUG_URL_GITHUB_BASE_REF);
+            exportShortSha(GITHUB_SHA, SHORT_GITHUB_SHA);
         }
         catch (error) {
             core.setFailed(error.message);

@@ -28,34 +28,34 @@ Others `Slug`-ish commands are available:
 - name: Print slug/short variables
   run: |
     echo "Slug variables"
-    echo "   ref                 : ${{ env.GITHUB_REF_SLUG }}"
-    echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG }}"
-    echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG }}"
-    echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG }}"
-    echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG }}"
+    echo "   ref                 : ${{ env.SLUG_GITHUB_REF }}"
+    echo "   head ref            : ${{ env.SLUG_GITHUB_HEAD_REF }}"
+    echo "   base ref            : ${{ env.SLUG_GITHUB_BASE_REF }}"
+    echo "   event ref           : ${{ env.SLUG_GITHUB_EVENT_REF }}"
+    echo "   repository          : ${{ env.SLUG_GITHUB_REPOSITORY }}"
     echo "Slug URL variables"
-    echo "   ref                 : ${{ env.GITHUB_REF_SLUG_URL }}"
-    echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
-    echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
-    echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
-    echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
+    echo "   ref                 : ${{ env.SLUG_URL_GITHUB_REF }}"
+    echo "   head ref            : ${{ env.SLUG_URL_GITHUB_HEAD_REF }}"
+    echo "   base ref            : ${{ env.SLUG_URL_GITHUB_BASE_REF }}"
+    echo "   event ref           : ${{ env.SLUG_URL_GITHUB_EVENT_REF }}"
+    echo "   repository          : ${{ env.SLUG_URL_GITHUB_REPOSITORY }}"
     echo "Short SHA variables"
-    echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
-    echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+    echo "   sha                 : ${{ env.SHORT_GITHUB_SHA }}"
+    echo "   pull request sha    : ${{ env.SHORT_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA }}"
 ```
 
 Read [default environment variables][3] page for more information.
 
 **TIP:** Use [Dependabot][14] to maintain your `github-slug-action` version updated in your GitHub workflows.
 
-### GITHUB_REF_SLUG / GITHUB_REF_SLUG_URL
+### SLUG_GITHUB_REF / SLUG_URL_GITHUB_REF
 
 Slug the environment variable **GITHUB_REF**
 
 The branch or tag ref that triggered the workflow.
 _If neither a branch or tag is available for the event type, the variable will not exist._
 
-| GITHUB_REF                     | GITHUB_REF_SLUG     | GITHUB_REF_SLUG_URL |
+| GITHUB_REF                     | SLUG_GITHUB_REF     | SLUG_URL_GITHUB_REF |
 | ------------------------------ | ------------------- | ------------------- |
 | refs/heads/master              | master              | master              |
 | refs/heads/feat/new_feature    | feat-new-feature    | feat-new-feature    |
@@ -64,47 +64,47 @@ _If neither a branch or tag is available for the event type, the variable will n
 | refs/heads/New_Awesome_Product | new-awesome-product | new-awesome-product |
 
 > **NOTE :**
-> GITHUB_REF_SLUG_URL is design to be used as subdomain in an URL.
+> SLUG_URL_GITHUB_REF is design to be used as subdomain in an URL.
 
 _Additional variables (only set for forked repositories) :_
 
-- `GITHUB_HEAD_REF_SLUG`/`GITHUB_HEAD_REF_SLUG_URL`, The branch of the head repository **GITHUB_HEAD_REF**
-- `GITHUB_BASE_REF_SLUG`/`GITHUB_BASE_REF_SLUG_URL`, The branch of the base repository **GITHUB_BASE_REF**
+- `SLUG_GITHUB_HEAD_REF`/`SLUG_URL_GITHUB_HEAD_REF`, The branch of the head repository **GITHUB_HEAD_REF**
+- `SLUG_GITHUB_BASE_REF`/`SLUG_URL_GITHUB_BASE_REF`, The branch of the base repository **GITHUB_BASE_REF**
 
 _Additional variables (only set for [create][4], and [delete][5] webhook events with `ref` data) :_
 
-- `GITHUB_EVENT_REF_SLUG`/`GITHUB_EVENT_REF_SLUG_URL`, The git reference resource associated to the webhook.
+- `SLUG_GITHUB_EVENT_REF`/`SLUG_URL_GITHUB_EVENT_REF`, The git reference resource associated to the webhook.
 
-### GITHUB_REPOSITORY_SLUG / GITHUB_REPOSITORY_SLUG_URL
+### SLUG_GITHUB_REPOSITORY / SLUG_URL_GITHUB_REPOSITORY
 
 Slug the environment variable **GITHUB_REPOSITORY**
 
 The owner and repository name.
 
-| GITHUB_REPOSITORY          | GITHUB_REPOSITORY_SLUG     | GITHUB_REPOSITORY_SLUG_URL |
+| GITHUB_REPOSITORY          | SLUG_GITHUB_REPOSITORY     | SLUG_URL_GITHUB_REPOSITORY |
 | -------------------------- | -------------------------- | -------------------------- |
 | octocat/Hello-World        | octocat-hello-world        | octocat-hello-world        |
 | rlespinasse/Hello-World.go | rlespinasse-hello-world.go | rlespinasse-hello-world-go |
 
 > **NOTE :**
-> GITHUB_REPOSITORY_SLUG_URL is design to be used as subdomain in an URL.
+> SLUG_URL_GITHUB_REPOSITORY is design to be used as subdomain in an URL.
 
-### GITHUB_SHA_SHORT
+### SHORT_GITHUB_SHA
 
 Short the environment variable **GITHUB_SHA**
 
 The commit SHA that triggered the workflow
 
-| GITHUB_SHA                               | GITHUB_SHA_SHORT |
+| GITHUB_SHA                               | SHORT_GITHUB_SHA |
 | ---------------------------------------- | ---------------- |
 | ffac537e6cbbf934b08745a378932722df287a53 | ffac537e         |
 
-### GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT
+### SHORT_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA
 
 Short the value of `github.event.pull_request.head.sha` that represents the last commit
 used for triggering an action for a pull request.
 
-| github.event.pull_request.head.sha       | GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT |
+| github.event.pull_request.head.sha       | SHORT_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA |
 | ---------------------------------------- | ---------------------------------------- |
 | ffac537e6cbbf934b08745a378932722df287a53 | ffac537e                                 |
 
@@ -121,11 +121,11 @@ In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG
 
 - name: Deploy dummy application using slug in the 'subdomain' part
   run: |
-    ./deploy-application.sh --url "https://${{ env.<GITHUB_VARIABLE>_SLUG_URL }}.staging.app.mycompany.com"
+    ./deploy-application.sh --url "https://${{ env.SLUG_URL_<GITHUB_VARIABLE> }}.staging.app.mycompany.com"
 
 - name: Deploy dummy application using slug in the 'resource path' part
   run: |
-    ./deploy-application.sh --url "https://staging.app.mycompany.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
+    ./deploy-application.sh --url "https://staging.app.mycompany.com/${{ env.SLUG_<GITHUB_VARIABLE> }}"
 ```
 
 ## Contribute
