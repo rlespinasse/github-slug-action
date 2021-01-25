@@ -1,0 +1,20 @@
+name: URL use
+
+on: push
+
+jobs:
+  as_subdomain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rlespinasse/github-slug-action@v3.x
+      - run: |
+          ./deploy-application.sh --url "https://${{ env.GITHUB_REF_SLUG_URL }}.staging.app.mycompany.com"
+
+  as_resource_path:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rlespinasse/github-slug-action@v3.x
+      - run: |
+          ./deploy-application.sh --url "https://staging.app.mycompany.com/${{ env.GITHUB_REF_SLUG_URL }}"

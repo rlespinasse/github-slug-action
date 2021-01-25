@@ -5,128 +5,85 @@
 [![Public workflows that use this action.][8]][9]
 [![Licence][11]][12]
 
-This GitHub Action will expose the slug value of all [GitHub environment variables][10] inside your GitHub workflow.
+This GitHub Action will expose the slug/short values of [some GitHub environment variables][10] inside your GitHub workflow.
 
-`Slug` a variable will
+## Table of Contents
+
+- [GitHub Slug action](#github-slug-action)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Use this action](#use-this-action)
+  - [Available Environment variables](#available-environment-variables)
+    - [Slug variables](#slug-variables)
+    - [Slug URL variables](#slug-url-variables)
+    - [Short variables](#short-variables)
+  - [Contribute](#contribute)
+  - [Troubleshooting](#troubleshooting)
+    - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
+  - [Thanks for talking about us](#thanks-for-talking-about-us)
+
+## Overview
+
+`SLUG` a variable will
 
 - put the variable content in lower case
 - replace any character by `-` except `0-9`, `a-z`, and `.`
 - remove leading and trailing `-` character
 - limit the string size to 63 characters
 
-Others `Slug`-ish commands are available:
+<details>
+  <summary>Others <b>Slug-ish</b> commands are available</summary>
+  <p>
 
-- `Slug URL` a variable will be like the `slug` variable but the `.` character will also be replaced by `-`
-- `Short SHA` a variable will limit the string size to 8 characters
+- `SLUG_URL` a variable to have a `slug` variable compliant to be used in an URL (Like `SLUG` but `.` is also replaced by `-`)
+- `SHORT` a variable will limit the string size to 8 characters (useful for _sha_ value)
 
-## Exposed GitHub environment variables
+  </p>
+</details>
 
-```yaml
-- name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v3.x
+## Use this action
 
-- name: Print slug/short variables
-  run: |
-    echo "Slug variables"
-    echo "   ref                 : ${{ env.GITHUB_REF_SLUG }}"
-    echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG }}"
-    echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG }}"
-    echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG }}"
-    echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG }}"
-    echo "Slug URL variables"
-    echo "   ref                 : ${{ env.GITHUB_REF_SLUG_URL }}"
-    echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
-    echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
-    echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
-    echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
-    echo "Short SHA variables"
-    echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
-    echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
-```
-
-Read [default environment variables][3] page for more information.
-
-**TIP:** Use [Dependabot][14] to maintain your `github-slug-action` version updated in your GitHub workflows.
-
-### GITHUB_REF_SLUG / GITHUB_REF_SLUG_URL
-
-Slug the environment variable **GITHUB_REF**
-
-The branch or tag ref that triggered the workflow.
-_If neither a branch or tag is available for the event type, the variable will not exist._
-
-| GITHUB_REF                     | GITHUB_REF_SLUG     | GITHUB_REF_SLUG_URL |
-| ------------------------------ | ------------------- | ------------------- |
-| refs/heads/master              | master              | master              |
-| refs/heads/feat/new_feature    | feat-new-feature    | feat-new-feature    |
-| refs/tags/v1.0.0               | v1.0.0              | v1-0-0              |
-| refs/tags/product@1.0.0-rc.2   | product-1.0.0-rc.2  | product-1-0-0-rc-2  |
-| refs/heads/New_Awesome_Product | new-awesome-product | new-awesome-product |
-
-> **NOTE :**
-> GITHUB_REF_SLUG_URL is design to be used as subdomain in an URL.
-
-_Additional variables (only set for forked repositories) :_
-
-- `GITHUB_HEAD_REF_SLUG`/`GITHUB_HEAD_REF_SLUG_URL`, The branch of the head repository **GITHUB_HEAD_REF**
-- `GITHUB_BASE_REF_SLUG`/`GITHUB_BASE_REF_SLUG_URL`, The branch of the base repository **GITHUB_BASE_REF**
-
-_Additional variables (only set for [create][4], and [delete][5] webhook events with `ref` data) :_
-
-- `GITHUB_EVENT_REF_SLUG`/`GITHUB_EVENT_REF_SLUG_URL`, The git reference resource associated to the webhook.
-
-### GITHUB_REPOSITORY_SLUG / GITHUB_REPOSITORY_SLUG_URL
-
-Slug the environment variable **GITHUB_REPOSITORY**
-
-The owner and repository name.
-
-| GITHUB_REPOSITORY          | GITHUB_REPOSITORY_SLUG     | GITHUB_REPOSITORY_SLUG_URL |
-| -------------------------- | -------------------------- | -------------------------- |
-| octocat/Hello-World        | octocat-hello-world        | octocat-hello-world        |
-| rlespinasse/Hello-World.go | rlespinasse-hello-world.go | rlespinasse-hello-world-go |
-
-> **NOTE :**
-> GITHUB_REPOSITORY_SLUG_URL is design to be used as subdomain in an URL.
-
-### GITHUB_SHA_SHORT
-
-Short the environment variable **GITHUB_SHA**
-
-The commit SHA that triggered the workflow
-
-| GITHUB_SHA                               | GITHUB_SHA_SHORT |
-| ---------------------------------------- | ---------------- |
-| ffac537e6cbbf934b08745a378932722df287a53 | ffac537e         |
-
-### GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT
-
-Short the value of `github.event.pull_request.head.sha` that represents the last commit
-used for triggering an action for a pull request.
-
-| github.event.pull_request.head.sha       | GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT |
-| ---------------------------------------- | ---------------------------------------- |
-| ffac537e6cbbf934b08745a378932722df287a53 | ffac537e                                 |
-
-### Use slug variable in an URL
-
-In an URL, use `<GITHUB_VARIABLE>_SLUG_URL` instead of **<GITHUB_VARIABLE>\_SLUG** as subdomain to be compliant.
-
-> **NOTE :**
-> <GITHUB*VARIABLE>\_SLUG can be used in an URL only as part of the \_resource path*.
+Add this in your workflow
 
 ```yaml
 - name: Inject slug/short variables
   uses: rlespinasse/github-slug-action@v3.x
-
-- name: Deploy dummy application using slug in the 'subdomain' part
-  run: |
-    ./deploy-application.sh --url "https://${{ env.<GITHUB_VARIABLE>_SLUG_URL }}.staging.app.mycompany.com"
-
-- name: Deploy dummy application using slug in the 'resource path' part
-  run: |
-    ./deploy-application.sh --url "https://staging.app.mycompany.com/${{ env.<GITHUB_VARIABLE>_SLUG }}"
 ```
+
+Check for more [examples][3] (OS usage, URL use, ...)
+
+**Tip:** Use [Dependabot][14] to maintain your `github-slug-action` version updated in your GitHub workflows.
+
+## Available Environment variables
+
+**Note**: If you don't find what you search for, read more about [available `GitHub` variables](docs/github-variables.md), and propose a [new custom variable][5].
+
+### Slug variables
+
+| Variable                                                                | Slug version of    | Description                                                             |
+| ----------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
+| [GITHUB_REPOSITORY_SLUG](docs/slug-variables.md#GITHUB_REPOSITORY_SLUG) | GITHUB_REPOSITORY  | The owner and repository name.                                          |
+| [GITHUB_REF_SLUG](docs/slug-variables.md#GITHUB_REF_SLUG)               | GITHUB_REF         | The branch or tag ref that triggered the workflow.                      |
+| [GITHUB_HEAD_REF_SLUG](docs/slug-variables.md#GITHUB_HEAD_REF_SLUG)     | GITHUB_HEAD_REF    | The branch of the head repository.<br>Only set for forked repositories. |
+| [GITHUB_BASE_REF_SLUG](docs/slug-variables.md#GITHUB_BASE_REF_SLUG)     | GITHUB_BASE_REF    | The branch of the base repository.<br>Only set for forked repositories. |
+| [GITHUB_EVENT_REF_SLUG](docs/slug-variables.md#GITHUB_EVENT_REF_SLUG)   | _github.event.ref_ | [Only set for `create`, and `delete` webhook events][4].                |
+
+### Slug URL variables
+
+| Variable                                                                            | Slug version of    | Description                                                             |
+| ----------------------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
+| [GITHUB_REPOSITORY_SLUG_URL](docs/slug-url-variables.md#GITHUB_REPOSITORY_SLUG_URL) | GITHUB_REPOSITORY  | The owner and repository name.                                          |
+| [GITHUB_REF_SLUG_URL](docs/slug-url-variables.md#GITHUB_REF_SLUG_URL)               | GITHUB_REF         | The branch or tag ref that triggered the workflow.                      |
+| [GITHUB_HEAD_REF_SLUG_URL](docs/slug-url-variables.md#GITHUB_HEAD_REF_SLUG_URL)     | GITHUB_HEAD_REF    | The branch of the head repository.<br>Only set for forked repositories. |
+| [GITHUB_BASE_REF_SLUG_URL](docs/slug-url-variables.md#GITHUB_BASE_REF_SLUG_URL)     | GITHUB_BASE_REF    | The branch of the base repository.<br>Only set for forked repositories. |
+| [GITHUB_EVENT_REF_SLUG_URL](docs/slug-url-variables.md#GITHUB_EVENT_REF_SLUG_URL)   | _github.event.ref_ | [Only set for `create`, and `delete` webhook events][4].                |
+
+### Short variables
+
+| Variable                                                                                                     | Short version of                     | Description                                                                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [GITHUB_SHA_SHORT](docs/short-variables.md#GITHUB_SHA_SHORT)                                                 | GITHUB_SHA                           | The commit SHA that triggered the workflow.                                                                                                                                                |
+| [GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT](docs/short-variables.md#GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT) | _github.event.pull_request.head.sha_ | The commit SHA on pull request that trigger workflow.<br>[Only set for `pull_request`, `pull_request_review`, `pull_request_review_comment`, and `pull_request_target` webhook events][4]. |
 
 ## Contribute
 
@@ -134,7 +91,7 @@ Follow [Developers guide](DEVELOPERS.md)
 
 ## Troubleshooting
 
-### Missing master branch
+### An action could not be found at the URI
 
 If your workflow fail on the `Set up job` task with this kind of log :
 
@@ -143,11 +100,11 @@ Download action repository 'rlespinasse/github-slug-action@master'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
 ```
 
-Please, use the current branch `v3.x` or a version tag (see [releases pages][6]) in order to fix your workflow.
-
 > The master branch don't exists anymore.
 >
 > The master branch EOL have been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][7])
+
+Please, use the current branch `v3.x` or a version tag (see [releases pages][6]) in order to fix your workflow.
 
 ## Thanks for talking about us
 
@@ -157,9 +114,9 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 
 [1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
 [2]: https://github.com/rlespinasse/github-slug-action/actions
-[3]: https://help.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables
-[4]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#create
-[5]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#delete
+[3]: https://github.com/rlespinasse/github-slug-action/tree/v3.x/examples
+[4]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
+[5]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [6]: https://github.com/rlespinasse/github-slug-action/releases
 [7]: https://github.com/rlespinasse/github-slug-action/issues/15
 [8]: https://img.shields.io/endpoint?url=https%3A%2F%2Fapi-git-master.endbug.vercel.app%2Fapi%2Fgithub-actions%2Fused-by%3Faction%3Drlespinasse%2Fgithub-slug-action%26badge%3Dtrue
@@ -171,3 +128,5 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 [14]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot
 [15]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
 [16]: https://www.youtube.com/watch?v=RHnTJBwcE98
+[17]:
+https://docs.github.com/en/actions/reference/environment-variables#naming-conventions-for-environment-variables
