@@ -43,3 +43,7 @@ test('slug_ref: a very long name', () => {
     'an-awesome-feature-very-very-very-very-very-very-very-long-more'
   )
 })
+
+test('slug_ref: on pull-request ref', () => {
+  test_slug_ref('refs/pull/branch', 'branch')
+})
