@@ -27,9 +27,10 @@ jobs:
             @semantic-release/changelog@5.0.1
             @semantic-release/git@9.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-  test: # make sure the action works on a clean machine without building
-    runs-on: ${{ matrix.os }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN  }}
+
+  os-test:
+    runs-on: ${{ matrix.os  }}
     strategy:
       matrix:
         os:
@@ -38,35 +39,43 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
-      - run: |
-          echo $GITHUB_REPOSITORY_SLUG
-          echo $GITHUB_REPOSITORY_SLUG_URL
-          echo $GITHUB_REF_SLUG
-          echo $GITHUB_HEAD_REF_SLUG
-          echo $GITHUB_BASE_REF_SLUG
-          echo $GITHUB_EVENT_REF_SLUG
-          echo $GITHUB_REF_SLUG_URL
-          echo $GITHUB_HEAD_REF_SLUG_URL
-          echo $GITHUB_BASE_REF_SLUG_URL
-          echo $GITHUB_EVENT_REF_SLUG_URL
-          echo $GITHUB_SHA_SHORT
-          echo $GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT
+      - name: Output
+        run: |
+          echo "Slug variables"
+          echo "   ref                 : ${{ env.GITHUB_REF_SLUG }}"
+          echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG }}"
+          echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG }}"
+          echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG }}"
+          echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG }}"
+          echo "Slug URL variables"
+          echo "   ref                 : ${{ env.GITHUB_REF_SLUG_URL }}"
+          echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
+          echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
+          echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
+          echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
+          echo "Short SHA variables"
+          echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
+          echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
 
-  test-win:
+  win-test:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
-      - run: |
-          echo $env:GITHUB_REPOSITORY_SLUG
-          echo $env:GITHUB_REPOSITORY_SLUG_URL
-          echo $env:GITHUB_REF_SLUG
-          echo $env:GITHUB_HEAD_REF_SLUG
-          echo $env:GITHUB_BASE_REF_SLUG
-          echo $env:GITHUB_EVENT_REF_SLUG
-          echo $env:GITHUB_REF_SLUG_URL
-          echo $env:GITHUB_HEAD_REF_SLUG_URL
-          echo $env:GITHUB_BASE_REF_SLUG_URL
-          echo $env:GITHUB_EVENT_REF_SLUG_URL
-          echo $env:GITHUB_SHA_SHORT
-          echo $env:GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT
+      - name: Output
+        run: |
+          echo "Slug variables"
+          echo "   ref                 : $env:GITHUB_REF_SLUG"
+          echo "   head ref            : $env:GITHUB_HEAD_REF_SLUG"
+          echo "   base ref            : $env:GITHUB_BASE_REF_SLUG"
+          echo "   event ref           : $env:GITHUB_EVENT_REF_SLUG"
+          echo "   repository          : $env:GITHUB_REPOSITORY_SLUG"
+          echo "Slug URL variables"
+          echo "   ref                 : $env:GITHUB_REF_SLUG_URL"
+          echo "   head ref            : $env:GITHUB_HEAD_REF_SLUG_URL"
+          echo "   base ref            : $env:GITHUB_BASE_REF_SLUG_URL"
+          echo "   event ref           : $env:GITHUB_EVENT_REF_SLUG_URL"
+          echo "   repository          : $env:GITHUB_REPOSITORY_SLUG_URL"
+          echo "Short SHA variables"
+          echo "   sha                 : $env:GITHUB_SHA_SHORT"
+          echo "   pull request sha    : $env:GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT"
