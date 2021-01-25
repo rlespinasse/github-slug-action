@@ -720,7 +720,7 @@ function replaceAnyDotToHyphen(envVar) {
     return envVar.replace(RegExp('[.]', 'g'), '-');
 }
 function removeRef(envVar) {
-    return envVar.replace(RegExp('^refs/(heads|tags)/'), '');
+    return envVar.replace(RegExp('^refs/(heads|tags|pull)/'), '');
 }
 
 
