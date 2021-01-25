@@ -92,6 +92,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(186));
 const slug_1 = __webpack_require__(565);
+const short_1 = __webpack_require__(213);
+const partial_1 = __webpack_require__(373);
+const SEPARATOR = '/';
 /**
  * Inputs environments variables keys from Github actions job
  * see https://docs.github.com/en/actions/configuring-and-managing-workflows/using-environment-variables#default-environment-variables
@@ -103,19 +106,34 @@ const GITHUB_BASE_REF = 'GITHUB_BASE_REF';
 const GITHUB_SHA = 'GITHUB_SHA';
 const GITHUB_EVENT_PATH = 'GITHUB_EVENT_PATH';
 /**
+ * Partial outputs environments variables keys
+ */
+const GITHUB_REPOSITORY_OWNER_PART = 'GITHUB_REPOSITORY_OWNER_PART';
+const GITHUB_REPOSITORY_NAME_PART = 'GITHUB_REPOSITORY_NAME_PART';
+/**
  * Slugged outputs environments variables keys
  */
 const GITHUB_REPOSITORY_SLUG = 'GITHUB_REPOSITORY_SLUG';
-const GITHUB_REPOSITORY_SLUG_URL = 'GITHUB_REPOSITORY_SLUG_URL';
+const GITHUB_REPOSITORY_OWNER_PART_SLUG = 'GITHUB_REPOSITORY_OWNER_PART_SLUG';
+const GITHUB_REPOSITORY_NAME_PART_SLUG = 'GITHUB_REPOSITORY_NAME_PART_SLUG';
 const GITHUB_REF_SLUG = 'GITHUB_REF_SLUG';
 const GITHUB_HEAD_REF_SLUG = 'GITHUB_HEAD_REF_SLUG';
 const GITHUB_BASE_REF_SLUG = 'GITHUB_BASE_REF_SLUG';
+const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
+/**
+ * URL-Slugged outputs environments variables keys
+ */
+const GITHUB_REPOSITORY_SLUG_URL = 'GITHUB_REPOSITORY_SLUG_URL';
+const GITHUB_REPOSITORY_OWNER_PART_SLUG_URL = 'GITHUB_REPOSITORY_OWNER_PART_SLUG_URL';
+const GITHUB_REPOSITORY_NAME_PART_SLUG_URL = 'GITHUB_REPOSITORY_NAME_PART_SLUG_URL';
 const GITHUB_REF_SLUG_URL = 'GITHUB_REF_SLUG_URL';
 const GITHUB_HEAD_REF_SLUG_URL = 'GITHUB_HEAD_REF_SLUG_URL';
 const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL';
-const GITHUB_SHA_SHORT = 'GITHUB_SHA_SHORT';
-const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
 const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL';
+/**
+ * Shorted outputs environments variables keys
+ */
+const GITHUB_SHA_SHORT = 'GITHUB_SHA_SHORT';
 const GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT = 'GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -128,11 +146,17 @@ function run() {
                     core.exportVariable(GITHUB_EVENT_REF_SLUG_URL, slug_1.slugurlref(eventData.ref));
                 }
                 else if (eventData.hasOwnProperty('pull_request')) {
-                    core.exportVariable(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT, slug_1.shortsha(eventData.pull_request.head.sha));
+                    core.exportVariable(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT, short_1.shortsha(eventData.pull_request.head.sha));
                 }
             }
+            exportFirstPart(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART);
+            exportSecondPart(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART);
             exportSlug(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG);
+            exportFirstPartSlug(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART_SLUG);
+            exportSecondPartSlug(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART_SLUG);
             exportSlugUrl(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG_URL);
+            exportFirstPartSlugUrl(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART_SLUG_URL);
+            exportSecondPartSlugUrl(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART_SLUG_URL);
             exportSlugRef(GITHUB_REF, GITHUB_REF_SLUG);
             exportSlugRef(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG);
             exportSlugRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG);
@@ -146,10 +170,36 @@ function run() {
         }
     });
 }
+function exportFirstPart(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        core.exportVariable(outputKey, partial_1.get_first_part(envVar, separator));
+    }
+}
+function exportSecondPart(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        core.exportVariable(outputKey, partial_1.get_second_part(envVar, separator));
+    }
+}
 function exportSlug(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
         core.exportVariable(outputKey, slug_1.slug(envVar));
+    }
+}
+function exportFirstPartSlug(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_first_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slug(value));
+    }
+}
+function exportSecondPartSlug(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_second_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slug(value));
     }
 }
 function exportSlugRef(inputKey, outputKey) {
@@ -164,6 +214,20 @@ function exportSlugUrl(inputKey, outputKey) {
         core.exportVariable(outputKey, slug_1.slugurl(envVar));
     }
 }
+function exportFirstPartSlugUrl(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_first_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slugurl(value));
+    }
+}
+function exportSecondPartSlugUrl(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_second_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slugurl(value));
+    }
+}
 function exportSlugUrlRef(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
@@ -173,7 +237,7 @@ function exportSlugUrlRef(inputKey, outputKey) {
 function exportShortSha(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.shortsha(envVar));
+        core.exportVariable(outputKey, short_1.shortsha(envVar));
     }
 }
 run();
@@ -426,6 +490,27 @@ exports.getState = getState;
 
 /***/ }),
 
+/***/ 213:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shortsha = void 0;
+const SHORT_SHA_SIZE = 8;
+/**
+ * slug will take envVar and then :
+ * - limit the string size to 8 characters
+ * @param envVar to be slugged
+ */
+function shortsha(envVar) {
+    return envVar.substring(0, SHORT_SHA_SIZE);
+}
+exports.shortsha = shortsha;
+
+
+/***/ }),
+
 /***/ 278:
 /***/ (function(__unusedmodule, exports) {
 
@@ -538,15 +623,43 @@ function escapeProperty(s) {
 
 /***/ }),
 
+/***/ 373:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.get_second_part = exports.get_first_part = void 0;
+/**
+ * Get the first part of envVar
+ * @param envVar to be split
+ * @param separator of the split
+ */
+function get_first_part(envVar, separator) {
+    return envVar.replace(RegExp(`${separator}.*$`), '');
+}
+exports.get_first_part = get_first_part;
+/**
+ * Get the second part of envVar
+ * @param envVar to be split
+ * @param separator of the split
+ */
+function get_second_part(envVar, separator) {
+    return envVar.replace(RegExp(`^.*${separator}`), '');
+}
+exports.get_second_part = get_second_part;
+
+
+/***/ }),
+
 /***/ 565:
 /***/ (function(__unusedmodule, exports) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shortsha = exports.slugurlref = exports.slugurl = exports.slugref = exports.slug = void 0;
+exports.slugurlref = exports.slugurl = exports.slugref = exports.slug = void 0;
 const MAX_SLUG_STRING_SIZE = 63;
-const SHORT_SHA_SIZE = 8;
 /**
  * slug will take envVar and then :
  * - put the variable content in lower case
@@ -597,15 +710,6 @@ function slugurlref(envVar) {
     return slugurl(slugref(envVar));
 }
 exports.slugurlref = slugurlref;
-/**
- * slug will take envVar and then :
- * - limit the string size to 8 characters
- * @param envVar to be slugged
- */
-function shortsha(envVar) {
-    return envVar.substring(0, SHORT_SHA_SIZE);
-}
-exports.shortsha = shortsha;
 function trailHyphen(envVar) {
     return envVar.replace(RegExp('^-*', 'g'), '').replace(RegExp('-*$', 'g'), '');
 }

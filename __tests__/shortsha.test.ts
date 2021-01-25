@@ -1,4 +1,4 @@
-import {shortsha} from '../src/slug'
+import {shortsha} from '../src/short'
 
 function test_short_sha(input: string, expected: string) {
   let actual = shortsha(input)

@@ -5,6 +5,8 @@
 - [Slug URL Variables](#slug-url-variables)
   - [Table of Contents](#table-of-contents)
   - [GITHUB_REPOSITORY_SLUG_URL](#github_repository_slug_url)
+  - [GITHUB_REPOSITORY_OWNER_PART_SLUG_URL](#github_repository_owner_part_slug_url)
+  - [GITHUB_REPOSITORY_NAME_PART_SLUG_URL](#github_repository_name_part_slug_url)
   - [GITHUB_REF_SLUG_URL](#github_ref_slug_url)
   - [GITHUB_HEAD_REF_SLUG_URL](#github_head_ref_slug_url)
   - [GITHUB_BASE_REF_SLUG_URL](#github_base_ref_slug_url)
@@ -16,10 +18,35 @@ Slug URL the environment variable **GITHUB_REPOSITORY**
 
 The owner and repository name.
 
-| GITHUB_REPOSITORY          | GITHUB_REPOSITORY_SLUG_URL |
-| -------------------------- | -------------------------- |
-| octocat/Hello-World        | octocat-hello-world        |
-| rlespinasse/Hello-World.go | rlespinasse-hello-world-go |
+| GITHUB_REPOSITORY            | GITHUB_REPOSITORY_SLUG_URL   |
+| ---------------------------- | ---------------------------- |
+| octocat/Hello-World          | octocat-hello-world          |
+| rlespinasse/Hello-World.go   | rlespinasse-hello-world-go   |
+| AnotherPerson/SomeRepository | anotherperson-somerepository |
+
+## GITHUB_REPOSITORY_OWNER_PART_SLUG_URL
+
+Slug URL the environment variable [GITHUB_REPOSITORY_OWNER_PART](partial-variables.md#github_repository_owner_part)
+
+The Owner part of **GITHUB_REPOSITORY** variable.
+
+| GITHUB_REPOSITORY_OWNER_PART | GITHUB_REPOSITORY_OWNER_PART_SLUG_URL |
+| ---------------------------- | ------------------------------------- |
+| octocat                      | octocat                               |
+| rlespinasse                  | rlespinasse                           |
+| AnotherPerson                | anotherperson                         |
+
+## GITHUB_REPOSITORY_NAME_PART_SLUG_URL
+
+Slug URL the environment variable [GITHUB_REPOSITORY_NAME_PART](partial-variables.md#github_repository_name_part)
+
+The Repository name part of **GITHUB_REPOSITORY** variable.
+
+| GITHUB_REPOSITORY_NAME_PART | GITHUB_REPOSITORY_NAME_PART_SLUG_URL |
+| --------------------------- | ------------------------------------ |
+| Hello-World                 | hello-world                          |
+| Hello-World.go              | hello-world-go                       |
+| SomeRepository              | somerepository                       |
 
 ## GITHUB_REF_SLUG_URL
 
@@ -67,7 +94,7 @@ _Only set for forked repositories._
 Slug URL the variable **github.event.ref**
 
 The git reference resource associated to triggered webhook.
-_[Only set for `create`, and `delete` webhook events][4]._
+_Only set for [`create`, and `delete`][1] events._
 
 | GITHUB_REF                     | GITHUB_HEAD_REF_SLUG_URL |
 | ------------------------------ | ------------------------ |
