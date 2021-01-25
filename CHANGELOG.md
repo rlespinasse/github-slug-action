@@ -1,3 +1,15 @@
+# [3.3.0](http://github.com/rlespinasse/github-slug-action/compare/3.2.0...3.3.0) (2021-01-25)
+
+
+### Bug Fixes
+
+* support pull-request for slug and slug url ([78985f8](http://github.com/rlespinasse/github-slug-action/commit/78985f84eca97ef1c5262e85e8a73a277494c4ed))
+
+
+### Features
+
+* support partial GITHUB_REPOSITORY ([75ce03b](http://github.com/rlespinasse/github-slug-action/commit/75ce03b6a055a3be9d936a3a99c51038bd72298c))
+
 # [3.2.0](http://github.com/rlespinasse/github-slug-action/compare/3.1.0...3.2.0) (2021-01-12)
 
 
