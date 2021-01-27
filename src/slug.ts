@@ -65,5 +65,5 @@ function replaceAnyDotToHyphen(envVar: string): string {
 }
 
 function removeRef(envVar: string): string {
-  return envVar.replace(RegExp('^refs/(heads|tags|pull)/'), '')
+  return envVar.replace(RegExp('^refs/(heads|tags)/'), '')
 }

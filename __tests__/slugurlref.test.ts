@@ -43,7 +43,3 @@ test('slug_url_ref: test trailing', () => {
 test('slug_url_ref: test trailing with dot', () => {
   test_slug_url_ref('refs/heads/.an-awesome-Feature.', 'an-awesome-feature')
 })
-
-test('slug_url_ref: on pull-request ref', () => {
-  test_slug_url_ref('refs/pull/branch', 'branch')
-})
