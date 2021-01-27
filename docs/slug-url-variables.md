@@ -60,8 +60,12 @@ _If neither a branch or tag is available for the event type, the variable will n
 | refs/heads/main                | main                |
 | refs/heads/feat/new_feature    | feat-new-feature    |
 | refs/tags/v1.0.0               | v1-0-0              |
+| refs/pull/42-merge             | 42-merge            |
 | refs/tags/product@1.0.0-rc.2   | product-1-0-0-rc-2  |
 | refs/heads/New_Awesome_Product | new-awesome-product |
+
+**Caution**: From v3.0.0 to v3.2.0 included, `GITHUB_REF_SLUG` have the wrong value on `pull_request` event.
+`refs/pull/42-merge` become `refs-pull-42-merge` instead of `42-merge`. The bug have been fixed in v3.3.0
 
 ## GITHUB_HEAD_REF_SLUG_URL
 
