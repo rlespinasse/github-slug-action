@@ -40,6 +40,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 - `SLUG_URL` on a variable to have a `slug` variable compliant to be used in an URL (Like `SLUG` but `.` is also replaced by `-`)
 - `SHORT` on a variable will limit the string size to 8 characters (useful for _sha_ value)
 - `<KEY>_PART` on a variable will give a part of a variable defined by a key
+_ `<VAR>_CS` on others variables to keep the value case-sensitive
 
   </p>
 </details>
@@ -70,6 +71,8 @@ Check for more [examples][3] (OS usage, URL use, ...)
 
 ### Slug variables
 
+**NOTE:** `_CS` suffix available
+
 | Variable                                                                                          | Slug version of              | Description                                                                                         |
 | ------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------- |
 | [GITHUB_REPOSITORY_SLUG](docs/slug-variables.md#github_repository_slug)                           | GITHUB_REPOSITORY            | The owner and repository name.                                                                      |
@@ -81,6 +84,8 @@ Check for more [examples][3] (OS usage, URL use, ...)
 | [GITHUB_EVENT_REF_SLUG](docs/slug-variables.md#github_event_ref_slug)                             | _github.event.ref_           | <br>Only set for [following webhook events][4]<ul><li>`create`</li><li>`delete`</li></ul>           |
 
 ### Slug URL variables
+
+**NOTE:** `_CS` suffix available
 
 | Variable                                                                                                  | Slug URL version of          | Description                                                                                         |
 | --------------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------- |

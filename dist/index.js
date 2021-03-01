@@ -114,22 +114,36 @@ const GITHUB_REPOSITORY_NAME_PART = 'GITHUB_REPOSITORY_NAME_PART';
  * Slugged outputs environments variables keys
  */
 const GITHUB_REPOSITORY_SLUG = 'GITHUB_REPOSITORY_SLUG';
+const GITHUB_REPOSITORY_SLUG_CS = 'GITHUB_REPOSITORY_SLUG_CS';
 const GITHUB_REPOSITORY_OWNER_PART_SLUG = 'GITHUB_REPOSITORY_OWNER_PART_SLUG';
+const GITHUB_REPOSITORY_OWNER_PART_SLUG_CS = 'GITHUB_REPOSITORY_OWNER_PART_SLUG_CS';
 const GITHUB_REPOSITORY_NAME_PART_SLUG = 'GITHUB_REPOSITORY_NAME_PART_SLUG';
+const GITHUB_REPOSITORY_NAME_PART_SLUG_CS = 'GITHUB_REPOSITORY_NAME_PART_SLUG_CS';
 const GITHUB_REF_SLUG = 'GITHUB_REF_SLUG';
+const GITHUB_REF_SLUG_CS = 'GITHUB_REF_SLUG_CS';
 const GITHUB_HEAD_REF_SLUG = 'GITHUB_HEAD_REF_SLUG';
+const GITHUB_HEAD_REF_SLUG_CS = 'GITHUB_HEAD_REF_SLUG_CS';
 const GITHUB_BASE_REF_SLUG = 'GITHUB_BASE_REF_SLUG';
+const GITHUB_BASE_REF_SLUG_CS = 'GITHUB_BASE_REF_SLUG_CS';
 const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
+const GITHUB_EVENT_REF_SLUG_CS = 'GITHUB_EVENT_REF_SLUG_CS';
 /**
  * URL-Slugged outputs environments variables keys
  */
 const GITHUB_REPOSITORY_SLUG_URL = 'GITHUB_REPOSITORY_SLUG_URL';
+const GITHUB_REPOSITORY_SLUG_URL_CS = 'GITHUB_REPOSITORY_SLUG_URL_CS';
 const GITHUB_REPOSITORY_OWNER_PART_SLUG_URL = 'GITHUB_REPOSITORY_OWNER_PART_SLUG_URL';
+const GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS = 'GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS';
 const GITHUB_REPOSITORY_NAME_PART_SLUG_URL = 'GITHUB_REPOSITORY_NAME_PART_SLUG_URL';
+const GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS = 'GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS';
 const GITHUB_REF_SLUG_URL = 'GITHUB_REF_SLUG_URL';
+const GITHUB_REF_SLUG_URL_CS = 'GITHUB_REF_SLUG_URL_CS';
 const GITHUB_HEAD_REF_SLUG_URL = 'GITHUB_HEAD_REF_SLUG_URL';
+const GITHUB_HEAD_REF_SLUG_URL_CS = 'GITHUB_HEAD_REF_SLUG_URL_CS';
 const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL';
+const GITHUB_BASE_REF_SLUG_URL_CS = 'GITHUB_BASE_REF_SLUG_URL_CS';
 const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL';
+const GITHUB_EVENT_REF_SLUG_URL_CS = 'GITHUB_EVENT_REF_SLUG_URL_CS';
 /**
  * Shorted outputs environments variables keys
  */
@@ -143,7 +157,9 @@ function run() {
                 const eventData = yield Promise.resolve().then(() => __importStar(require(eventPath)));
                 if (eventData.hasOwnProperty('ref')) {
                     core.exportVariable(GITHUB_EVENT_REF_SLUG, slug_1.slugref(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG_CS, slug_1.slugref_cs(eventData.ref));
                     core.exportVariable(GITHUB_EVENT_REF_SLUG_URL, slug_1.slugurlref(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG_URL_CS, slug_1.slugurlref_cs(eventData.ref));
                 }
                 else if (eventData.hasOwnProperty('pull_request')) {
                     core.exportVariable(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT, short_1.shortsha(eventData.pull_request.head.sha));
@@ -152,17 +168,29 @@ function run() {
             exportFirstPart(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART);
             exportSecondPart(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART);
             exportSlug(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG);
+            exportSlugCS(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG_CS);
             exportFirstPartSlug(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART_SLUG);
+            exportFirstPartSlugCS(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART_SLUG_CS);
             exportSecondPartSlug(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART_SLUG);
+            exportSecondPartSlugCS(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART_SLUG_CS);
             exportSlugUrl(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG_URL);
+            exportSlugUrlCS(GITHUB_REPOSITORY, GITHUB_REPOSITORY_SLUG_URL_CS);
             exportFirstPartSlugUrl(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART_SLUG_URL);
+            exportFirstPartSlugUrlCS(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS);
             exportSecondPartSlugUrl(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART_SLUG_URL);
+            exportSecondPartSlugUrlCS(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS);
             exportSlugRef(GITHUB_REF, GITHUB_REF_SLUG);
+            exportSlugRefCS(GITHUB_REF, GITHUB_REF_SLUG_CS);
             exportSlugRef(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG);
+            exportSlugRefCS(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG_CS);
             exportSlugRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG);
+            exportSlugRefCS(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_CS);
             exportSlugUrlRef(GITHUB_REF, GITHUB_REF_SLUG_URL);
+            exportSlugUrlRefCS(GITHUB_REF, GITHUB_REF_SLUG_URL_CS);
             exportSlugUrlRef(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG_URL);
+            exportSlugUrlRefCS(GITHUB_HEAD_REF, GITHUB_HEAD_REF_SLUG_URL_CS);
             exportSlugUrlRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_URL);
+            exportSlugUrlRefCS(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_URL_CS);
             exportShortSha(GITHUB_SHA, GITHUB_SHA_SHORT);
         }
         catch (error) {
@@ -182,10 +210,23 @@ function exportSecondPart(inputKey, separator, outputKey) {
         core.exportVariable(outputKey, partial_1.get_second_part(envVar, separator));
     }
 }
+function exportSlugCS(inputKey, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        core.exportVariable(outputKey, slug_1.slug_cs(envVar));
+    }
+}
 function exportSlug(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
         core.exportVariable(outputKey, slug_1.slug(envVar));
+    }
+}
+function exportFirstPartSlugCS(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_first_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slug_cs(value));
     }
 }
 function exportFirstPartSlug(inputKey, separator, outputKey) {
@@ -195,11 +236,24 @@ function exportFirstPartSlug(inputKey, separator, outputKey) {
         core.exportVariable(outputKey, slug_1.slug(value));
     }
 }
+function exportSecondPartSlugCS(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_second_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slug_cs(value));
+    }
+}
 function exportSecondPartSlug(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
         const value = partial_1.get_second_part(envVar, separator);
         core.exportVariable(outputKey, slug_1.slug(value));
+    }
+}
+function exportSlugRefCS(inputKey, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        core.exportVariable(outputKey, slug_1.slugref_cs(envVar));
     }
 }
 function exportSlugRef(inputKey, outputKey) {
@@ -208,10 +262,23 @@ function exportSlugRef(inputKey, outputKey) {
         core.exportVariable(outputKey, slug_1.slugref(envVar));
     }
 }
+function exportSlugUrlCS(inputKey, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        core.exportVariable(outputKey, slug_1.slugurl_cs(envVar));
+    }
+}
 function exportSlugUrl(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
         core.exportVariable(outputKey, slug_1.slugurl(envVar));
+    }
+}
+function exportFirstPartSlugUrlCS(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_first_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slugurl_cs(value));
     }
 }
 function exportFirstPartSlugUrl(inputKey, separator, outputKey) {
@@ -221,11 +288,24 @@ function exportFirstPartSlugUrl(inputKey, separator, outputKey) {
         core.exportVariable(outputKey, slug_1.slugurl(value));
     }
 }
+function exportSecondPartSlugUrlCS(inputKey, separator, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        const value = partial_1.get_second_part(envVar, separator);
+        core.exportVariable(outputKey, slug_1.slugurl_cs(value));
+    }
+}
 function exportSecondPartSlugUrl(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
         const value = partial_1.get_second_part(envVar, separator);
         core.exportVariable(outputKey, slug_1.slugurl(value));
+    }
+}
+function exportSlugUrlRefCS(inputKey, outputKey) {
+    const envVar = process.env[inputKey];
+    if (envVar) {
+        core.exportVariable(outputKey, slug_1.slugurlref_cs(envVar));
     }
 }
 function exportSlugUrlRef(inputKey, outputKey) {
@@ -658,8 +738,19 @@ exports.get_second_part = get_second_part;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.slugurlref = exports.slugurl = exports.slugref = exports.slug = void 0;
+exports.slugurlref = exports.slugurlref_cs = exports.slugurl = exports.slugurl_cs = exports.slugref = exports.slugref_cs = exports.slug = exports.slug_cs = void 0;
 const MAX_SLUG_STRING_SIZE = 63;
+/**
+ * slug_cs will take envVar and then :
+ * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
+function slug_cs(envVar) {
+    return trailHyphen(replaceAnyNonAlphanumericCharacter(envVar)).substring(0, MAX_SLUG_STRING_SIZE);
+}
+exports.slug_cs = slug_cs;
 /**
  * slug will take envVar and then :
  * - put the variable content in lower case
@@ -669,12 +760,24 @@ const MAX_SLUG_STRING_SIZE = 63;
  * @param envVar to be slugged
  */
 function slug(envVar) {
-    return trailHyphen(replaceAnyNonAlphanumericCaracter(envVar.toLowerCase())).substring(0, MAX_SLUG_STRING_SIZE);
+    return slug_cs(envVar.toLowerCase());
 }
 exports.slug = slug;
 /**
- * slug will take envVar and then :
- * - remove refs/(heads|tags)/
+ * slugref_cs will take envVar and then :
+ * - remove refs/(heads|tags|pull)/
+ * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
+function slugref_cs(envVar) {
+    return slug_cs(removeRef(envVar));
+}
+exports.slugref_cs = slugref_cs;
+/**
+ * slugref will take envVar and then :
+ * - remove refs/(heads|tags|pull)/
  * - put the variable content in lower case
  * - replace any character by `-` except `0-9`, `a-z`, and `.`
  * - remove leading and trailing `-` character
@@ -682,11 +785,22 @@ exports.slug = slug;
  * @param envVar to be slugged
  */
 function slugref(envVar) {
-    return slug(removeRef(envVar.toLowerCase()));
+    return slugref_cs(envVar.toLowerCase());
 }
 exports.slugref = slugref;
 /**
- * slug will take envVar and then :
+ * slugurl_cs will take envVar and then :
+ * - replace any character by `-` except `0-9`, `a-z`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
+function slugurl_cs(envVar) {
+    return slug_cs(replaceAnyDotToHyphen(envVar));
+}
+exports.slugurl_cs = slugurl_cs;
+/**
+ * slugurl will take envVar and then :
  * - put the variable content in lower case
  * - replace any character by `-` except `0-9`, `a-z`
  * - remove leading and trailing `-` character
@@ -698,8 +812,20 @@ function slugurl(envVar) {
 }
 exports.slugurl = slugurl;
 /**
- * slug will take envVar and then :
- * - remove refs/(heads|tags)/
+ * slugurlref_cs will take envVar and then :
+ * - remove refs/(heads|tags|pull)/
+ * - replace any character by `-` except `0-9`, `a-z`
+ * - remove leading and trailing `-` character
+ * - limit the string size to 63 characters
+ * @param envVar to be slugged
+ */
+function slugurlref_cs(envVar) {
+    return slugurl_cs(slugref_cs(envVar));
+}
+exports.slugurlref_cs = slugurlref_cs;
+/**
+ * slugurlref will take envVar and then :
+ * - remove refs/(heads|tags|pull)/
  * - put the variable content in lower case
  * - replace any character by `-` except `0-9`, `a-z`
  * - remove leading and trailing `-` character
@@ -713,8 +839,8 @@ exports.slugurlref = slugurlref;
 function trailHyphen(envVar) {
     return envVar.replace(RegExp('^-*', 'g'), '').replace(RegExp('-*$', 'g'), '');
 }
-function replaceAnyNonAlphanumericCaracter(envVar) {
-    return envVar.replace(RegExp('[^a-z0-9.]', 'g'), '-');
+function replaceAnyNonAlphanumericCharacter(envVar) {
+    return envVar.replace(RegExp('[^a-zA-Z0-9.]', 'g'), '-');
 }
 function replaceAnyDotToHyphen(envVar) {
     return envVar.replace(RegExp('[.]', 'g'), '-');
