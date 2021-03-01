@@ -63,6 +63,24 @@ jobs:
           echo "Short SHA variables"
           echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
           echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+      - name: Case Sensitive Output
+        run: |
+          echo "Slug variables"
+          echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG_CS }}"
+          echo "   repository owner    : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}"
+          echo "   repository name     : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}"
+          echo "   ref                 : ${{ env.GITHUB_REF_SLUG_CS }}"
+          echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_CS }}"
+          echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_CS }}"
+          echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_CS }}"
+          echo "Slug URL variables"
+          echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG_URL_CS }}"
+          echo "   repository owner    : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}"
+          echo "   repository name     : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}"
+          echo "   ref                 : ${{ env.GITHUB_REF_SLUG_URL_CS }}"
+          echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}"
+          echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}"
+          echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}"
 
   win-test:
     runs-on: windows-latest
@@ -93,3 +111,21 @@ jobs:
           echo "Short SHA variables"
           echo "   sha                 : $env:GITHUB_SHA_SHORT"
           echo "   pull request sha    : $env:GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT"
+      - name: Case Sensitive Output
+        run: |
+          echo "Slug variables"
+          echo "   repository          : $env:GITHUB_REPOSITORY_SLUG_CS"
+          echo "   repository owner    : $env:GITHUB_REPOSITORY_OWNER_PART_SLUG_CS"
+          echo "   repository name     : $env:GITHUB_REPOSITORY_NAME_PART_SLUG_CS"
+          echo "   ref                 : $env:GITHUB_REF_SLUG_CS"
+          echo "   head ref            : $env:GITHUB_HEAD_REF_SLUG_CS"
+          echo "   base ref            : $env:GITHUB_BASE_REF_SLUG_CS"
+          echo "   event ref           : $env:GITHUB_EVENT_REF_SLUG_CS"
+          echo "Slug URL variables"
+          echo "   repository          : $env:GITHUB_REPOSITORY_SLUG_URL_CS"
+          echo "   repository owner    : $env:GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS"
+          echo "   repository name     : $env:GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS"
+          echo "   ref                 : $env:GITHUB_REF_SLUG_URL_CS"
+          echo "   head ref            : $env:GITHUB_HEAD_REF_SLUG_URL_CS"
+          echo "   base ref            : $env:GITHUB_BASE_REF_SLUG_URL_CS"
+          echo "   event ref           : $env:GITHUB_EVENT_REF_SLUG_URL_CS"
