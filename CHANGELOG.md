@@ -1,3 +1,10 @@
+# [3.5.0](http://github.com/rlespinasse/github-slug-action/compare/3.4.0...3.5.0) (2021-03-30)
+
+
+### Features
+
+* allow underscore in slug values ([475d293](http://github.com/rlespinasse/github-slug-action/commit/475d293680b998a3315846828329f05bfff4ac9c))
+
 # [3.4.0](http://github.com/rlespinasse/github-slug-action/compare/3.3.0...3.4.0) (2021-03-02)
 
 
