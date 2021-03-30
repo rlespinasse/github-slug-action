@@ -2,7 +2,7 @@ const MAX_SLUG_STRING_SIZE = 63
 
 /**
  * slug_cs will take envVar and then :
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -17,7 +17,7 @@ export function slug_cs(envVar: string): string {
 /**
  * slug will take envVar and then :
  * - put the variable content in lower case
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -29,7 +29,7 @@ export function slug(envVar: string): string {
 /**
  * slugref_cs will take envVar and then :
  * - remove refs/(heads|tags|pull)/
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -42,7 +42,7 @@ export function slugref_cs(envVar: string): string {
  * slugref will take envVar and then :
  * - remove refs/(heads|tags|pull)/
  * - put the variable content in lower case
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -59,7 +59,7 @@ export function slugref(envVar: string): string {
  * @param envVar to be slugged
  */
 export function slugurl_cs(envVar: string): string {
-  return slug_cs(replaceAnyDotToHyphen(envVar))
+  return slug_cs(replaceAnyNonUrlCharactersWithHyphen(envVar))
 }
 
 /**
@@ -71,7 +71,7 @@ export function slugurl_cs(envVar: string): string {
  * @param envVar to be slugged
  */
 export function slugurl(envVar: string): string {
-  return slug(replaceAnyDotToHyphen(envVar))
+  return slug(replaceAnyNonUrlCharactersWithHyphen(envVar))
 }
 
 /**
@@ -104,11 +104,11 @@ function trailHyphen(envVar: string): string {
 }
 
 function replaceAnyNonAlphanumericCharacter(envVar: string): string {
-  return envVar.replace(RegExp('[^a-zA-Z0-9.]', 'g'), '-')
+  return envVar.replace(RegExp('[^a-zA-Z0-9._]', 'g'), '-')
 }
 
-function replaceAnyDotToHyphen(envVar: string): string {
-  return envVar.replace(RegExp('[.]', 'g'), '-')
+function replaceAnyNonUrlCharactersWithHyphen(envVar: string): string {
+  return envVar.replace(RegExp('[._]', 'g'), '-')
 }
 
 function removeRef(envVar: string): string {

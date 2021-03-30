@@ -16,13 +16,13 @@ test('slug_ref:: master branch', () => {
 })
 
 test('slug_ref: a feature branch', () => {
-  test_slugref('refs/heads/feat/new_feature', 'feat-new-feature')
-  test_slugref_cs('refs/heads/feat/new_feature', 'feat-new-feature')
+  test_slugref('refs/heads/feat/new_feature', 'feat-new_feature')
+  test_slugref_cs('refs/heads/feat/new_feature', 'feat-new_feature')
 })
 
 test('slug_ref: a fix branch', () => {
-  test_slugref('refs/heads/fix/issue_number', 'fix-issue-number')
-  test_slugref_cs('refs/heads/fix/issue_number', 'fix-issue-number')
+  test_slugref('refs/heads/fix/issue_number', 'fix-issue_number')
+  test_slugref_cs('refs/heads/fix/issue_number', 'fix-issue_number')
 })
 
 test('slug_ref: a simple tag', () => {
@@ -36,8 +36,8 @@ test('slug_ref: a complex tag', () => {
 })
 
 test('slug_ref: a reference with upper case letters', () => {
-  test_slugref('refs/heads/New_Awesome_Product', 'new-awesome-product')
-  test_slugref_cs('refs/heads/New_Awesome_Product', 'New-Awesome-Product')
+  test_slugref('refs/heads/New_Awesome_Product', 'new_awesome_product')
+  test_slugref_cs('refs/heads/New_Awesome_Product', 'New_Awesome_Product')
 })
 
 test('slug_ref: test trailing', () => {
