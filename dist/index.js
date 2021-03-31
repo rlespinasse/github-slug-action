@@ -742,7 +742,7 @@ exports.slugurlref = exports.slugurlref_cs = exports.slugurl = exports.slugurl_c
 const MAX_SLUG_STRING_SIZE = 63;
 /**
  * slug_cs will take envVar and then :
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -754,7 +754,7 @@ exports.slug_cs = slug_cs;
 /**
  * slug will take envVar and then :
  * - put the variable content in lower case
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -766,7 +766,7 @@ exports.slug = slug;
 /**
  * slugref_cs will take envVar and then :
  * - remove refs/(heads|tags|pull)/
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -779,7 +779,7 @@ exports.slugref_cs = slugref_cs;
  * slugref will take envVar and then :
  * - remove refs/(heads|tags|pull)/
  * - put the variable content in lower case
- * - replace any character by `-` except `0-9`, `a-z`, and `.`
+ * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
  * - remove leading and trailing `-` character
  * - limit the string size to 63 characters
  * @param envVar to be slugged
@@ -796,7 +796,7 @@ exports.slugref = slugref;
  * @param envVar to be slugged
  */
 function slugurl_cs(envVar) {
-    return slug_cs(replaceAnyDotToHyphen(envVar));
+    return slug_cs(replaceAnyNonUrlCharactersWithHyphen(envVar));
 }
 exports.slugurl_cs = slugurl_cs;
 /**
@@ -808,7 +808,7 @@ exports.slugurl_cs = slugurl_cs;
  * @param envVar to be slugged
  */
 function slugurl(envVar) {
-    return slug(replaceAnyDotToHyphen(envVar));
+    return slug(replaceAnyNonUrlCharactersWithHyphen(envVar));
 }
 exports.slugurl = slugurl;
 /**
@@ -840,10 +840,10 @@ function trailHyphen(envVar) {
     return envVar.replace(RegExp('^-*', 'g'), '').replace(RegExp('-*$', 'g'), '');
 }
 function replaceAnyNonAlphanumericCharacter(envVar) {
-    return envVar.replace(RegExp('[^a-zA-Z0-9.]', 'g'), '-');
+    return envVar.replace(RegExp('[^a-zA-Z0-9._]', 'g'), '-');
 }
-function replaceAnyDotToHyphen(envVar) {
-    return envVar.replace(RegExp('[.]', 'g'), '-');
+function replaceAnyNonUrlCharactersWithHyphen(envVar) {
+    return envVar.replace(RegExp('[._]', 'g'), '-');
 }
 function removeRef(envVar) {
     return envVar.replace(RegExp('^refs/(heads|tags|pull)/'), '');
