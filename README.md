@@ -37,10 +37,14 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
   <summary>Others <b>Slug-ish</b> commands are available</summary>
   <p>
 
-- `SLUG_URL` on a variable to have a `slug` variable compliant to be used in an URL (Like `SLUG` but `.` is also replaced by `-`)
-- `SHORT` on a variable will limit the string size to 8 characters (useful for _sha_ value)
+- `SLUG_URL` on a variable to have a `slug` variable compliant to be used in an URL
+  - Like `SLUG` but `.` is also replaced by `-`
+- `SHORT` on a variable will limit the string size to 8 characters
+  - Useful for _sha_ value
 - `<KEY>_PART` on a variable will give a part of a variable defined by a key
-_ `<VAR>_CS` on others variables to keep the value case-sensitive
+  - Like `GITHUB_REPOSITORY_OWNER_PART` for the owner part of `GITHUB_REPOSITORY`
+- `<VAR>_CS` on others variables to keep the value case-sensitive
+  - Like `GITHUB_REF_SLUG_CS`
 
   </p>
 </details>
