@@ -18,7 +18,7 @@ Include the relevant issue number if applicable.
 
 ## Do you intend to add a new feature or change an existing one
 
-* Suggest your change by [opening a 'Feature request' issue][5] and start writing code.
+* Suggest your change by [opening a 'Feature request' issue][5] and start writing code (following the [developers guide](DEVELOPERS.md))
 
 ## Do you have questions about the source code
 

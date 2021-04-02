@@ -1,10 +1,14 @@
 # Developers guide
 
+## Prepare
+
 Install the dependencies
 
 ```bash
 npm install
 ```
+
+## Develop
 
 Build the typescript and package it for distribution
 
@@ -23,4 +27,12 @@ $ npm test
   ✓ test runs (95ms)
 
 ...
+```
+
+## Contribute
+
+Before creating a commit, validate your changes and build the associated distribution files
+
+```bash
+npm run all
 ```
