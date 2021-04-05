@@ -52,3 +52,5 @@ get_event_keyvalue() {
   echo "GITHUB_EVENT_REF_SLUG_URL=$(slug_url_ref "$(get_event_keyvalue "ref")")"
   echo "GITHUB_SHA_SHORT=$(short_sha "$GITHUB_SHA")"
 } >>"$GITHUB_ENV"
+
+echo "::warning ::This version only support linux-based workflow, please use 'rlespinasse/github-slug-action@v3.x' instead"
