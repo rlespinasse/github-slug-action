@@ -1,3 +1,10 @@
+# [2.2.0](http://github.com/rlespinasse/github-slug-action/compare/2.1.1...2.2.0) (2021-04-05)
+
+
+### Features
+
+* add version warning ([f536765](http://github.com/rlespinasse/github-slug-action/commit/f536765da448783f587c88e2c69f8f65b4e06541))
+
 ## [2.1.1](http://github.com/rlespinasse/github-slug-action/compare/2.1.0...2.1.1) (2020-10-07)
 
 
