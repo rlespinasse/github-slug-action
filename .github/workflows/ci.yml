@@ -19,3 +19,17 @@ jobs:
             @semantic-release/git@9.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+      - name: Output
+        run: |
+          echo "Slug variables"
+          echo "   ref                 : ${{ env.GITHUB_REF_SLUG }}"
+          echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG }}"
+          echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG }}"
+          echo "Short SHA variables"
+          echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"

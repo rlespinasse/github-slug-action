@@ -18,3 +18,5 @@ short_sha() {
   echo "GITHUB_BASE_REF_SLUG=$(slug_ref "$GITHUB_BASE_REF")"
   echo "GITHUB_SHA_SHORT=$(short_sha "$GITHUB_SHA")"
 } >>"$GITHUB_ENV"
+
+echo "::warning ::This version is deprecated, please use 'rlespinasse/github-slug-action@v3.x' instead"
