@@ -1,3 +1,10 @@
+# [1.2.0](http://github.com/rlespinasse/github-slug-action/compare/1.1.1...1.2.0) (2021-04-05)
+
+
+### Features
+
+* add deprecation warning ([c9eec68](http://github.com/rlespinasse/github-slug-action/commit/c9eec68e1a02f91b77e9b978ad23527085244aaa))
+
 ## [1.1.1](http://github.com/rlespinasse/github-slug-action/compare/1.1.0...1.1.1) (2020-10-07)
 
 
