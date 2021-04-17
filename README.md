@@ -2,7 +2,7 @@
 
 [![Release][release-badge]][releases]
 ![Lint][lint-badge]
-[![Public workflows that use this action][who-use-it]][use-count-badge]
+[![Public workflows that use this action][use-count-badge]][who-use-it]
 [![Licence][license-badge]][license]
 
 This GitHub Action will expose the slug/short values of [some GitHub environment variables][github-env-vars] inside your GitHub workflow.
