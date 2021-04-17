@@ -1,7 +1,10 @@
 # GitHub Slug action
 
-[![Actions Status][1]][2]
-![GitHub Super-Linter][13]
+[![Release][release]][actions]
+[![Linux Usage][linux-use]][actions]
+[![MacOS Usage][macos-use]][actions]
+[![Windows][windows-use]][actions]
+![Lint][lint]
 [![Public workflows that use this action.][8]][9]
 [![Licence][11]][12]
 
@@ -166,8 +169,13 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 - [Github Actions : enfin des pipelines accessibles aux développeurs][16] (in french :fr:)
 - The next one is you. _Don't hesitate to add you to this list._
 
-[1]: https://github.com/rlespinasse/github-slug-action/workflows/Build/badge.svg
-[2]: https://github.com/rlespinasse/github-slug-action/actions
+[actions]: https://github.com/rlespinasse/github-slug-action/actions
+[release]: https://github.com/rlespinasse/github-slug-action/workflows/Release/badge.svg
+[linux-use]: https://github.com/rlespinasse/github-slug-action/workflows/Use%20on%20Linux/badge.svg
+[macos-use]: https://github.com/rlespinasse/github-slug-action/workflows/Use%20on%20MacOS/badge.svg
+[windows-use]: https://github.com/rlespinasse/github-slug-action/workflows/Use%20on%20Windows/badge.svg
+[lint]: https://github.com/rlespinasse/github-slug-action/workflows/Lint/badge.svg
+
 [3]: https://github.com/rlespinasse/github-slug-action/tree/v3.x/examples
 [4]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
 [5]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
@@ -178,7 +186,6 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][6])
 [10]: https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
 [11]: https://img.shields.io/github/license/rlespinasse/github-slug-action
 [12]: https://github.com/rlespinasse/github-slug-action/blob/v3.x/LICENSE
-[13]: https://github.com/rlespinasse/github-slug-action/workflows/Lint/badge.svg
 [14]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot
 [15]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
 [16]: https://www.youtube.com/watch?v=RHnTJBwcE98

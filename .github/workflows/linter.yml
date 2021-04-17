@@ -5,6 +5,8 @@ on:
     branches:
       - v3.x
   pull_request:
+    branches:
+      - v3.x
 
 jobs:
   lint:
@@ -12,13 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - uses: technote-space/auto-cancel-redundant-workflow@v1
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Lint Code Base
-        uses: github/super-linter@v3
+      - uses: github/super-linter@v3
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_JAVASCRIPT_STANDARD: false
