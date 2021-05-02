@@ -18,6 +18,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [Slug variables](#slug-variables)
     - [Slug URL variables](#slug-url-variables)
     - [Short variables](#short-variables)
+    - [Custom variables](#custom-variables)
   - [Contribute](#contribute)
   - [Troubleshooting](#troubleshooting)
     - [One of environement variable don't work as intended](#one-of-environement-variable-dont-work-as-intended)
@@ -107,6 +108,31 @@ Check for more [examples][examples] (OS usage, URL use, ...)
 | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [GITHUB_SHA_SHORT](docs/short-variables.md#github_sha_short)                                                         | GITHUB_SHA                                   | The commit SHA that triggered the workflow.                                                                                                                                                                                           |
 | [GITHUB_EVENT<br>_PULL_REQUEST<br>_HEAD_SHA_SHORT](docs/short-variables.md#github_event_pull_request_head_sha_short) | _github.event<br>.pull_request<br>.head.sha_ | The commit SHA on pull request that trigger workflow.<br>Only set for [following webhook events][4]<ul><li>`pull_request`</li><li>`pull_request_review`</li><li>`pull_request_review_comment`</li><li>`pull_request_target`</li></ul> |
+
+### Custom variables
+
+If you need `slug` or `short` versions of other environment values, you can use the following snippets
+
+- To get access to
+
+  - `<VAR>_SLUG`
+  - `<VAR>_SLUG_URL`
+  - `<VAR>_SLUG_CS`
+  - `<VAR>_SLUG_URL_CS`
+
+  ```yaml
+  - uses: rlespinasse/github-slug-action@v3.x
+    with:
+      custom_slugs: "SOME_VARIABLE,ANOTHER_VARIABLE"
+  ```
+
+- To get access to `<VAR>_SHORT`
+
+  ```yaml
+  - uses: rlespinasse/github-slug-action@v3.x
+    with:
+      custom_shorts: "SOME_VARIABLE,ANOTHER_VARIABLE"
+  ```
 
 ## Contribute
 
