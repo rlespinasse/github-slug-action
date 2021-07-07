@@ -1,9 +1,16 @@
 name: "GitHub Slug Action"
 description: "GitHub Action to expose slug value of environment variables inside your GitHub workflow"
-author: 'rlespinasse'
+author: "rlespinasse"
+inputs:
+  custom_slugs:
+    description: List of environment variables to be slugify (separated by comma)
+    required: false
+  custom_shorts:
+    description: List of environment variables to be shorted (separated by comma)
+    required: false
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
 branding:
   icon: "minimize"
   color: "blue"

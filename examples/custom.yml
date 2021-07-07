@@ -1,0 +1,42 @@
+name: Custom environment variables
+
+on: push
+
+jobs:
+  custom_slugs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rlespinasse/github-slug-action@v3.x
+        with:
+          custom_slugs: "SOME_VARIABLE,ANOTHER_VARIABLE"
+        env:
+          SOME_VARIABLE: Some Value
+          ANOTHER_VARIABLE: Another Value
+      - run: |
+          echo "SOME_VARIABLE"
+          echo "  Slug                    : ${{ env.SOME_VARIABLE_SLUG }}"
+          echo "  Slug URL                : ${{ env.SOME_VARIABLE_SLUG_URL }}"
+          echo "  Slug Case-Sensitive     : ${{ env.SOME_VARIABLE_SLUG_CS }}"
+          echo "  Slug URL Case-Sensitive : ${{ env.SOME_VARIABLE_SLUG_URL_CS }}"
+          echo "ANOTHER_VARIABLE"
+          echo "  Slug                    : ${{ env.ANOTHER_VARIABLE_SLUG }}"
+          echo "  Slug URL                : ${{ env.ANOTHER_VARIABLE_SLUG_URL }}"
+          echo "  Slug Case-Sensitive     : ${{ env.ANOTHER_VARIABLE_SLUG_CS }}"
+          echo "  Slug URL Case-Sensitive : ${{ env.ANOTHER_VARIABLE_SLUG_URL_CS }}"
+
+  custom_short:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rlespinasse/github-slug-action@v3.x
+        with:
+          custom_shorts: "SOME_VARIABLE,ANOTHER_VARIABLE"
+        env:
+          SOME_VARIABLE: Some Value
+          ANOTHER_VARIABLE: Another Value
+      - run: |
+          echo "SOME_VARIABLE"
+          echo "  Short : ${{ env.SOME_VARIABLE_SHORT }}"
+          echo "ANOTHER_VARIABLE"
+          echo "  Short : ${{ env.ANOTHER_VARIABLE_SHORT }}"
