@@ -20,7 +20,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [Short variables](#short-variables)
   - [Contribute](#contribute)
   - [Troubleshooting](#troubleshooting)
-    - [One of environement variables doesn't work as intended](#one-of-environement-variable-dont-work-as-intended)
+    - [One of environement variables doesn't work as intended](#one-of-environement-variables-doesnt-work-as-intended)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
