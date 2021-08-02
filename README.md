@@ -20,7 +20,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [Short variables](#short-variables)
   - [Contribute](#contribute)
   - [Troubleshooting](#troubleshooting)
-    - [One of environement variable don't work as intended](#one-of-environement-variable-dont-work-as-intended)
+    - [One of environement variables doesn't work as intended](#one-of-environement-variable-dont-work-as-intended)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
@@ -114,11 +114,11 @@ Follow [Developers guide](DEVELOPERS.md)
 
 ## Troubleshooting
 
-### One of environement variable don't work as intended
+### One of environement variables doesn't work as intended
 
 [**Note**][naming-conventions]: GitHub reserves the `GITHUB_` environment variable prefix for internal use by GitHub. Setting an environment variable or secret with the `GITHUB_` prefix will result in an error.
 
-Currently, a GitHub workflow setting a `GITHUB_` variable don't ended up in error.
+Currently, a GitHub workflow setting a `GITHUB_` variable will not cause an error, it will just fail silently.
 And if a custom `GITHUB_` variable is in conflict with an official `GITHUB_` variable, the offical `GITHUB_` variable will override custom one.
 
 <details>
@@ -154,9 +154,9 @@ Download action repository 'rlespinasse/github-slug-action@master'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
 ```
 
-> The master branch don't exists anymore.
+> The master branch doesn't exists anymore.
 >
-> The master branch EOL have been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][issue-15])
+> The master branch EOL has been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][issue-15])
 
 Please, use the current branch `v3.x` or a version tag (see [releases pages][releases]) in order to fix your workflow.
 
@@ -164,7 +164,7 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][rel
 
 - [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][article-1] (in french :fr:)
 - [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1] (in french :fr:)
-- The next one is you. _Don't hesitate to add you to this list._
+- The next one is you. _Don't hesitate to add youself to this list._
 
 [release-badge]: https://img.shields.io/github/workflow/status/rlespinasse/github-slug-action/Release?label=Build&logo=github&style=flat-square
 [lint-badge]: https://img.shields.io/github/workflow/status/rlespinasse/github-slug-action/Lint?label=Lint&logo=github&style=flat-square
