@@ -20,7 +20,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [Short variables](#short-variables)
   - [Contribute](#contribute)
   - [Troubleshooting](#troubleshooting)
-    - [One of environement variables doesn't work as intended](#one-of-environement-variables-doesnt-work-as-intended)
+    - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
@@ -114,7 +114,7 @@ Follow [Developers guide](DEVELOPERS.md)
 
 ## Troubleshooting
 
-### One of environement variables doesn't work as intended
+### One of the environment variables doesn't work as intended
 
 [**Note**][naming-conventions]: GitHub reserves the `GITHUB_` environment variable prefix for internal use by GitHub. Setting an environment variable or secret with the `GITHUB_` prefix will result in an error.
 
