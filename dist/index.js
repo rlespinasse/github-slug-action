@@ -111,6 +111,10 @@ const GITHUB_EVENT_PATH = 'GITHUB_EVENT_PATH';
 const GITHUB_REPOSITORY_OWNER_PART = 'GITHUB_REPOSITORY_OWNER_PART';
 const GITHUB_REPOSITORY_NAME_PART = 'GITHUB_REPOSITORY_NAME_PART';
 /**
+ * New environments variables keys
+ */
+const GITHUB_BRANCH_NAME = 'GITHUB_BRANCH_NAME';
+/**
  * Slugged outputs environments variables keys
  */
 const GITHUB_REPOSITORY_SLUG = 'GITHUB_REPOSITORY_SLUG';
@@ -127,6 +131,8 @@ const GITHUB_BASE_REF_SLUG = 'GITHUB_BASE_REF_SLUG';
 const GITHUB_BASE_REF_SLUG_CS = 'GITHUB_BASE_REF_SLUG_CS';
 const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
 const GITHUB_EVENT_REF_SLUG_CS = 'GITHUB_EVENT_REF_SLUG_CS';
+const GITHUB_BRANCH_NAME_SLUG = 'GITHUB_BRANCH_NAME_SLUG';
+const GITHUB_BRANCH_NAME_SLUG_CS = 'GITHUB_BRANCH_NAME_SLUG_CS';
 /**
  * URL-Slugged outputs environments variables keys
  */
@@ -144,6 +150,8 @@ const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL';
 const GITHUB_BASE_REF_SLUG_URL_CS = 'GITHUB_BASE_REF_SLUG_URL_CS';
 const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL';
 const GITHUB_EVENT_REF_SLUG_URL_CS = 'GITHUB_EVENT_REF_SLUG_URL_CS';
+const GITHUB_BRANCH_NAME_SLUG_URL = 'GITHUB_BRANCH_NAME_SLUG_URL';
+const GITHUB_BRANCH_NAME_SLUG_URL_CS = 'GITHUB_BRANCH_NAME_SLUG_URL_CS';
 /**
  * Shorted outputs environments variables keys
  */
@@ -192,6 +200,7 @@ function run() {
             exportSlugUrlRef(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_URL);
             exportSlugUrlRefCS(GITHUB_BASE_REF, GITHUB_BASE_REF_SLUG_URL_CS);
             exportShortSha(GITHUB_SHA, GITHUB_SHA_SHORT);
+            exportBranchName();
         }
         catch (error) {
             core.setFailed(error.message);
@@ -253,14 +262,20 @@ function exportSecondPartSlug(inputKey, separator, outputKey) {
 function exportSlugRefCS(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slugref_cs(envVar));
+        exportSlugRefCSValue(envVar, outputKey);
     }
+}
+function exportSlugRefCSValue(envVar, outputKey) {
+    core.exportVariable(outputKey, slug_1.slugref_cs(envVar));
 }
 function exportSlugRef(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slugref(envVar));
+        exportSlugRefValue(envVar, outputKey);
     }
+}
+function exportSlugRefValue(envVar, outputKey) {
+    core.exportVariable(outputKey, slug_1.slugref(envVar));
 }
 function exportSlugUrlCS(inputKey, outputKey) {
     const envVar = process.env[inputKey];
@@ -305,19 +320,43 @@ function exportSecondPartSlugUrl(inputKey, separator, outputKey) {
 function exportSlugUrlRefCS(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slugurlref_cs(envVar));
+        exportSlugUrlRefCSValue(envVar, outputKey);
     }
+}
+function exportSlugUrlRefCSValue(envVar, outputKey) {
+    core.exportVariable(outputKey, slug_1.slugurlref_cs(envVar));
 }
 function exportSlugUrlRef(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slugurlref(envVar));
+        exportSlugUrlRefValue(envVar, outputKey);
     }
+}
+function exportSlugUrlRefValue(envVar, outputKey) {
+    core.exportVariable(outputKey, slug_1.slugurlref(envVar));
 }
 function exportShortSha(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
         core.exportVariable(outputKey, short_1.shortsha(envVar));
+    }
+}
+function exportBranchName() {
+    //GITHUB_HEAD_REF is only set for pull request events https://docs.github.com/en/actions/reference/environment-variables
+    const isPullRequest = !!process.env.GITHUB_HEAD_REF;
+    let branchName;
+    if (isPullRequest) {
+        branchName = process.env.GITHUB_HEAD_REF;
+    }
+    else {
+        branchName = process.env.GITHUB_REF;
+    }
+    if (branchName) {
+        core.exportVariable(GITHUB_BRANCH_NAME, branchName);
+        exportSlugRefValue(branchName, GITHUB_BRANCH_NAME_SLUG);
+        exportSlugRefCSValue(branchName, GITHUB_BRANCH_NAME_SLUG_CS);
+        exportSlugUrlRefValue(branchName, GITHUB_BRANCH_NAME_SLUG_URL);
+        exportSlugUrlRefCSValue(branchName, GITHUB_BRANCH_NAME_SLUG_URL_CS);
     }
 }
 run();
@@ -435,6 +474,7 @@ exports.getInput = getInput;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setOutput(name, value) {
+    process.stdout.write(os.EOL);
     command_1.issueCommand('set-output', { name }, value);
 }
 exports.setOutput = setOutput;

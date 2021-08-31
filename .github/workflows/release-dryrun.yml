@@ -18,7 +18,7 @@ jobs:
         with:
           branches: |
             [
-              "${{ env.GITHUB_REF_SLUG }}"
+              "${{ env.GITHUB_BRANCH_NAME }}"
             ]
           dry_run: true
         env:

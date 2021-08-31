@@ -41,6 +41,10 @@ jobs:
           echo "Short SHA variables"
           echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
           echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+          echo "Branch Name"
+          echo "   raw                 : ${{ env.GITHUB_BRANCH_NAME }}"
+          echo "   slug                : ${{ env.GITHUB_BRANCH_NAME_SLUG }}"
+          echo "   slug url            : ${{ env.GITHUB_BRANCH_NAME_SLUG_URL }}"
       - name: Case Sensitive Output
         run: |
           echo "Slug variables"
@@ -59,6 +63,9 @@ jobs:
           echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}"
           echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}"
           echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}"
+          echo "Branch Name"
+          echo "   slug                : ${{ env.GITHUB_BRANCH_NAME_SLUG_CS }}"
+          echo "   slug url            : ${{ env.GITHUB_BRANCH_NAME_SLUG_URL_CS }}"
 
   use-on-macos:
     runs-on: macos-latest
@@ -92,6 +99,10 @@ jobs:
           echo "Short SHA variables"
           echo "   sha                 : ${{ env.GITHUB_SHA_SHORT }}"
           echo "   pull request sha    : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+          echo "Branch Name"
+          echo "   raw                 : ${{ env.GITHUB_BRANCH_NAME }}"
+          echo "   slug                : ${{ env.GITHUB_BRANCH_NAME_SLUG }}"
+          echo "   slug url            : ${{ env.GITHUB_BRANCH_NAME_SLUG_URL }}"
       - name: Case Sensitive Output
         run: |
           echo "Slug variables"
@@ -110,6 +121,9 @@ jobs:
           echo "   head ref            : ${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}"
           echo "   base ref            : ${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}"
           echo "   event ref           : ${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}"
+          echo "Branch Name"
+          echo "   slug                : ${{ env.GITHUB_BRANCH_NAME_SLUG_CS }}"
+          echo "   slug url            : ${{ env.GITHUB_BRANCH_NAME_SLUG_URL_CS }}"
 
   use-on-windows:
     runs-on: windows-latest
@@ -143,6 +157,10 @@ jobs:
           echo "Short SHA variables"
           echo "   sha                 : $env:GITHUB_SHA_SHORT"
           echo "   pull request sha    : $env:GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT"
+          echo "Branch Name"
+          echo "   raw                 : $env:GITHUB_BRANCH_NAME"
+          echo "   slug                : $env:GITHUB_BRANCH_NAME_SLUG"
+          echo "   slug url            : $env:GITHUB_BRANCH_NAME_SLUG_URL"
       - name: Case Sensitive Output
         run: |
           echo "Slug variables"
@@ -161,3 +179,6 @@ jobs:
           echo "   head ref            : $env:GITHUB_HEAD_REF_SLUG_URL_CS"
           echo "   base ref            : $env:GITHUB_BASE_REF_SLUG_URL_CS"
           echo "   event ref           : $env:GITHUB_EVENT_REF_SLUG_URL_CS"
+          echo "Branch Name"
+          echo "   slug                : $env:GITHUB_BRANCH_NAME_SLUG_CS"
+          echo "   slug url            : $env:GITHUB_BRANCH_NAME_SLUG_URL_CS"
