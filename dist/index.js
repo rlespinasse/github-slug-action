@@ -113,7 +113,7 @@ const GITHUB_REPOSITORY_NAME_PART = 'GITHUB_REPOSITORY_NAME_PART';
 /**
  * New environments variables keys
  */
-const GITHUB_BRANCH_NAME = 'GITHUB_BRANCH_NAME';
+const GITHUB_REF_NAME = 'GITHUB_REF_NAME';
 /**
  * Slugged outputs environments variables keys
  */
@@ -131,8 +131,8 @@ const GITHUB_BASE_REF_SLUG = 'GITHUB_BASE_REF_SLUG';
 const GITHUB_BASE_REF_SLUG_CS = 'GITHUB_BASE_REF_SLUG_CS';
 const GITHUB_EVENT_REF_SLUG = 'GITHUB_EVENT_REF_SLUG';
 const GITHUB_EVENT_REF_SLUG_CS = 'GITHUB_EVENT_REF_SLUG_CS';
-const GITHUB_BRANCH_NAME_SLUG = 'GITHUB_BRANCH_NAME_SLUG';
-const GITHUB_BRANCH_NAME_SLUG_CS = 'GITHUB_BRANCH_NAME_SLUG_CS';
+const GITHUB_REF_NAME_SLUG = 'GITHUB_REF_NAME_SLUG';
+const GITHUB_REF_NAME_SLUG_CS = 'GITHUB_REF_NAME_SLUG_CS';
 /**
  * URL-Slugged outputs environments variables keys
  */
@@ -150,8 +150,8 @@ const GITHUB_BASE_REF_SLUG_URL = 'GITHUB_BASE_REF_SLUG_URL';
 const GITHUB_BASE_REF_SLUG_URL_CS = 'GITHUB_BASE_REF_SLUG_URL_CS';
 const GITHUB_EVENT_REF_SLUG_URL = 'GITHUB_EVENT_REF_SLUG_URL';
 const GITHUB_EVENT_REF_SLUG_URL_CS = 'GITHUB_EVENT_REF_SLUG_URL_CS';
-const GITHUB_BRANCH_NAME_SLUG_URL = 'GITHUB_BRANCH_NAME_SLUG_URL';
-const GITHUB_BRANCH_NAME_SLUG_URL_CS = 'GITHUB_BRANCH_NAME_SLUG_URL_CS';
+const GITHUB_REF_NAME_SLUG_URL = 'GITHUB_REF_NAME_SLUG_URL';
+const GITHUB_REF_NAME_SLUG_URL_CS = 'GITHUB_REF_NAME_SLUG_URL_CS';
 /**
  * Shorted outputs environments variables keys
  */
@@ -344,19 +344,19 @@ function exportShortSha(inputKey, outputKey) {
 function exportBranchName() {
     //GITHUB_HEAD_REF is only set for pull request events https://docs.github.com/en/actions/reference/environment-variables
     const isPullRequest = !!process.env.GITHUB_HEAD_REF;
-    let branchName;
+    let refName;
     if (isPullRequest) {
-        branchName = process.env.GITHUB_HEAD_REF;
+        refName = process.env.GITHUB_HEAD_REF;
     }
     else {
-        branchName = process.env.GITHUB_REF;
+        refName = process.env.GITHUB_REF;
     }
-    if (branchName) {
-        core.exportVariable(GITHUB_BRANCH_NAME, branchName);
-        exportSlugRefValue(branchName, GITHUB_BRANCH_NAME_SLUG);
-        exportSlugRefCSValue(branchName, GITHUB_BRANCH_NAME_SLUG_CS);
-        exportSlugUrlRefValue(branchName, GITHUB_BRANCH_NAME_SLUG_URL);
-        exportSlugUrlRefCSValue(branchName, GITHUB_BRANCH_NAME_SLUG_URL_CS);
+    if (refName) {
+        core.exportVariable(GITHUB_REF_NAME, refName);
+        exportSlugRefValue(refName, GITHUB_REF_NAME_SLUG);
+        exportSlugRefCSValue(refName, GITHUB_REF_NAME_SLUG_CS);
+        exportSlugUrlRefValue(refName, GITHUB_REF_NAME_SLUG_URL);
+        exportSlugUrlRefCSValue(refName, GITHUB_REF_NAME_SLUG_URL_CS);
     }
 }
 run();
@@ -778,7 +778,7 @@ exports.get_second_part = get_second_part;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.slugurlref = exports.slugurlref_cs = exports.slugurl = exports.slugurl_cs = exports.slugref = exports.slugref_cs = exports.slug = exports.slug_cs = void 0;
+exports.removeRef = exports.slugurlref = exports.slugurlref_cs = exports.slugurl = exports.slugurl_cs = exports.slugref = exports.slugref_cs = exports.slug = exports.slug_cs = void 0;
 const MAX_SLUG_STRING_SIZE = 63;
 /**
  * slug_cs will take envVar and then :
@@ -888,6 +888,7 @@ function replaceAnyNonUrlCharactersWithHyphen(envVar) {
 function removeRef(envVar) {
     return envVar.replace(RegExp('^refs/(heads|tags|pull)/'), '');
 }
+exports.removeRef = removeRef;
 
 
 /***/ }),
