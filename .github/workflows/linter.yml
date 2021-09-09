@@ -10,6 +10,10 @@ on:
 
 jobs:
   lint:
+    permissions:
+      actions: write
+      contents: read
+      statuses: write
     name: Lint
     runs-on: ubuntu-latest
 
