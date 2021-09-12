@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import {
+  removeRef,
   slug,
   slug_cs,
   slugref,

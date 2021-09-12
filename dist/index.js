@@ -352,7 +352,7 @@ function exportBranchName() {
         refName = process.env.GITHUB_REF;
     }
     if (refName) {
-        core.exportVariable(GITHUB_REF_NAME, refName);
+        core.exportVariable(GITHUB_REF_NAME, slug_1.removeRef(refName));
         exportSlugRefValue(refName, GITHUB_REF_NAME_SLUG);
         exportSlugRefCSValue(refName, GITHUB_REF_NAME_SLUG_CS);
         exportSlugUrlRefValue(refName, GITHUB_REF_NAME_SLUG_URL);
