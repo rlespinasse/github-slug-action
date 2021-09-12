@@ -389,7 +389,7 @@ function exportBranchName(): void {
     branchName = process.env.GITHUB_REF
   }
   if (branchName) {
-    core.exportVariable(GITHUB_BRANCH_NAME, branchName)
+    core.exportVariable(GITHUB_BRANCH_NAME, removeRef(branchName))
     exportSlugRefValue(branchName, GITHUB_BRANCH_NAME_SLUG)
     exportSlugRefCSValue(branchName, GITHUB_BRANCH_NAME_SLUG_CS)
     exportSlugUrlRefValue(branchName, GITHUB_BRANCH_NAME_SLUG_URL)
