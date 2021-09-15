@@ -111,6 +111,6 @@ function replaceAnyNonUrlCharactersWithHyphen(envVar: string): string {
   return envVar.replace(RegExp('[._]', 'g'), '-')
 }
 
-function removeRef(envVar: string): string {
+export function removeRef(envVar: string): string {
   return envVar.replace(RegExp('^refs/(heads|tags|pull)/'), '')
 }
