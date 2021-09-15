@@ -70,7 +70,7 @@ Check for more [examples][examples] (OS usage, URL use, ...)
 
 ### Enhanced variables
 
-- `GITHUB_BRANCH_NAME` will contains the branch name
+- `GITHUB_REF_NAME` will contains the reference name (branch or tag)
   - based on `GITHUB_HEAD_REF` in a [`pull-request*`][webhooks-and-events] event context,
   - based on `GITHUB_REF` in others event context.
 
