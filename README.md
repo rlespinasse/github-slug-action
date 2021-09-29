@@ -174,6 +174,7 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][rel
 
 - [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][article-1] (in french :fr:)
 - [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1] (in french :fr:)
+- [Action spotlight by Michael Heap][article-2]
 - The next one is you. _Don't hesitate to add youself to this list._
 
 [release-badge]: https://img.shields.io/github/workflow/status/rlespinasse/github-slug-action/Release?label=Build&logo=github&style=flat-square
@@ -193,4 +194,5 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][rel
 [naming-conventions]: https://docs.github.com/en/actions/reference/environment-variables#naming-conventions-for-environment-variables
 
 [article-1]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
+[article-2]: https://michaelheap.com/github-slug-action/
 [talk-1]: https://www.youtube.com/watch?v=RHnTJBwcE98
