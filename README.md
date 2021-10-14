@@ -3,6 +3,7 @@
 [![Release][release-badge]][releases]
 ![Lint][lint-badge]
 [![Licence][license-badge]][license]
+test
 
 This GitHub Action will expose the slug/short values of [some GitHub environment variables][github-env-vars] inside your GitHub workflow.
 
