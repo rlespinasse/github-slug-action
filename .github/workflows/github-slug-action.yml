@@ -1,0 +1,128 @@
+name: Github Slug Action testing
+on: [push, pull_request]
+jobs:
+  os-testing:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    concurrency:
+      group: os-testing-${{ github.ref }}-${{ github.event_name }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Load using v3.x
+        uses: rlespinasse/github-slug-action@v3.x
+      - name: Load using v4.x with prefix
+        uses: ./
+        with:
+          prefix: V4_
+      - name: Validate // Partial variables
+        run: |
+          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART }}"
+          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART }}"
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART }}" ]]
+        shell: bash
+      - name: Validate // Slug variables
+        run: |
+          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG }}"
+          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG }}"
+          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG }}"
+          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG }}"
+          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG }}"
+          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG }}"
+          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG }}"
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG }}" == "${{ env.V4_GITHUB_REF_SLUG }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG }}" ]]
+        shell: bash
+      - name: Validate // Slug variables (Case Sensitive)
+        run: |
+          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG_CS }}"
+          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}"
+          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}"
+          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG_CS }}"
+          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG_CS }}"
+          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG_CS }}"
+          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG_CS }}"
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_CS }}" ]]
+        shell: bash
+      - name: Validate // Slug URL variables
+        run: |
+          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG_URL }}"
+          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}"
+          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}"
+          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG_URL }}"
+          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG_URL }}"
+          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG_URL }}"
+          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG_URL }}"
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_URL }}" ]]
+        shell: bash
+      - name: Validate // Slug URL variables (Case Sensitive)
+        run: |
+          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG_URL_CS }}"
+          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}"
+          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}"
+          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG_URL_CS }}"
+          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG_URL_CS }}"
+          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG_URL_CS }}"
+          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG_URL_CS }}"
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_URL_CS }}" ]]
+        shell: bash
+      - name: Validate // Ref Name
+        run: |
+          echo "raw                       : ${{ env.V4_GITHUB_REF_NAME }}"
+          echo "slug                      : ${{ env.V4_GITHUB_REF_NAME_SLUG }}"
+          echo "slug url                  : ${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}"
+          echo "slug (Case Sensitive)     : ${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}"
+          echo "slug url (Case Sensitive) : ${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}"
+          [[ "${{ env.GITHUB_REF_NAME }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
+        shell: bash
+      - name: Print // Short SHA variables
+        run: |
+          echo "sha              : ${{ env.V4_GITHUB_SHA_SHORT }}"
+          echo "pull request sha : ${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+        shell: bash
+
+  # TODO uncomment when ready to release on v4.x branch
+  #release:
+  #  runs-on: ubuntu-latest
+  #  concurrency:
+  #    group: release-${{ github.ref }}-${{ github.event_name }}
+  #  needs: os-testing
+  #  steps:
+  #    - name: Checkout
+  #      uses: actions/checkout@v2
+  #    - name: Release this GitHub Action
+  #      uses: rlespinasse/release-that@v1.x
+  #      with:
+  #        without-prefix: true
