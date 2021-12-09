@@ -57,7 +57,7 @@ Add this in your workflow
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v3.x
+  uses: rlespinasse/github-slug-action@v4.x
 ```
 
 Check for more [examples][examples] (OS usage, URL use, ...)
@@ -143,10 +143,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${GITHUB_REF}
-      # print "refs/heads/v3.x"
+      # print "refs/heads/v4.x"
       - run: echo "GITHUB_REF=one_value" >> "$GITHUB_ENV"
       - run: echo ${GITHUB_REF}
-      # print "refs/heads/v3.x"
+      # print "refs/heads/v4.x"
       - run: echo "GITHUB_REF_SLUG=another_value" >> "$GITHUB_ENV"
       - run: echo ${GITHUB_REF_SLUG}
       # print "another_value"
@@ -168,7 +168,7 @@ Download action repository 'rlespinasse/github-slug-action@master'
 >
 > The master branch EOL has been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][issue-15])
 
-Please, use the current branch `v3.x` or a version tag (see [releases pages][releases]) in order to fix your workflow.
+Please, use the current branch `v4.x` or a version tag (see [releases pages][releases]) in order to fix your workflow.
 
 ## Thanks for talking about us
 
@@ -182,8 +182,8 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][rel
 [license-badge]: https://img.shields.io/github/license/rlespinasse/github-slug-action?style=flat-square
 
 [actions]: https://github.com/rlespinasse/github-slug-action/actions
-[license]: https://github.com/rlespinasse/github-slug-action/blob/v3.x/LICENSE
-[examples]: https://github.com/rlespinasse/github-slug-action/tree/v3.x/examples
+[license]: https://github.com/rlespinasse/github-slug-action/blob/v4.x/LICENSE
+[examples]: https://github.com/rlespinasse/github-slug-action/tree/v4.x/examples
 [custom-variable]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [releases]: https://github.com/rlespinasse/github-slug-action/releases
 [issue-15]: https://github.com/rlespinasse/github-slug-action/issues/15
