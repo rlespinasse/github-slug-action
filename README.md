@@ -18,7 +18,6 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [Slug variables](#slug-variables)
     - [Slug URL variables](#slug-url-variables)
     - [Short variables](#short-variables)
-  - [Contribute](#contribute)
   - [Troubleshooting](#troubleshooting)
     - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
@@ -58,6 +57,15 @@ Add this in your workflow
 ```yaml
 - name: Inject slug/short variables
   uses: rlespinasse/github-slug-action@v4.x
+```
+
+Or with a prefix
+
+```yaml
+- name: Inject slug/short variables
+  uses: rlespinasse/github-slug-action@v4.x
+  with:
+    prefix: CI_
 ```
 
 Check for more [examples][examples] (OS usage, URL use, ...)
@@ -117,10 +125,6 @@ Check for more [examples][examples] (OS usage, URL use, ...)
 | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [GITHUB_SHA_SHORT](docs/short-variables.md#github_sha_short)                                                         | GITHUB_SHA                                   | The commit SHA that triggered the workflow.                                                                                                                                                                                                             |
 | [GITHUB_EVENT<br>_PULL_REQUEST<br>_HEAD_SHA_SHORT](docs/short-variables.md#github_event_pull_request_head_sha_short) | _github.event<br>.pull_request<br>.head.sha_ | The commit SHA on pull request that trigger workflow.<br>Only set for [following webhook events][webhooks-and-events]<ul><li>`pull_request`</li><li>`pull_request_review`</li><li>`pull_request_review_comment`</li><li>`pull_request_target`</li></ul> |
-
-## Contribute
-
-Follow [Developers guide](DEVELOPERS.md)
 
 ## Troubleshooting
 
