@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: rlespinasse/github-slug-action@v3.x
+      - uses: rlespinasse/github-slug-action@v4.x
       - run: |
           ./deploy-application.sh --url "https://${{ env.GITHUB_REF_SLUG_URL }}.staging.app.example.com"
 
@@ -15,6 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: rlespinasse/github-slug-action@v3.x
+      - uses: rlespinasse/github-slug-action@v4.x
       - run: |
           ./deploy-application.sh --url "https://staging.app.example.com/${{ env.GITHUB_REF_SLUG_URL }}"
