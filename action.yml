@@ -4,6 +4,11 @@ author: "Romain Lespinasse"
 branding:
   icon: "minimize"
   color: "blue"
+inputs:
+  prefix:
+    description: "Value to prepend to each generated variable"
+    default: ""
+    required: false
 runs:
   using: "composite"
   steps:
@@ -11,21 +16,26 @@ runs:
       with:
         key: GITHUB_REPOSITORY
         value: ${{ github.repository }}
+        prefix: ${{ inputs.prefix }}
     - uses: rlespinasse/slugify-value@v1.1.0
       with:
         key: GITHUB_REF
+        prefix: ${{ inputs.prefix }}
     - uses: rlespinasse/slugify-value@v1.1.0
       with:
         key: GITHUB_HEAD_REF
+        prefix: ${{ inputs.prefix }}
     - uses: rlespinasse/slugify-value@v1.1.0
       with:
         key: GITHUB_BASE_REF
+        prefix: ${{ inputs.prefix }}
 
     # Specific values
     - uses: rlespinasse/slugify-value@v1.1.0
       with:
         key: GITHUB_EVENT_REF
         value: ${{ github.event.ref }}
+        prefix: ${{ inputs.prefix }}
 
     # Calculated values
     - id: get-github-ref-name
@@ -35,6 +45,7 @@ runs:
       with:
         key: GITHUB_REF_NAME
         value: ${{ steps.get-github-ref-name.outputs.github-ref-name }}
+        prefix: ${{ inputs.prefix }}
     - id: get-github-repository-owner-part
       run: echo "::set-output name=github-repository-owner-part::$(echo $GITHUB_REPOSITORY | cut -d/ -f1)"
       shell: bash
@@ -42,6 +53,7 @@ runs:
       with:
         key: GITHUB_REPOSITORY_OWNER_PART
         value: ${{ steps.get-github-repository-owner-part.outputs.github-repository-owner-part }}
+        prefix: ${{ inputs.prefix }}
     - id: get-github-repository-name-part
       run: echo "::set-output name=github-repository-name-part::$(echo $GITHUB_REPOSITORY | cut -d/ -f2)"
       shell: bash
@@ -49,14 +61,17 @@ runs:
       with:
         key: GITHUB_REPOSITORY_NAME_PART
         value: ${{ steps.get-github-repository-name-part.outputs.github-repository-name-part }}
+        prefix: ${{ inputs.prefix }}
 
     # Short
     - uses: rlespinasse/shortify-git-revision@v1.2.0
       with:
         name: GITHUB_SHA
         continue-on-error: true
+        prefix: ${{ inputs.prefix }}
     - uses: rlespinasse/shortify-git-revision@v1.2.0
       with:
         name: GITHUB_EVENT_PULL_REQUEST_HEAD_SHA
         revision: ${{ github.event.pull_request.head.sha }}
         continue-on-error: true
+        prefix: ${{ inputs.prefix }}
