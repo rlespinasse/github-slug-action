@@ -161,18 +161,19 @@ jobs:
 
 ### An action could not be found at the URI
 
-If your workflow fail on the `Set up job` task with this kind of log :
+If your workflow fail on the `Set up job` task with this kind of log
 
 ```text
-Download action repository 'rlespinasse/github-slug-action@master'
-##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/master'
+Download action repository 'rlespinasse/github-slug-action@GIT_REFERENCE'
+##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/GIT_REFERENCE'
 ```
 
-> The master branch doesn't exists anymore.
->
-> The master branch EOL has been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][issue-15])
+If the `GIT_REFERENCE` value is 
 
-Please, use the current branch tag `v4`, branch `v4.x` or a version tag (see [releases pages][releases]) in order to fix your workflow.
+- `v4.x` or after, the branch don't exists anymore following the [end-of-life for a branch](SECURITY.md#end-of-life-of-a-branch) security process.
+- `master`, the branch don't exists anymore, read more about it on the corresponding issue ([EOL issue][issue-15])
+
+Please, use the current major tag `v4` or a version tag (see [releases pages][releases]) in order to fix your workflow.
 
 ## Thanks for talking about us
 
