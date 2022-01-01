@@ -113,16 +113,15 @@ jobs:
           echo "pull request sha : ${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
         shell: bash
 
-  # TODO uncomment when ready to release on v4.x branch
-  #release:
-  #  runs-on: ubuntu-latest
-  #  concurrency:
-  #    group: release-${{ github.ref }}-${{ github.event_name }}
-  #  needs: os-testing
-  #  steps:
-  #    - name: Checkout
-  #      uses: actions/checkout@v2
-  #    - name: Release this GitHub Action
-  #      uses: rlespinasse/release-that@v1.x
-  #      with:
-  #        without-prefix: true
+  release:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: release-${{ github.ref }}-${{ github.event_name }}
+    needs: os-testing
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Release this GitHub Action
+        uses: rlespinasse/release-that@v1
+        with:
+          without-prefix: true

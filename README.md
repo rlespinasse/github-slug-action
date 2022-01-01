@@ -38,7 +38,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 
 - `SLUG_URL` on a variable to have a `slug` variable compliant to be used in an URL
   - Like `SLUG` but `.` is also replaced by `-`
-- `SHORT` on a variable will limit the string size to 8 characters
+- `SHORT` on a variable will limit the string size to ~8 characters
   - Useful for _sha_ value
 - `<KEY>_PART` on a variable will give a part of a variable defined by a key
   - Like `GITHUB_REPOSITORY_OWNER_PART` for the owner part of `GITHUB_REPOSITORY`
@@ -56,14 +56,14 @@ Add this in your workflow
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v4.x
+  uses: rlespinasse/github-slug-action@v4
 ```
 
 Or with a prefix
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v4.x
+  uses: rlespinasse/github-slug-action@v4
   with:
     prefix: CI_
 ```
@@ -172,7 +172,7 @@ Download action repository 'rlespinasse/github-slug-action@master'
 >
 > The master branch EOL has been set to **2020-10-25** after a 6-month deprecation period (more information on the [EOL issue][issue-15])
 
-Please, use the current branch `v4.x` or a version tag (see [releases pages][releases]) in order to fix your workflow.
+Please, use the current branch tag `v4`, branch `v4.x` or a version tag (see [releases pages][releases]) in order to fix your workflow.
 
 ## Thanks for talking about us
 
