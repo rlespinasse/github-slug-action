@@ -7,12 +7,9 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    concurrency:
-      group: os-testing-${{ github.ref }}-${{ github.event_name }}
-      cancel-in-progress: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Load using v3.x
         uses: rlespinasse/github-slug-action@v3.x
       - name: Load using v4.x with prefix
@@ -107,20 +104,50 @@ jobs:
           [[ "${{ env.GITHUB_REF_NAME_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
           [[ "${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
         shell: bash
-      - name: Print // Short SHA variables
+      - name: Validate // Short SHA variables
         run: |
           echo "sha              : ${{ env.V4_GITHUB_SHA_SHORT }}"
           echo "pull request sha : ${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+          [[ "${{ env.GITHUB_SHA_SHORT }}" == "${{ env.V4_GITHUB_SHA_SHORT }}" ]]
+          [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
+        shell: bash
+
+  os-testing-without-checkout:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: this-action
+          ref: ${{ github.ref }}
+      - name: Load using v3.x
+        uses: rlespinasse/github-slug-action@v3.x
+      - name: Load using v4.x with prefix
+        uses: ./this-action
+        with:
+          prefix: V4_
+      - name: Validate // Short SHA variables
+        run: |
+          echo "sha              : ${{ env.V4_GITHUB_SHA_SHORT }}"
+          echo "pull request sha : ${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+          [[ "${{ env.GITHUB_SHA_SHORT }}" == "${{ env.V4_GITHUB_SHA_SHORT }}" ]]
+          [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
         shell: bash
 
   release:
     runs-on: ubuntu-latest
     concurrency:
       group: release-${{ github.ref }}-${{ github.event_name }}
-    needs: os-testing
+    needs:
+      - os-testing
+      - os-testing-without-checkout
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Release this GitHub Action
         uses: rlespinasse/release-that@v1
         with:
