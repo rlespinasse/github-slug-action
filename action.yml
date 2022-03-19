@@ -64,14 +64,16 @@ runs:
         prefix: ${{ inputs.prefix }}
 
     # Short
-    - uses: rlespinasse/shortify-git-revision@v1.3.0
+    - uses: rlespinasse/shortify-git-revision@v1.4.0
       with:
         name: GITHUB_SHA
-        continue-on-error: true
+        short-on-error: true
+        length: 8
         prefix: ${{ inputs.prefix }}
-    - uses: rlespinasse/shortify-git-revision@v1.3.0
+    - uses: rlespinasse/shortify-git-revision@v1.4.0
       with:
         name: GITHUB_EVENT_PULL_REQUEST_HEAD_SHA
         revision: ${{ github.event.pull_request.head.sha }}
-        continue-on-error: true
+        short-on-error: true
+        length: 8
         prefix: ${{ inputs.prefix }}
