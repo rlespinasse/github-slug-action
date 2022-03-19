@@ -112,6 +112,71 @@ jobs:
           [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
         shell: bash
 
+  os-testing-slug-maxlength:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Test 1
+      - name: Using correct max length
+        uses: ./
+        with:
+          prefix: "CML_"
+          slug-maxlength: 1
+      - name: Using correct max length // Validate that all slug variables are equals or under the slug-maxlength
+        run: |
+          env | grep "CML_" | grep "_SLUG" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 2 ] ; done
+        shell: bash
+
+      # Test 2
+      - name: Using wrong max length
+        id: using-wrong-max-length
+        uses: ./
+        with:
+          prefix: "WML_"
+          slug-maxlength: "wrong"
+        continue-on-error: true
+      - name: Using wrong max length // Validate that the action end with an error
+        run: |
+          [[ "$(env | grep "WML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
+          [[ "${{ steps.using-wrong-max-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-wrong-max-length.conclusion }}" == "success" ]]
+        shell: bash
+
+      # Test 3
+      - name: Using empty max length
+        id: using-empty-max-length
+        uses: ./
+        with:
+          prefix: "EML_"
+          slug-maxlength: ""
+        continue-on-error: true
+      - name: Using empty max length // Validate that the action end with an error
+        run: |
+          [[ "$(env | grep "EML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
+          [[ "${{ steps.using-empty-max-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-empty-max-length.conclusion }}" == "success" ]]
+        shell: bash
+
+      # Test 4
+      - name: Using no limit on max length
+        id: using-nolimit-max-length
+        uses: ./
+        with:
+          prefix: "NLML_"
+          slug-maxlength: "nolimit"
+      - name: Using no limit on length // Validate that the action end with an error
+        run: |
+          [[ "$(env | grep "NLML_" | grep "_SLUG" | wc -l)" -gt 0 ]]
+          [[ "${{ steps.using-nolimit-max-length.outcome }}" == "success" ]]
+          [[ "${{ steps.using-nolimit-max-length.conclusion }}" == "success" ]]
+        shell: bash
+
   os-testing-without-checkout:
     strategy:
       fail-fast: false
@@ -144,6 +209,7 @@ jobs:
       group: release-${{ github.ref }}-${{ github.event_name }}
     needs:
       - os-testing
+      - os-testing-slug-maxlength
       - os-testing-without-checkout
     steps:
       - name: Checkout

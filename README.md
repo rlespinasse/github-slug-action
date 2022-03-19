@@ -68,6 +68,15 @@ Or with a prefix
     prefix: CI_
 ```
 
+Or with another max length for slug values
+
+```yaml
+- name: Inject slug/short variables
+  uses: rlespinasse/github-slug-action@v4
+  with:
+    slug-maxlength: 80 # use 'nolimit' to remove use of a max length
+```
+
 Check for more [examples][examples] (OS usage, URL use, ...)
 
 **Tip:** Use [Dependabot][dependabot] to maintain your `github-slug-action` version updated in your GitHub workflows.
@@ -168,7 +177,7 @@ Download action repository 'rlespinasse/github-slug-action@GIT_REFERENCE'
 ##[error]An action could not be found at the URI 'https://api.github.com/repos/rlespinasse/github-slug-action/tarball/GIT_REFERENCE'
 ```
 
-If the `GIT_REFERENCE` value is 
+If the `GIT_REFERENCE` value is
 
 - `v4.x` or after, the branch don't exists anymore following the [end-of-life for a branch](SECURITY.md#end-of-life-of-a-branch) security process.
 - `master`, the branch don't exists anymore, read more about it on the corresponding issue ([EOL issue][issue-15])
