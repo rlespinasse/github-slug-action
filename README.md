@@ -12,6 +12,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Use this action](#use-this-action)
+    - [Migration from previous versions](#migration-from-previous-versions)
   - [Available Environment variables](#available-environment-variables)
     - [Enhanced variables](#enhanced-variables)
     - [Partial variables](#partial-variables)
@@ -19,6 +20,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [Slug URL variables](#slug-url-variables)
     - [Short variables](#short-variables)
   - [Troubleshooting](#troubleshooting)
+    - [The SHORT variables doesn't have the same lengths as before](#the-short-variables-doesnt-have-the-same-lengths-as-before)
     - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
@@ -59,27 +61,56 @@ Add this in your workflow
   uses: rlespinasse/github-slug-action@v4
 ```
 
-Or with a prefix
+Others configurations
 
-```yaml
-- name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v4
-  with:
-    prefix: CI_
-```
+- With a prefix
 
-Or with another max length for slug values
+  ```yaml
+  - name: Inject slug/short variables
+    uses: rlespinasse/github-slug-action@v4
+    with:
+      prefix: CI_
+  ```
 
-```yaml
-- name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v4
-  with:
-    slug-maxlength: 80 # use 'nolimit' to remove use of a max length
-```
+- With another max length for slug values
+
+  ```yaml
+  - name: Inject slug/short variables
+    uses: rlespinasse/github-slug-action@v4
+    with:
+      slug-maxlength: 80 # Use 'nolimit' to remove use of a max length (Default to 63)
+  ```
+
+- With another length for short values
+
+  ```yaml
+  - name: Inject slug/short variables
+    uses: rlespinasse/github-slug-action@v4
+    with:
+      short-length: 7 # By default it's up to git to decide, use 8 to have the v3.x behavior
+  ```
+
+  **Warning**: If you leave it empty, you need to checkout the source first in order to let git decide the size by itself.
 
 Check for more [examples][examples] (OS usage, URL use, ...)
 
 **Tip:** Use [Dependabot][dependabot] to maintain your `github-slug-action` version updated in your GitHub workflows.
+
+### Migration from previous versions
+
+The short sha length is not the same as previous version.
+
+- `v4` let git configuration decide of it (but you can override it),
+- `v3` and before, it's always a length of 8 characters.
+
+So to reproduce previous behavior, use
+
+```yaml
+- name: Inject slug/short variables
+  uses: rlespinasse/github-slug-action@v4
+  with:
+    short-length: 8 # Same as v3 and before
+```
 
 ## Available Environment variables
 
@@ -136,6 +167,18 @@ Check for more [examples][examples] (OS usage, URL use, ...)
 | [GITHUB_EVENT<br>_PULL_REQUEST<br>_HEAD_SHA_SHORT](docs/short-variables.md#github_event_pull_request_head_sha_short) | _github.event<br>.pull_request<br>.head.sha_ | The commit SHA on pull request that trigger workflow.<br>Only set for [following webhook events][webhooks-and-events]<ul><li>`pull_request`</li><li>`pull_request_review`</li><li>`pull_request_review_comment`</li><li>`pull_request_target`</li></ul> |
 
 ## Troubleshooting
+
+### The SHORT variables doesn't have the same lengths as before
+
+Since `v4`, it's git who manage the short variables by using [git rev-parse][git-revparse] behaviour.
+The length of a short sha depends of the size of our repository and can differ over time.
+
+To manage that moving length, you can use `short-length` input
+
+- set `7` to reproduce `small repository` behavior
+- set `8` to reproduce `v3` behavior
+
+**Warning**: The minimum length is 4, the default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
 
 ### One of the environment variables doesn't work as intended
 
@@ -201,6 +244,9 @@ Please, use the current major tag `v4` or a version tag (see [releases pages][re
 [custom-variable]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [releases]: https://github.com/rlespinasse/github-slug-action/releases
 [issue-15]: https://github.com/rlespinasse/github-slug-action/issues/15
+
+[git-revpars]: https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt---shortlength
+[git-core-abbrev]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev
 
 [github-env-vars]: https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
 [dependabot]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot

@@ -13,6 +13,9 @@ inputs:
     description: "Max length of the slugified values"
     default: "63"
     required: true
+  short-length:
+    description: "Length of the shortify values (git default if empty)"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -20,6 +23,7 @@ runs:
       shell: bash
       env:
         INPUT_SLUG_MAXLENGTH: ${{ inputs.slug-maxlength }}
+        INPUT_SHORT_LENGTH: ${{ inputs.short-length }}
 
     - uses: rlespinasse/slugify-value@v1.2.0
       with:
@@ -85,12 +89,12 @@ runs:
       with:
         name: GITHUB_SHA
         short-on-error: true
-        length: 8
+        length: ${{ inputs.short-length }}
         prefix: ${{ inputs.prefix }}
     - uses: rlespinasse/shortify-git-revision@v1.4.0
       with:
         name: GITHUB_EVENT_PULL_REQUEST_HEAD_SHA
         revision: ${{ github.event.pull_request.head.sha }}
         short-on-error: true
-        length: 8
+        length: ${{ inputs.short-length }}
         prefix: ${{ inputs.prefix }}
