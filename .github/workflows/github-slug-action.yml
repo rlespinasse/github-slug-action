@@ -16,6 +16,7 @@ jobs:
         uses: ./
         with:
           prefix: V4_
+          short-length: 8
       - name: Validate // Partial variables
         run: |
           echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART }}"
@@ -123,58 +124,94 @@ jobs:
         uses: actions/checkout@v3
 
       # Test 1
-      - name: Using correct max length
+      - name: Using correct slug max length
         uses: ./
         with:
           prefix: "CML_"
           slug-maxlength: 1
-      - name: Using correct max length // Validate that all slug variables are equals or under the slug-maxlength
+      - name: Using correct max length // Validate that all slug variables lengths are equals or under the slug-maxlength
         run: |
           env | grep "CML_" | grep "_SLUG" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 2 ] ; done
         shell: bash
 
       # Test 2
-      - name: Using wrong max length
-        id: using-wrong-max-length
+      - name: Using wrong slug max length
+        id: using-wrong-slug-max-length
         uses: ./
         with:
           prefix: "WML_"
           slug-maxlength: "wrong"
         continue-on-error: true
-      - name: Using wrong max length // Validate that the action end with an error
+      - name: Using wrong slug max length // Validate that the action end with an error
         run: |
           [[ "$(env | grep "WML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
-          [[ "${{ steps.using-wrong-max-length.outcome }}" == "failure" ]]
-          [[ "${{ steps.using-wrong-max-length.conclusion }}" == "success" ]]
+          [[ "${{ steps.using-wrong-slug-max-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-wrong-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
 
       # Test 3
-      - name: Using empty max length
-        id: using-empty-max-length
+      - name: Using empty slug max length
+        id: using-empty-slug-max-length
         uses: ./
         with:
           prefix: "EML_"
           slug-maxlength: ""
         continue-on-error: true
-      - name: Using empty max length // Validate that the action end with an error
+      - name: Using empty slug max length // Validate that the action end with an error
         run: |
           [[ "$(env | grep "EML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
-          [[ "${{ steps.using-empty-max-length.outcome }}" == "failure" ]]
-          [[ "${{ steps.using-empty-max-length.conclusion }}" == "success" ]]
+          [[ "${{ steps.using-empty-slug-max-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-empty-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
 
       # Test 4
-      - name: Using no limit on max length
-        id: using-nolimit-max-length
+      - name: Using no limit on slug max length
+        id: using-nolimit-slug-max-length
         uses: ./
         with:
           prefix: "NLML_"
           slug-maxlength: "nolimit"
-      - name: Using no limit on length // Validate that the action end with an error
+      - name: Using no limit on slug max length // Validate that the action end with an error
         run: |
           [[ "$(env | grep "NLML_" | grep "_SLUG" | wc -l)" -gt 0 ]]
-          [[ "${{ steps.using-nolimit-max-length.outcome }}" == "success" ]]
-          [[ "${{ steps.using-nolimit-max-length.conclusion }}" == "success" ]]
+          [[ "${{ steps.using-nolimit-slug-max-length.outcome }}" == "success" ]]
+          [[ "${{ steps.using-nolimit-slug-max-length.conclusion }}" == "success" ]]
+        shell: bash
+
+  os-testing-short-length:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Test 1
+      - name: Using correct short length
+        uses: ./
+        with:
+          prefix: "CSL_"
+          short-length: 4
+      - name: Using correct length // Validate that all short variables lengths are equals to short-length
+        run: |
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+        shell: bash
+
+      # Test 2
+      - name: Using wrong short length
+        id: using-wrong-short-length
+        uses: ./
+        with:
+          prefix: "WSL_"
+          short-length: "wrong"
+        continue-on-error: true
+      - name: Using wrong short length // Validate that the action end with an error
+        run: |
+          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
         shell: bash
 
   os-testing-without-checkout:
@@ -195,6 +232,7 @@ jobs:
         uses: ./this-action
         with:
           prefix: V4_
+          short-length: 8
       - name: Validate // Short SHA variables
         run: |
           echo "sha              : ${{ env.V4_GITHUB_SHA_SHORT }}"
@@ -210,6 +248,7 @@ jobs:
     needs:
       - os-testing
       - os-testing-slug-maxlength
+      - os-testing-short-length
       - os-testing-without-checkout
     steps:
       - name: Checkout

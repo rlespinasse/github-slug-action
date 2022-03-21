@@ -7,3 +7,8 @@ elif [ "${INPUT_SLUG_MAXLENGTH}" != "nolimit" ] && [ ! "${INPUT_SLUG_MAXLENGTH}"
   echo "::error ::slug-maxlength must be a number or equals to 'nolimit'"
   exit 1
 fi
+
+if [ ! "${INPUT_SHORT_LENGTH}" -eq "${INPUT_SHORT_LENGTH}" ] 2>/dev/null; then
+  echo "::error ::short-length must be a number"
+  exit 1
+fi
