@@ -26,13 +26,13 @@ runs:
         INPUT_SLUG_MAXLENGTH: ${{ inputs.slug-maxlength }}
         INPUT_SHORT_LENGTH: ${{ inputs.short-length }}
 
-    - uses: rlespinasse/slugify-value@v1.2.0
+    - uses: rlespinasse/slugify-value@v1.2.1
       with:
         key: GITHUB_REPOSITORY
         value: ${{ github.repository }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-    - uses: rlespinasse/slugify-value@v1.2.0
+    - uses: rlespinasse/slugify-value@v1.2.1
       with:
         key: GITHUB_REF
         prefix: ${{ inputs.prefix }}
@@ -42,14 +42,14 @@ runs:
         key: GITHUB_HEAD_REF
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-    - uses: rlespinasse/slugify-value@v1.2.0
+    - uses: rlespinasse/slugify-value@v1.2.1
       with:
         key: GITHUB_BASE_REF
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
 
     # Specific values
-    - uses: rlespinasse/slugify-value@v1.2.0
+    - uses: rlespinasse/slugify-value@v1.2.1
       with:
         key: GITHUB_EVENT_REF
         value: ${{ github.event.ref }}
@@ -60,7 +60,7 @@ runs:
     - id: get-github-ref-name
       run: echo "::set-output name=github-ref-name::$(echo "${{ github.head_ref || github.ref }}" | cut -d/ -f3)"
       shell: bash
-    - uses: rlespinasse/slugify-value@v1.2.0
+    - uses: rlespinasse/slugify-value@v1.2.1
       with:
         key: GITHUB_REF_NAME
         value: ${{ steps.get-github-ref-name.outputs.github-ref-name }}
@@ -69,7 +69,7 @@ runs:
     - id: get-github-repository-owner-part
       run: echo "::set-output name=github-repository-owner-part::$(echo $GITHUB_REPOSITORY | cut -d/ -f1)"
       shell: bash
-    - uses: rlespinasse/slugify-value@v1.2.0
+    - uses: rlespinasse/slugify-value@v1.2.1
       with:
         key: GITHUB_REPOSITORY_OWNER_PART
         value: ${{ steps.get-github-repository-owner-part.outputs.github-repository-owner-part }}
@@ -78,7 +78,7 @@ runs:
     - id: get-github-repository-name-part
       run: echo "::set-output name=github-repository-name-part::$(echo $GITHUB_REPOSITORY | cut -d/ -f2)"
       shell: bash
-    - uses: rlespinasse/slugify-value@v1.2.0
+    - uses: rlespinasse/slugify-value@v1.2.1
       with:
         key: GITHUB_REPOSITORY_NAME_PART
         value: ${{ steps.get-github-repository-name-part.outputs.github-repository-name-part }}
