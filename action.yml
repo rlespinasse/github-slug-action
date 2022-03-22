@@ -20,6 +20,7 @@ runs:
   using: "composite"
   steps:
     - run: $GITHUB_ACTION_PATH/preflight.sh
+      id: prefligth
       shell: bash
       env:
         INPUT_SLUG_MAXLENGTH: ${{ inputs.slug-maxlength }}
@@ -89,12 +90,12 @@ runs:
       with:
         name: GITHUB_SHA
         short-on-error: true
-        length: ${{ inputs.short-length }}
+        length: ${{ steps.prefligth.outputs.PREFLIGHT_SHORT_LENGTH }}
         prefix: ${{ inputs.prefix }}
     - uses: rlespinasse/shortify-git-revision@v1.4.0
       with:
         name: GITHUB_EVENT_PULL_REQUEST_HEAD_SHA
         revision: ${{ github.event.pull_request.head.sha }}
         short-on-error: true
-        length: ${{ inputs.short-length }}
+        length: ${{ steps.prefligth.outputs.PREFLIGHT_SHORT_LENGTH }}
         prefix: ${{ inputs.prefix }}
