@@ -241,6 +241,59 @@ jobs:
           [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
         shell: bash
 
+  os-testing-short-length-without-checkout:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: this-action
+          ref: ${{ github.ref }}
+
+      # Test 1
+      - name: Using correct short length
+        uses: ./this-action
+        with:
+          prefix: "CSL_"
+          short-length: 4
+      - name: Using correct length // Validate that all short variables lengths are equals to short-length
+        run: |
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+        shell: bash
+
+      # Test 2
+      - name: Using empty short length
+        id: using-empty-short-length
+        uses: ./this-action
+        with:
+          prefix: "ESL_"
+        continue-on-error: true
+      - name: Using empty short length // Validate that the action don't end with an error
+        run: |
+          [[ "$(env | grep "ESL_" | grep "_SHORT" | wc -l)" -gt 0 ]]
+          [[ "${{ steps.using-empty-short-length.outcome }}" == "success" ]]
+          [[ "${{ steps.using-empty-short-length.conclusion }}" == "success" ]]
+        shell: bash
+
+      # Test 3
+      - name: Using wrong short length
+        id: using-wrong-short-length
+        uses: ./this-action
+        with:
+          prefix: "WSL_"
+          short-length: "wrong"
+        continue-on-error: true
+      - name: Using wrong short length // Validate that the action end with an error
+        run: |
+          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
+        shell: bash
+
   release:
     runs-on: ubuntu-latest
     concurrency:
@@ -250,6 +303,7 @@ jobs:
       - os-testing-slug-maxlength
       - os-testing-short-length
       - os-testing-without-checkout
+      - os-testing-short-length-without-checkout
     steps:
       - name: Checkout
         uses: actions/checkout@v3
