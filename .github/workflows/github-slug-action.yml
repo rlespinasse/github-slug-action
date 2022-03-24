@@ -1,7 +1,8 @@
-name: Github Slug Action testing
+name: Github Slug Action
 on: [push, pull_request]
 jobs:
-  os-testing:
+  check-v3compatibility:
+    name: "Check v3 compatibility"
     strategy:
       fail-fast: false
       matrix:
@@ -17,22 +18,15 @@ jobs:
         with:
           prefix: V4_
           short-length: 8
+
       - name: Validate // Partial variables
         run: |
-          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART }}"
-          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART }}"
           [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_NAME_PART }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART }}" ]]
         shell: bash
+
       - name: Validate // Slug variables
         run: |
-          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG }}"
-          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG }}"
-          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG }}"
-          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG }}"
-          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG }}"
-          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG }}"
-          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG }}"
           [[ "${{ env.GITHUB_REPOSITORY_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG }}" ]]
@@ -43,13 +37,6 @@ jobs:
         shell: bash
       - name: Validate // Slug variables (Case Sensitive)
         run: |
-          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG_CS }}"
-          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}"
-          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}"
-          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG_CS }}"
-          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG_CS }}"
-          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG_CS }}"
-          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG_CS }}"
           [[ "${{ env.GITHUB_REPOSITORY_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_CS }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}" ]]
@@ -60,13 +47,6 @@ jobs:
         shell: bash
       - name: Validate // Slug URL variables
         run: |
-          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG_URL }}"
-          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}"
-          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}"
-          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG_URL }}"
-          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG_URL }}"
-          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG_URL }}"
-          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG_URL }}"
           [[ "${{ env.GITHUB_REPOSITORY_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_URL }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}" ]]
@@ -77,13 +57,6 @@ jobs:
         shell: bash
       - name: Validate // Slug URL variables (Case Sensitive)
         run: |
-          echo "repository       : ${{ env.V4_GITHUB_REPOSITORY_SLUG_URL_CS }}"
-          echo "repository owner : ${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}"
-          echo "repository name  : ${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}"
-          echo "ref              : ${{ env.V4_GITHUB_REF_SLUG_URL_CS }}"
-          echo "head ref         : ${{ env.V4_GITHUB_HEAD_REF_SLUG_URL_CS }}"
-          echo "base ref         : ${{ env.V4_GITHUB_BASE_REF_SLUG_URL_CS }}"
-          echo "event ref        : ${{ env.V4_GITHUB_EVENT_REF_SLUG_URL_CS }}"
           [[ "${{ env.GITHUB_REPOSITORY_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_URL_CS }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}" ]]
           [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}" ]]
@@ -92,28 +65,250 @@ jobs:
           [[ "${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG_URL_CS }}" ]]
           [[ "${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_URL_CS }}" ]]
         shell: bash
+
       - name: Validate // Ref Name
         run: |
-          echo "raw                       : ${{ env.V4_GITHUB_REF_NAME }}"
-          echo "slug                      : ${{ env.V4_GITHUB_REF_NAME_SLUG }}"
-          echo "slug url                  : ${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}"
-          echo "slug (Case Sensitive)     : ${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}"
-          echo "slug url (Case Sensitive) : ${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}"
           [[ "${{ env.GITHUB_REF_NAME }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
           [[ "${{ env.GITHUB_REF_NAME_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
           [[ "${{ env.GITHUB_REF_NAME_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}" ]]
           [[ "${{ env.GITHUB_REF_NAME_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
           [[ "${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
         shell: bash
+
       - name: Validate // Short SHA variables
         run: |
-          echo "sha              : ${{ env.V4_GITHUB_SHA_SHORT }}"
-          echo "pull request sha : ${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
           [[ "${{ env.GITHUB_SHA_SHORT }}" == "${{ env.V4_GITHUB_SHA_SHORT }}" ]]
           [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
         shell: bash
 
-  os-testing-slug-maxlength:
+  check-v3compatibility-without-checkout:
+    name: "Check v3 compatibility (without checkout)"
+    needs:
+      - check-v3compatibility
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: this-action
+          ref: ${{ github.ref }}
+      - name: Load using v3.x
+        uses: rlespinasse/github-slug-action@v3.x
+      - name: Load using v4.x with prefix
+        uses: ./this-action
+        with:
+          prefix: V4_
+          short-length: 8
+
+      - name: Validate // Short SHA variables
+        run: |
+          [[ "${{ env.GITHUB_SHA_SHORT }}" == "${{ env.V4_GITHUB_SHA_SHORT }}" ]]
+          [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
+        shell: bash
+
+  display:
+    name: "Display produced variables"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Load using v4.x
+        uses: ./
+
+      - name: Partial variables
+        run: |
+          echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART }}"
+          echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART }}"
+        shell: bash
+
+      - name: Slug variables
+        run: |
+          echo "repository       : ${{ env.GITHUB_REPOSITORY_SLUG }}"
+          echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}"
+          echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}"
+          echo "ref              : ${{ env.GITHUB_REF_SLUG }}"
+          echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG }}"
+          echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG }}"
+          echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG }}"
+        shell: bash
+      - name: Slug variables (Case Sensitive)
+        run: |
+          echo "repository       : ${{ env.GITHUB_REPOSITORY_SLUG_CS }}"
+          echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}"
+          echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}"
+          echo "ref              : ${{ env.GITHUB_REF_SLUG_CS }}"
+          echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_CS }}"
+          echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_CS }}"
+          echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_CS }}"
+        shell: bash
+      - name: Slug URL variables
+        run: |
+          echo "repository       : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
+          echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}"
+          echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}"
+          echo "ref              : ${{ env.GITHUB_REF_SLUG_URL }}"
+          echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
+          echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
+          echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
+        shell: bash
+      - name: Slug URL variables (Case Sensitive)
+        run: |
+          echo "repository       : ${{ env.GITHUB_REPOSITORY_SLUG_URL_CS }}"
+          echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}"
+          echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}"
+          echo "ref              : ${{ env.GITHUB_REF_SLUG_URL_CS }}"
+          echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}"
+          echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}"
+          echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}"
+        shell: bash
+
+      - name: Ref Name
+        run: |
+          echo "raw                       : ${{ env.GITHUB_REF_NAME }}"
+          echo "slug                      : ${{ env.GITHUB_REF_NAME_SLUG }}"
+          echo "slug url                  : ${{ env.GITHUB_REF_NAME_SLUG_URL }}"
+          echo "slug (Case Sensitive)     : ${{ env.GITHUB_REF_NAME_SLUG_CS }}"
+          echo "slug url (Case Sensitive) : ${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}"
+        shell: bash
+
+      - name: Short SHA variables
+        run: |
+          echo "sha              : ${{ env.GITHUB_SHA_SHORT }}"
+          echo "pull request sha : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+        shell: bash
+
+  display-without-checkout:
+    name: "Display produced variables (without checkout)"
+    needs:
+      - display
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: this-action
+          ref: ${{ github.ref }}
+      - name: Load using v3.x
+        uses: rlespinasse/github-slug-action@v3.x
+      - name: Load using v4.x with prefix
+        uses: ./this-action
+        with:
+          prefix: V4_
+          short-length: 8
+
+      - name: Short SHA variables
+        run: |
+          echo "sha              : ${{ env.GITHUB_SHA_SHORT }}"
+          echo "pull request sha : ${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
+        shell: bash
+
+  input-short-length:
+    name: "Input 'short-length'"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Test 1
+      - name: Using correct short length
+        uses: ./
+        with:
+          prefix: "CSL_"
+          short-length: 4
+      - name: Using correct length // Validate that all short variables lengths are equals to short-length
+        run: |
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+        shell: bash
+
+      # Test 2
+      - name: Using wrong short length
+        id: using-wrong-short-length
+        uses: ./
+        with:
+          prefix: "WSL_"
+          short-length: "wrong"
+        continue-on-error: true
+      - name: Using wrong short length // Validate that the action end with an error
+        run: |
+          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
+        shell: bash
+
+  input-short-length-without-checkout:
+    name: "Input 'short-length' (without checkout)"
+    needs:
+      - input-short-length
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: this-action
+          ref: ${{ github.ref }}
+
+      # Test 1
+      - name: Using correct short length
+        uses: ./this-action
+        with:
+          prefix: "CSL_"
+          short-length: 4
+      - name: Using correct length // Validate that all short variables lengths are equals to short-length
+        run: |
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+        shell: bash
+
+      # Test 2
+      - name: Using empty short length
+        id: using-empty-short-length
+        uses: ./this-action
+        with:
+          prefix: "ESL_"
+        continue-on-error: true
+      - name: Using empty short length // Validate that the action don't end with an error
+        run: |
+          [[ "$(env | grep "ESL_" | grep "_SHORT" | wc -l)" -gt 0 ]]
+          [[ "${{ steps.using-empty-short-length.outcome }}" == "success" ]]
+          [[ "${{ steps.using-empty-short-length.conclusion }}" == "success" ]]
+        shell: bash
+
+      # Test 3
+      - name: Using wrong short length
+        id: using-wrong-short-length
+        uses: ./this-action
+        with:
+          prefix: "WSL_"
+          short-length: "wrong"
+        continue-on-error: true
+      - name: Using wrong short length // Validate that the action end with an error
+        run: |
+          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
+          [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
+        shell: bash
+
+  input-slug-maxlength:
+    name: "Input 'slug-maxlength'"
     strategy:
       fail-fast: false
       matrix:
@@ -178,132 +373,15 @@ jobs:
           [[ "${{ steps.using-nolimit-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
 
-  os-testing-short-length:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # Test 1
-      - name: Using correct short length
-        uses: ./
-        with:
-          prefix: "CSL_"
-          short-length: 4
-      - name: Using correct length // Validate that all short variables lengths are equals to short-length
-        run: |
-          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
-        shell: bash
-
-      # Test 2
-      - name: Using wrong short length
-        id: using-wrong-short-length
-        uses: ./
-        with:
-          prefix: "WSL_"
-          short-length: "wrong"
-        continue-on-error: true
-      - name: Using wrong short length // Validate that the action end with an error
-        run: |
-          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
-          [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
-          [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
-        shell: bash
-
-  os-testing-without-checkout:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: this-action
-          ref: ${{ github.ref }}
-      - name: Load using v3.x
-        uses: rlespinasse/github-slug-action@v3.x
-      - name: Load using v4.x with prefix
-        uses: ./this-action
-        with:
-          prefix: V4_
-          short-length: 8
-      - name: Validate // Short SHA variables
-        run: |
-          echo "sha              : ${{ env.V4_GITHUB_SHA_SHORT }}"
-          echo "pull request sha : ${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}"
-          [[ "${{ env.GITHUB_SHA_SHORT }}" == "${{ env.V4_GITHUB_SHA_SHORT }}" ]]
-          [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
-        shell: bash
-
-  os-testing-short-length-without-checkout:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: this-action
-          ref: ${{ github.ref }}
-
-      # Test 1
-      - name: Using correct short length
-        uses: ./this-action
-        with:
-          prefix: "CSL_"
-          short-length: 4
-      - name: Using correct length // Validate that all short variables lengths are equals to short-length
-        run: |
-          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
-        shell: bash
-
-      # Test 2
-      - name: Using empty short length
-        id: using-empty-short-length
-        uses: ./this-action
-        with:
-          prefix: "ESL_"
-        continue-on-error: true
-      - name: Using empty short length // Validate that the action don't end with an error
-        run: |
-          [[ "$(env | grep "ESL_" | grep "_SHORT" | wc -l)" -gt 0 ]]
-          [[ "${{ steps.using-empty-short-length.outcome }}" == "success" ]]
-          [[ "${{ steps.using-empty-short-length.conclusion }}" == "success" ]]
-        shell: bash
-
-      # Test 3
-      - name: Using wrong short length
-        id: using-wrong-short-length
-        uses: ./this-action
-        with:
-          prefix: "WSL_"
-          short-length: "wrong"
-        continue-on-error: true
-      - name: Using wrong short length // Validate that the action end with an error
-        run: |
-          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
-          [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
-          [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
-        shell: bash
-
   release:
     runs-on: ubuntu-latest
     concurrency:
       group: release-${{ github.ref }}-${{ github.event_name }}
     needs:
-      - os-testing
-      - os-testing-slug-maxlength
-      - os-testing-short-length
-      - os-testing-without-checkout
-      - os-testing-short-length-without-checkout
+      - check-v3compatibility-without-checkout
+      - display-without-checkout
+      - input-short-length-without-checkout
+      - input-slug-maxlength
     steps:
       - name: Checkout
         uses: actions/checkout@v3
