@@ -25,6 +25,11 @@ test('slug_url_ref: a fix branch', () => {
   test_slugurlref_cs('refs/heads/fix/issue_number', 'fix-issue-number')
 })
 
+test('slug_url_ref: an underscore', () => {
+  test_slugurl('refs/heads/An_Underscore', 'an-underscore')
+  test_slugurl_cs('refs/heads/An_Underscore', 'An-Underscore')
+})
+
 test('slug_url_ref: a simple tag', () => {
   test_slugurlref('refs/tags/v1.0.0', 'v1-0-0')
   test_slugurlref_cs('refs/tags/v1.0.0', 'v1-0-0')

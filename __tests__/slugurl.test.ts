@@ -35,9 +35,9 @@ test('slug_url: a number', () => {
   test_slugurl_cs('4.2', '4-2')
 })
 
-test('slug: an underscore', () => {
-  test_slug('An_Underscore', 'an-underscore')
-  test_slug_cs('an_undAn_Underscoreerscore', 'An-Underscore')
+test('slug_url: an underscore', () => {
+  test_slugurl('An_Underscore', 'an-underscore')
+  test_slugurl_cs('An_Underscore', 'An-Underscore')
 })
 
 test('slug_url: trailing', () => {

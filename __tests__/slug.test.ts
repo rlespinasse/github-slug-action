@@ -37,7 +37,7 @@ test('slug: a number', () => {
 
 test('slug: an underscore', () => {
   test_slug('An_Underscore', 'an_underscore')
-  test_slug_cs('an_undAn_Underscoreerscore', 'An_Underscore')
+  test_slug_cs('An_Underscore', 'An_Underscore')
 })
 
 test('slug: special character', () => {
