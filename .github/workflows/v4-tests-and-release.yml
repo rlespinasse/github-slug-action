@@ -1,4 +1,4 @@
-name: Github Slug Action
+name: "[v4] Test and Release"
 on: [push, pull_request]
 jobs:
   check-v3compatibility:
