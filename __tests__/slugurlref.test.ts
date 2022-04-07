@@ -26,8 +26,8 @@ test('slug_url_ref: a fix branch', () => {
 })
 
 test('slug_url_ref: an underscore', () => {
-  test_slugurl('refs/heads/An_Underscore', 'an-underscore')
-  test_slugurl_cs('refs/heads/An_Underscore', 'An-Underscore')
+  test_slugurlref('refs/heads/An_Underscore', 'an-underscore')
+  test_slugurlref_cs('refs/heads/An_Underscore', 'An-Underscore')
 })
 
 test('slug_url_ref: a simple tag', () => {
