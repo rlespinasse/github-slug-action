@@ -35,6 +35,11 @@ test('slug: a number', () => {
   test_slug_cs('4.2', '4.2')
 })
 
+test('slug: an underscore', () => {
+  test_slug('An_Underscore', 'an_underscore')
+  test_slug_cs('An_Underscore', 'An_Underscore')
+})
+
 test('slug: special character', () => {
   test_slug('feat-(!è§-character', 'feat------character')
   test_slug_cs('feat-(!è§-character', 'feat------character')
