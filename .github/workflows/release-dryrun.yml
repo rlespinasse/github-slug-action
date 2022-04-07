@@ -1,4 +1,4 @@
-name: Release DryRun
+name: "[v3] Release DryRun"
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Github Slug testing
+name: "[v3] Testing"
 on: [push]
 jobs:
   github-slug-on-os:
