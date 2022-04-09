@@ -58,7 +58,7 @@ runs:
 
     # Calculated values
     - id: get-github-ref-name
-      run: echo "::set-output name=github-ref-name::$(echo "${{ github.head_ref || github.ref }}" | cut -d/ -f3)"
+      run: echo "::set-output name=github-ref-name::${{ github.head_ref || github.ref_name }}"
       shell: bash
     - uses: rlespinasse/slugify-value@v1.2.3
       with:
