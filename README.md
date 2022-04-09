@@ -1,9 +1,5 @@
 # GitHub Slug action
 
-[![Release][release-badge]][releases]
-![Lint][lint-badge]
-[![Licence][license-badge]][license]
-
 This GitHub Action will expose the slug/short values of [some GitHub environment variables][github-env-vars] inside your GitHub workflow.
 
 ## Table of Contents
@@ -233,10 +229,6 @@ Please, use the current major tag `v4` or a version tag (see [releases pages][re
 - [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1] (in french :fr:)
 - [Action spotlight by Michael Heap][article-2]
 - The next one is you. _Don't hesitate to add youself to this list._
-
-[release-badge]: https://img.shields.io/github/workflow/status/rlespinasse/github-slug-action/Release?label=Build&logo=github&style=flat-square
-[lint-badge]: https://img.shields.io/github/workflow/status/rlespinasse/github-slug-action/Lint?label=Lint&logo=github&style=flat-square
-[license-badge]: https://img.shields.io/github/license/rlespinasse/github-slug-action?style=flat-square
 
 [actions]: https://github.com/rlespinasse/github-slug-action/actions
 [license]: https://github.com/rlespinasse/github-slug-action/blob/v4.x/LICENSE
