@@ -1,6 +1,43 @@
 name: "[v3] Testing"
-on: [push]
+on: [push, pull_request]
 jobs:
+  print-datasource:
+    name: "Print Datasource"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Print datasource
+        run: |
+          echo "github.repository                  : ${{ github.repository }}"
+          echo "GITHUB_REF                         : $GITHUB_REF"
+          echo "GITHUB_HEAD_REF                    : $GITHUB_HEAD_REF"
+          echo "GITHUB_BASE_REF                    : $GITHUB_BASE_REF"
+          echo "GITHUB_REF_NAME                    : $GITHUB_REF_NAME"
+          echo "github.event.ref                   : ${{ github.event.ref }}"
+          echo "GITHUB_SHA                         : $GITHUB_SHA"
+          echo "GITHUB_EVENT_PULL_REQUEST_HEAD_SHA : ${{ github.event.pull_request.head.sha }}"
+
+  print-env:
+    name: "Print env"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Load
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Print env
+        run: env
+        shell: bash
+
   github-slug-on-os:
     strategy:
       fail-fast: false
@@ -59,7 +96,7 @@ jobs:
         shell: bash
       - name: Ref Name
         run: |
-          echo "raw                       : ${{ env.GITHUB_REF_NAME }}"
+          echo "raw                       : ${{ env.GITHUB_REF_NAME }} ($GITHUB_REF_NAME)"
           echo "slug                      : ${{ env.GITHUB_REF_NAME_SLUG }}"
           echo "slug url                  : ${{ env.GITHUB_REF_NAME_SLUG_URL }}"
           echo "slug (Case Sensitive)     : ${{ env.GITHUB_REF_NAME_SLUG_CS }}"
