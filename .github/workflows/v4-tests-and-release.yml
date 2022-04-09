@@ -11,13 +11,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Load using v3.x
-        uses: rlespinasse/github-slug-action@v3.x
+
       - name: Load using v4.x with prefix
         uses: ./
         with:
           prefix: V4_
           short-length: 8
+
+      - name: Load using v3.x
+        uses: rlespinasse/github-slug-action@v3.x
 
       - name: Validate // Partial variables
         run: |
@@ -96,13 +98,15 @@ jobs:
         with:
           path: this-action
           ref: ${{ github.ref }}
-      - name: Load using v3.x
-        uses: rlespinasse/github-slug-action@v3.x
+
       - name: Load using v4.x with prefix
         uses: ./this-action
         with:
           prefix: V4_
           short-length: 8
+
+      - name: Load using v3.x
+        uses: rlespinasse/github-slug-action@v3.x
 
       - name: Validate // Short SHA variables
         run: |
@@ -120,6 +124,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Load using v4.x
         uses: ./
 
@@ -200,13 +205,15 @@ jobs:
         with:
           path: this-action
           ref: ${{ github.ref }}
-      - name: Load using v3.x
-        uses: rlespinasse/github-slug-action@v3.x
+
       - name: Load using v4.x with prefix
         uses: ./this-action
         with:
           prefix: V4_
           short-length: 8
+
+      - name: Load using v3.x
+        uses: rlespinasse/github-slug-action@v3.x
 
       - name: Short SHA variables
         run: |
