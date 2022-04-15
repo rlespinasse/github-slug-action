@@ -1,6 +1,6 @@
 # GitHub Slug action
 
-This GitHub Action will expose the slug/short values of [some GitHub environment variables][github-env-vars] inside your GitHub workflow.
+This GitHub Action will expose the slug/short values of [some GitHub environment variables][default-environment-variables] inside your GitHub workflow.
 
 ## Table of Contents
 
@@ -18,6 +18,8 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
   - [Troubleshooting](#troubleshooting)
     - [The SHORT variables doesn't have the same lengths as before](#the-short-variables-doesnt-have-the-same-lengths-as-before)
     - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
+      - [Known environment variable conflicts](#known-environment-variable-conflicts)
+        - [GITHUB_REF_NAME](#github_ref_name)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
@@ -43,10 +45,9 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 - `<VAR>_CS` on others variables to keep the value case-sensitive
   - Like `GITHUB_REF_SLUG_CS`
 
+Additional enhanced environment variables can be compute to help you around GitHub environment variables.
   </p>
 </details>
-
-Additional enhanced environment variables can be compute to help you around GitHub environment variables.
 
 ## Use this action
 
@@ -57,7 +58,9 @@ Add this in your workflow
   uses: rlespinasse/github-slug-action@v4
 ```
 
-Others configurations
+<details>
+  <summary>Others configurations</summary>
+  <p>
 
 - With a prefix
 
@@ -87,6 +90,8 @@ Others configurations
   ```
 
   **Warning**: If you leave it empty, you need to checkout the source first in order to let git decide the size by itself.
+  </p>
+</details>
 
 Check for more [examples][examples] (OS usage, URL use, ...)
 
@@ -178,34 +183,42 @@ To manage that moving length, you can use `short-length` input
 
 ### One of the environment variables doesn't work as intended
 
-[**Note**][naming-conventions]: GitHub reserves the `GITHUB_` environment variable prefix for internal use by GitHub. Setting an environment variable or secret with the `GITHUB_` prefix will result in an error.
+[**Note**][naming-conventions]: When you set a custom environment variable, you cannot use any of the default environment variable names. For a complete list of these, see [Default environment variables][default-environment-variables]. **If you attempt to override the value of one of these default environment variables, the assignment is ignored.**
 
-Currently, a GitHub workflow setting a `GITHUB_` variable will not cause an error, it will just fail silently.
-And if a custom `GITHUB_` variable is in conflict with an official `GITHUB_` variable, the offical `GITHUB_` variable will override custom one.
+If a variable start to be used as default environment variable, the environment variable may have a different behavior than the expected one.
 
-<details>
-  <summary>Test workflow</summary>
-  <p>
+If this append, the `${{ env.GITHUB_AWESOME_VARIABLE }}` and `$GITHUB_AWESOME_VARIABLE` expression will not works in the same way.
+
+- `${{ env.GITHUB_AWESOME_VARIABLE }}` will serve the behavior of this action,
+- `$GITHUB_AWESOME_VARIABLE` will serve the behavior of GitHub Action.
+
+Otherwise the two expression will serve the behavior of this action.
+This will not occurs if you use the `prefix` input to avoid the issue.
+
+**NOTE:** If detected, the maintainers of this action will choose the best course of action depending of the impact.
+
+#### Known environment variable conflicts
+
+##### GITHUB_REF_NAME
+
+The behavior is the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
+
+- `${{ env.GITHUB_REF_NAME }}` will serve the behavior of this action,
+- `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
+
+On `pull_request*` workflows, the content will be `<PR-number>/merge` instead of the branch name.
+
+A possible workaround is to use `prefix` input
 
 ```yaml
-name: Test
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${GITHUB_REF}
-      # print "refs/heads/v4.x"
-      - run: echo "GITHUB_REF=one_value" >> "$GITHUB_ENV"
-      - run: echo ${GITHUB_REF}
-      # print "refs/heads/v4.x"
-      - run: echo "GITHUB_REF_SLUG=another_value" >> "$GITHUB_ENV"
-      - run: echo ${GITHUB_REF_SLUG}
-      # print "another_value"
+- name: Inject slug/short variables
+  uses: rlespinasse/github-slug-action@v4
+  with:
+    prefix: CI_
 ```
 
-  </p>
-</details>
+Then `${{ env.CI_GITHUB_REF_NAME }}`, and `$CI_GITHUB_REF_NAME` will serve the behavior of this action.
+And `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
 
 ### An action could not be found at the URI
 
@@ -226,8 +239,10 @@ Please, use the current major tag `v4` or a version tag (see [releases pages][re
 ## Thanks for talking about us
 
 - [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][article-1] (in french :fr:)
-- [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1] (in french :fr:)
 - [Action spotlight by Michael Heap][article-2]
+- [Serverless Deploy Previews on GitHub Actions][article-3]
+- [Let's Build a Continuous Delivery and Branching Process with Github Actions, Vercel and Heroku][article-4]
+- [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1] (in french :fr:)
 - The next one is you. _Don't hesitate to add youself to this list._
 
 [actions]: https://github.com/rlespinasse/github-slug-action/actions
@@ -236,15 +251,18 @@ Please, use the current major tag `v4` or a version tag (see [releases pages][re
 [custom-variable]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [releases]: https://github.com/rlespinasse/github-slug-action/releases
 [issue-15]: https://github.com/rlespinasse/github-slug-action/issues/15
+[issue-104]: https://github.com/rlespinasse/github-slug-action/issues/104
 
 [git-revpars]: https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt---shortlength
 [git-core-abbrev]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev
 
-[github-env-vars]: https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
-[dependabot]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot
+[default-environment-variables]: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+[dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
 [webhooks-and-events]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
 [naming-conventions]: https://docs.github.com/en/actions/reference/environment-variables#naming-conventions-for-environment-variables
 
 [article-1]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
 [article-2]: https://michaelheap.com/github-slug-action/
-[talk-1]: https://www.youtube.com/watch?v=RHnTJBwcE98
+[article-3]: https://barstool.engineering/serverless-deploy-previews-on-github-actions/
+[article-4]: https://javascript.plainenglish.io/lets-build-a-continuous-delivery-and-branching-process-c27dae09f0b6
+[talk-1]: https://www.youtube.com/watch?v=F5mBDmOQcvE
