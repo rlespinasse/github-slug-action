@@ -4,7 +4,7 @@
 ![Lint][lint-badge]
 [![Licence][license-badge]][license]
 
-This GitHub Action will expose the slug/short values of [some GitHub environment variables][github-env-vars] inside your GitHub workflow.
+This GitHub Action will expose the slug/short values of [some GitHub environment variables][default-environment-variables] inside your GitHub workflow.
 
 ## Table of Contents
 
@@ -21,6 +21,8 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
   - [Contribute](#contribute)
   - [Troubleshooting](#troubleshooting)
     - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
+      - [Known environment variable conflicts](#known-environment-variable-conflicts)
+        - [GITHUB_REF_NAME](#github_ref_name)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
@@ -126,34 +128,42 @@ Follow [Developers guide](DEVELOPERS.md)
 
 ### One of the environment variables doesn't work as intended
 
-[**Note**][naming-conventions]: GitHub reserves the `GITHUB_` environment variable prefix for internal use by GitHub. Setting an environment variable or secret with the `GITHUB_` prefix will result in an error.
+[**Note**][naming-conventions]: When you set a custom environment variable, you cannot use any of the default environment variable names. For a complete list of these, see [Default environment variables][default-environment-variables]. **If you attempt to override the value of one of these default environment variables, the assignment is ignored.**
 
-Currently, a GitHub workflow setting a `GITHUB_` variable will not cause an error, it will just fail silently.
-And if a custom `GITHUB_` variable is in conflict with an official `GITHUB_` variable, the offical `GITHUB_` variable will override custom one.
+If a variable start to be used as default environment variable, the environment variable may have a different behavior than the expected one.
 
-<details>
-  <summary>Test workflow</summary>
-  <p>
+If this append, the `${{ env.GITHUB_AWESOME_VARIABLE }}` and `$GITHUB_AWESOME_VARIABLE` expression will not works in the same way.
+
+- `${{ env.GITHUB_AWESOME_VARIABLE }}` will serve the behavior of this action,
+- `$GITHUB_AWESOME_VARIABLE` will serve the behavior of GitHub Action.
+
+Otherwise the two expression will serve the behavior of this action.
+This will not occurs if you use the `prefix` input to avoid the issue.
+
+**NOTE:** If detected, the maintainers of this action will choose the best course of action depending of the impact.
+
+#### Known environment variable conflicts
+
+##### GITHUB_REF_NAME
+
+The behavior is the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
+
+- `${{ env.GITHUB_REF_NAME }}` will serve the behavior of this action,
+- `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
+
+On `pull_request*` workflows, the content will be `<PR-number>/merge` instead of the branch name.
+
+A possible workaround is to use `prefix` input available in `v4` version
 
 ```yaml
-name: Test
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${GITHUB_REF}
-      # print "refs/heads/v3.x"
-      - run: echo "GITHUB_REF=one_value" >> "$GITHUB_ENV"
-      - run: echo ${GITHUB_REF}
-      # print "refs/heads/v3.x"
-      - run: echo "GITHUB_REF_SLUG=another_value" >> "$GITHUB_ENV"
-      - run: echo ${GITHUB_REF_SLUG}
-      # print "another_value"
+- name: Inject slug/short variables
+  uses: rlespinasse/github-slug-action@v4
+  with:
+    prefix: CI_
 ```
 
-  </p>
-</details>
+Then `${{ env.CI_GITHUB_REF_NAME }}`, and `$CI_GITHUB_REF_NAME` will serve the behavior of this action.
+And `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
 
 ### An action could not be found at the URI
 
@@ -187,9 +197,10 @@ Please, use the current branch `v3.x` or a version tag (see [releases pages][rel
 [custom-variable]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [releases]: https://github.com/rlespinasse/github-slug-action/releases
 [issue-15]: https://github.com/rlespinasse/github-slug-action/issues/15
+[issue-104]: https://github.com/rlespinasse/github-slug-action/issues/104
 
-[github-env-vars]: https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
-[dependabot]: https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-github-dependabot
+[default-environment-variables]: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+[dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
 [webhooks-and-events]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
 [naming-conventions]: https://docs.github.com/en/actions/reference/environment-variables#naming-conventions-for-environment-variables
 
