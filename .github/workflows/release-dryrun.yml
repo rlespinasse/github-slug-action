@@ -1,23 +1,29 @@
-name: '[v3] Release'
+name: '[v3] Release DryRun'
 
 on:
   push:
-    branches:
+    branches-ignore:
       - v*.x
 
 jobs:
-  release:
+  release-dryrun:
     runs-on: ubuntu-latest
     steps:
       - uses: technote-space/auto-cancel-redundant-workflow@v1
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run all
+      - uses: ./
       - uses: cycjimmy/semantic-release-action@v3
         with:
+          branches: |
+            [
+              "${{ env.GITHUB_REF_NAME }}"
+            ]
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/exec
             @semantic-release/git
+          dry_run: true
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

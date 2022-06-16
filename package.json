@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/rlespinasse/github-slug-action.git"
+    "url": "https://github.com/rlespinasse/github-slug-action.git"
   },
   "keywords": [
     "actions",
@@ -26,26 +26,26 @@
   ],
   "author": "rlespinasse",
   "dependencies": {
-    "@actions/core": "^1.2.6"
+    "@actions/core": "^1.9.1"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/exec": "^5.0.0",
-    "@semantic-release/git": "^9.0.0",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.21",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@semantic-release/git": "^9.0.1",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^14.18.25",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@vercel/ncc": "^0.23.0",
-    "eslint": "^7.18.0",
-    "eslint-plugin-github": "^4.1.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-github": "^4.3.7",
     "eslint-plugin-jest": "^23.20.0",
     "jest": "^26.6.3",
     "jest-circus": "^26.6.3",
     "js-yaml": "^3.14.1",
-    "prettier": "^2.2.1",
-    "semantic-release": "^17.4.0",
-    "ts-jest": "^26.4.4",
-    "typescript": "^3.9.7"
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.3",
+    "ts-jest": "^26.5.6",
+    "typescript": "^3.9.10"
   },
   "files": [
     "/dist"
@@ -66,7 +66,6 @@
       "@semantic-release/github"
     ],
     "branches": [
-      "v2.x",
       "v3.x"
     ]
   }
