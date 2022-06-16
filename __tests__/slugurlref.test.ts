@@ -47,12 +47,12 @@ test('slug_url_ref: a reference with upper case letters', () => {
 
 test('slug_url_ref: a very long name', () => {
   test_slugurlref(
-    'refs/heads/an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-feature-very-very-very-very-very-very-very-long-more'
+    'refs/heads/has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-feature-very-very-very-very-very-very-very-long'
   )
   test_slugurlref_cs(
-    'refs/heads/an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-more'
+    'refs/heads/has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long'
   )
 })
 

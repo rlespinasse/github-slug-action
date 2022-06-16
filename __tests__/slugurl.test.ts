@@ -47,11 +47,11 @@ test('slug_url: trailing', () => {
 
 test('slug_url: a very long string', () => {
   test_slugurl(
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-feature-very-very-very-very-very-very-very-long-more'
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-feature-very-very-very-very-very-very-very-long'
   )
   test_slugurl_cs(
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-more'
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long'
   )
 })

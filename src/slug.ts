@@ -3,14 +3,17 @@ const MAX_SLUG_STRING_SIZE = 63
 /**
  * slug_cs will take envVar and then :
  * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slug_cs(envVar: string): string {
-  return trailHyphen(replaceAnyNonAlphanumericCharacter(envVar)).substring(
-    0,
-    MAX_SLUG_STRING_SIZE
+  return removeTrailingHyphens(
+    removeLeadingHyphens(replaceAnyNonAlphanumericCharacter(envVar)).substring(
+      0,
+      MAX_SLUG_STRING_SIZE
+    )
   )
 }
 
@@ -18,8 +21,9 @@ export function slug_cs(envVar: string): string {
  * slug will take envVar and then :
  * - put the variable content in lower case
  * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slug(envVar: string): string {
@@ -30,8 +34,9 @@ export function slug(envVar: string): string {
  * slugref_cs will take envVar and then :
  * - remove refs/(heads|tags|pull)/
  * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slugref_cs(envVar: string): string {
@@ -43,8 +48,9 @@ export function slugref_cs(envVar: string): string {
  * - remove refs/(heads|tags|pull)/
  * - put the variable content in lower case
  * - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slugref(envVar: string): string {
@@ -54,8 +60,9 @@ export function slugref(envVar: string): string {
 /**
  * slugurl_cs will take envVar and then :
  * - replace any character by `-` except `0-9`, `a-z`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slugurl_cs(envVar: string): string {
@@ -66,24 +73,26 @@ export function slugurl_cs(envVar: string): string {
  * slugurl will take envVar and then :
  * - put the variable content in lower case
  * - replace any character by `-` except `0-9`, `a-z`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slugurl(envVar: string): string {
-  return slug(replaceAnyNonUrlCharactersWithHyphen(envVar))
+  return slugurl_cs(envVar.toLowerCase())
 }
 
 /**
  * slugurlref_cs will take envVar and then :
  * - remove refs/(heads|tags|pull)/
  * - replace any character by `-` except `0-9`, `a-z`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slugurlref_cs(envVar: string): string {
-  return slugurl_cs(slugref_cs(envVar))
+  return slugurl_cs(removeRef(envVar))
 }
 
 /**
@@ -91,16 +100,20 @@ export function slugurlref_cs(envVar: string): string {
  * - remove refs/(heads|tags|pull)/
  * - put the variable content in lower case
  * - replace any character by `-` except `0-9`, `a-z`
- * - remove leading and trailing `-` character
+ * - remove leading `-` characters
  * - limit the string size to 63 characters
+ * - remove trailing `-` characters
  * @param envVar to be slugged
  */
 export function slugurlref(envVar: string): string {
-  return slugurl(slugref(envVar))
+  return slugurlref_cs(envVar.toLowerCase())
 }
 
-function trailHyphen(envVar: string): string {
-  return envVar.replace(RegExp('^-*', 'g'), '').replace(RegExp('-*$', 'g'), '')
+function removeLeadingHyphens(envVar: string): string {
+  return envVar.replace(RegExp('^-*', 'g'), '')
+}
+function removeTrailingHyphens(envVar: string): string {
+  return envVar.replace(RegExp('-*$', 'g'), '')
 }
 
 function replaceAnyNonAlphanumericCharacter(envVar: string): string {

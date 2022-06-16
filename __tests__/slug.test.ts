@@ -52,22 +52,22 @@ test('slug: trailing', () => {
 
 test('slug: a very long string', () => {
   test_slug(
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-feature-very-very-very-very-very-very-very-long-more'
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-feature-very-very-very-very-very-very-very-long'
   )
   test_slug_cs(
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-more'
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long'
   )
 })
 
 test('slug: short string after trailing', () => {
   test_slug(
-    '-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters-',
-    'an-awesome-feature-very-very-very-very-very-very-very-long-more'
+    '-has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters-',
+    'has-an-awesome-feature-very-very-very-very-very-very-very-long'
   )
   test_slug_cs(
-    '-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters-',
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-more'
+    '-has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters-',
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long'
   )
 })

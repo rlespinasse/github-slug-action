@@ -57,12 +57,12 @@ test('slug_ref: test refs inside string', () => {
 
 test('slug_ref: a very long name', () => {
   test_slugref(
-    'refs/heads/an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-feature-very-very-very-very-very-very-very-long-more'
+    'refs/heads/has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-feature-very-very-very-very-very-very-very-long'
   )
   test_slugref_cs(
-    'refs/heads/an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
-    'an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-more'
+    'refs/heads/has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long-moreThan63Characters',
+    'has-an-awesome-Feature-Very-Very-Very-Very-Very-Very-Very-Long'
   )
 })
 

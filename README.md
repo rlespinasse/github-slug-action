@@ -32,8 +32,9 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 
 - put the variable content in lower case
 - replace any character by `-` except `0-9`, `a-z`, `.`, and `_`
-- remove leading and trailing `-` character
+- remove leading `-` characters
 - limit the string size to 63 characters
+- remove trailing `-` characters
 
 <details>
   <summary>Others <b>Slug-ish</b> commands are available</summary>
