@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/rlespinasse/github-slug-action/compare/3.6.0...3.6.1) (2022-08-22)
+
+
+### Bug Fixes
+
+* remove trailing hyphens if any after cut ([19f9c84](https://github.com/rlespinasse/github-slug-action/commit/19f9c84ac61b17071a3cfc4ae984ac0e2ba1cdae))
+
 # [3.6.0](http://github.com/rlespinasse/github-slug-action/compare/3.5.1...3.6.0) (2021-09-15)
 
 
