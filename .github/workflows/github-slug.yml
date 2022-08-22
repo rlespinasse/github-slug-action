@@ -1,4 +1,4 @@
-name: "[v3] Testing"
+name: '[v3] Testing'
 on: [push]
 jobs:
   github-slug-on-os:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - run: npm install
       - run: npm run all
       - uses: ./

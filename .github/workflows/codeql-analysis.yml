@@ -1,4 +1,4 @@
-name: "[v3] CodeQL"
+name: '[v3] CodeQL'
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches:
       - v3.x
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: '0 6 * * 1'
 
 jobs:
   analyse:
@@ -17,10 +17,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["javascript"]
+        language: ['javascript']
     steps:
       - uses: technote-space/auto-cancel-redundant-workflow@v1
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: github/codeql-action/init@v1
         with:
           languages: ${{ matrix.language }}
