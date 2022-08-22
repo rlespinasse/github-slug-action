@@ -26,4 +26,4 @@ jobs:
             @semantic-release/git
           dry_run: true
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
