@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/rlespinasse/github-slug-action/compare/v3.6.1...v3.7.0) (2022-10-02)
+
+
+### Features
+
+* generate proper git tag ([68babf6](https://github.com/rlespinasse/github-slug-action/commit/68babf69b34f4c4b556ea350616c5408d627937e))
+
 ## [3.6.1](https://github.com/rlespinasse/github-slug-action/compare/3.6.0...3.6.1) (2022-08-22)
 
 
