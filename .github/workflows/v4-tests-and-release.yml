@@ -1,8 +1,8 @@
-name: "[v4] Test and Release"
+name: '[v4] Test and Release'
 on: [push, pull_request]
 jobs:
   check-v3compatibility:
-    name: "Check v3 compatibility"
+    name: 'Check v3 compatibility'
     strategy:
       fail-fast: false
       matrix:
@@ -84,7 +84,7 @@ jobs:
         shell: bash
 
   check-v3compatibility-without-checkout:
-    name: "Check v3 compatibility (without checkout)"
+    name: 'Check v3 compatibility (without checkout)'
     needs:
       - check-v3compatibility
     strategy:
@@ -115,7 +115,7 @@ jobs:
         shell: bash
 
   display:
-    name: "Display produced variables"
+    name: 'Display produced variables'
     strategy:
       fail-fast: false
       matrix:
@@ -191,7 +191,7 @@ jobs:
         shell: bash
 
   display-without-checkout:
-    name: "Display produced variables (without checkout)"
+    name: 'Display produced variables (without checkout)'
     needs:
       - display
     strategy:
@@ -236,7 +236,7 @@ jobs:
       - name: Using correct short length
         uses: ./
         with:
-          prefix: "CSL_"
+          prefix: 'CSL_'
           short-length: 4
       - name: Using correct length // Validate that all short variables lengths are equals to short-length
         run: |
@@ -248,8 +248,8 @@ jobs:
         id: using-wrong-short-length
         uses: ./
         with:
-          prefix: "WSL_"
-          short-length: "wrong"
+          prefix: 'WSL_'
+          short-length: 'wrong'
         continue-on-error: true
       - name: Using wrong short length // Validate that the action end with an error
         run: |
@@ -278,7 +278,7 @@ jobs:
       - name: Using correct short length
         uses: ./this-action
         with:
-          prefix: "CSL_"
+          prefix: 'CSL_'
           short-length: 4
       - name: Using correct length // Validate that all short variables lengths are equals to short-length
         run: |
@@ -290,7 +290,7 @@ jobs:
         id: using-empty-short-length
         uses: ./this-action
         with:
-          prefix: "ESL_"
+          prefix: 'ESL_'
         continue-on-error: true
       - name: Using empty short length // Validate that the action don't end with an error
         run: |
@@ -304,8 +304,8 @@ jobs:
         id: using-wrong-short-length
         uses: ./this-action
         with:
-          prefix: "WSL_"
-          short-length: "wrong"
+          prefix: 'WSL_'
+          short-length: 'wrong'
         continue-on-error: true
       - name: Using wrong short length // Validate that the action end with an error
         run: |
@@ -329,7 +329,7 @@ jobs:
       - name: Using correct slug max length
         uses: ./
         with:
-          prefix: "CML_"
+          prefix: 'CML_'
           slug-maxlength: 1
       - name: Using correct max length // Validate that all slug variables lengths are equals or under the slug-maxlength
         run: |
@@ -341,8 +341,8 @@ jobs:
         id: using-wrong-slug-max-length
         uses: ./
         with:
-          prefix: "WML_"
-          slug-maxlength: "wrong"
+          prefix: 'WML_'
+          slug-maxlength: 'wrong'
         continue-on-error: true
       - name: Using wrong slug max length // Validate that the action end with an error
         run: |
@@ -356,8 +356,8 @@ jobs:
         id: using-empty-slug-max-length
         uses: ./
         with:
-          prefix: "EML_"
-          slug-maxlength: ""
+          prefix: 'EML_'
+          slug-maxlength: ''
         continue-on-error: true
       - name: Using empty slug max length // Validate that the action end with an error
         run: |
@@ -371,8 +371,8 @@ jobs:
         id: using-nolimit-slug-max-length
         uses: ./
         with:
-          prefix: "NLML_"
-          slug-maxlength: "nolimit"
+          prefix: 'NLML_'
+          slug-maxlength: 'nolimit'
       - name: Using no limit on slug max length // Validate that the action end with an error
         run: |
           [[ "$(env | grep "NLML_" | grep "_SLUG" | wc -l)" -gt 0 ]]
@@ -394,5 +394,3 @@ jobs:
         uses: actions/checkout@v3
       - name: Release this GitHub Action
         uses: rlespinasse/release-that@v1
-        with:
-          without-prefix: true
