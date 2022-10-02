@@ -154,7 +154,11 @@ module.exports = require("os");
 
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -167,7 +171,7 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
     return result;
 };
@@ -255,13 +259,13 @@ function run() {
             if (eventPath) {
                 const eventData = yield Promise.resolve().then(() => __importStar(require(eventPath)));
                 if (eventData.hasOwnProperty('ref')) {
-                    core.exportVariable(GITHUB_EVENT_REF_SLUG, slug_1.slugref(eventData.ref));
-                    core.exportVariable(GITHUB_EVENT_REF_SLUG_CS, slug_1.slugref_cs(eventData.ref));
-                    core.exportVariable(GITHUB_EVENT_REF_SLUG_URL, slug_1.slugurlref(eventData.ref));
-                    core.exportVariable(GITHUB_EVENT_REF_SLUG_URL_CS, slug_1.slugurlref_cs(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG, (0, slug_1.slugref)(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG_CS, (0, slug_1.slugref_cs)(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG_URL, (0, slug_1.slugurlref)(eventData.ref));
+                    core.exportVariable(GITHUB_EVENT_REF_SLUG_URL_CS, (0, slug_1.slugurlref_cs)(eventData.ref));
                 }
                 else if (eventData.hasOwnProperty('pull_request')) {
-                    core.exportVariable(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT, short_1.shortsha(eventData.pull_request.head.sha));
+                    core.exportVariable(GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT, (0, short_1.shortsha)(eventData.pull_request.head.sha));
                 }
             }
             exportFirstPart(GITHUB_REPOSITORY, SEPARATOR, GITHUB_REPOSITORY_OWNER_PART);
@@ -294,60 +298,61 @@ function run() {
             exportBranchName();
         }
         catch (error) {
-            core.setFailed(error.message);
+            if (error instanceof Error)
+                core.setFailed(error.message);
         }
     });
 }
 function exportFirstPart(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, partial_1.get_first_part(envVar, separator));
+        core.exportVariable(outputKey, (0, partial_1.get_first_part)(envVar, separator));
     }
 }
 function exportSecondPart(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, partial_1.get_second_part(envVar, separator));
+        core.exportVariable(outputKey, (0, partial_1.get_second_part)(envVar, separator));
     }
 }
 function exportSlugCS(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slug_cs(envVar));
+        core.exportVariable(outputKey, (0, slug_1.slug_cs)(envVar));
     }
 }
 function exportSlug(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slug(envVar));
+        core.exportVariable(outputKey, (0, slug_1.slug)(envVar));
     }
 }
 function exportFirstPartSlugCS(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_first_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slug_cs(value));
+        const value = (0, partial_1.get_first_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slug_cs)(value));
     }
 }
 function exportFirstPartSlug(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_first_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slug(value));
+        const value = (0, partial_1.get_first_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slug)(value));
     }
 }
 function exportSecondPartSlugCS(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_second_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slug_cs(value));
+        const value = (0, partial_1.get_second_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slug_cs)(value));
     }
 }
 function exportSecondPartSlug(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_second_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slug(value));
+        const value = (0, partial_1.get_second_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slug)(value));
     }
 }
 function exportSlugRefCS(inputKey, outputKey) {
@@ -357,7 +362,7 @@ function exportSlugRefCS(inputKey, outputKey) {
     }
 }
 function exportSlugRefCSValue(envVar, outputKey) {
-    core.exportVariable(outputKey, slug_1.slugref_cs(envVar));
+    core.exportVariable(outputKey, (0, slug_1.slugref_cs)(envVar));
 }
 function exportSlugRef(inputKey, outputKey) {
     const envVar = process.env[inputKey];
@@ -366,46 +371,46 @@ function exportSlugRef(inputKey, outputKey) {
     }
 }
 function exportSlugRefValue(envVar, outputKey) {
-    core.exportVariable(outputKey, slug_1.slugref(envVar));
+    core.exportVariable(outputKey, (0, slug_1.slugref)(envVar));
 }
 function exportSlugUrlCS(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slugurl_cs(envVar));
+        core.exportVariable(outputKey, (0, slug_1.slugurl_cs)(envVar));
     }
 }
 function exportSlugUrl(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, slug_1.slugurl(envVar));
+        core.exportVariable(outputKey, (0, slug_1.slugurl)(envVar));
     }
 }
 function exportFirstPartSlugUrlCS(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_first_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slugurl_cs(value));
+        const value = (0, partial_1.get_first_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slugurl_cs)(value));
     }
 }
 function exportFirstPartSlugUrl(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_first_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slugurl(value));
+        const value = (0, partial_1.get_first_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slugurl)(value));
     }
 }
 function exportSecondPartSlugUrlCS(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_second_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slugurl_cs(value));
+        const value = (0, partial_1.get_second_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slugurl_cs)(value));
     }
 }
 function exportSecondPartSlugUrl(inputKey, separator, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        const value = partial_1.get_second_part(envVar, separator);
-        core.exportVariable(outputKey, slug_1.slugurl(value));
+        const value = (0, partial_1.get_second_part)(envVar, separator);
+        core.exportVariable(outputKey, (0, slug_1.slugurl)(value));
     }
 }
 function exportSlugUrlRefCS(inputKey, outputKey) {
@@ -415,7 +420,7 @@ function exportSlugUrlRefCS(inputKey, outputKey) {
     }
 }
 function exportSlugUrlRefCSValue(envVar, outputKey) {
-    core.exportVariable(outputKey, slug_1.slugurlref_cs(envVar));
+    core.exportVariable(outputKey, (0, slug_1.slugurlref_cs)(envVar));
 }
 function exportSlugUrlRef(inputKey, outputKey) {
     const envVar = process.env[inputKey];
@@ -424,12 +429,12 @@ function exportSlugUrlRef(inputKey, outputKey) {
     }
 }
 function exportSlugUrlRefValue(envVar, outputKey) {
-    core.exportVariable(outputKey, slug_1.slugurlref(envVar));
+    core.exportVariable(outputKey, (0, slug_1.slugurlref)(envVar));
 }
 function exportShortSha(inputKey, outputKey) {
     const envVar = process.env[inputKey];
     if (envVar) {
-        core.exportVariable(outputKey, short_1.shortsha(envVar));
+        core.exportVariable(outputKey, (0, short_1.shortsha)(envVar));
     }
 }
 function exportBranchName() {
@@ -443,7 +448,7 @@ function exportBranchName() {
         refName = process.env.GITHUB_REF;
     }
     if (refName) {
-        core.exportVariable(GITHUB_REF_NAME, slug_1.removeRef(refName));
+        core.exportVariable(GITHUB_REF_NAME, (0, slug_1.removeRef)(refName));
         exportSlugRefValue(refName, GITHUB_REF_NAME_SLUG);
         exportSlugRefCSValue(refName, GITHUB_REF_NAME_SLUG_CS);
         exportSlugUrlRefValue(refName, GITHUB_REF_NAME_SLUG_URL);
@@ -562,7 +567,6 @@ const file_command_1 = __webpack_require__(717);
 const utils_1 = __webpack_require__(278);
 const os = __importStar(__webpack_require__(87));
 const path = __importStar(__webpack_require__(622));
-const uuid_1 = __webpack_require__(840);
 const oidc_utils_1 = __webpack_require__(41);
 /**
  * The code to exit an action
@@ -592,20 +596,9 @@ function exportVariable(name, val) {
     process.env[name] = convertedVal;
     const filePath = process.env['GITHUB_ENV'] || '';
     if (filePath) {
-        const delimiter = `ghadelimiter_${uuid_1.v4()}`;
-        // These should realistically never happen, but just in case someone finds a way to exploit uuid generation let's not allow keys or values that contain the delimiter.
-        if (name.includes(delimiter)) {
-            throw new Error(`Unexpected input: name should not contain the delimiter "${delimiter}"`);
-        }
-        if (convertedVal.includes(delimiter)) {
-            throw new Error(`Unexpected input: value should not contain the delimiter "${delimiter}"`);
-        }
-        const commandValue = `${name}<<${delimiter}${os.EOL}${convertedVal}${os.EOL}${delimiter}`;
-        file_command_1.issueCommand('ENV', commandValue);
+        return file_command_1.issueFileCommand('ENV', file_command_1.prepareKeyValueMessage(name, val));
     }
-    else {
-        command_1.issueCommand('set-env', { name }, convertedVal);
-    }
+    command_1.issueCommand('set-env', { name }, convertedVal);
 }
 exports.exportVariable = exportVariable;
 /**
@@ -623,7 +616,7 @@ exports.setSecret = setSecret;
 function addPath(inputPath) {
     const filePath = process.env['GITHUB_PATH'] || '';
     if (filePath) {
-        file_command_1.issueCommand('PATH', inputPath);
+        file_command_1.issueFileCommand('PATH', inputPath);
     }
     else {
         command_1.issueCommand('add-path', {}, inputPath);
@@ -663,7 +656,10 @@ function getMultilineInput(name, options) {
     const inputs = getInput(name, options)
         .split('\n')
         .filter(x => x !== '');
-    return inputs;
+    if (options && options.trimWhitespace === false) {
+        return inputs;
+    }
+    return inputs.map(input => input.trim());
 }
 exports.getMultilineInput = getMultilineInput;
 /**
@@ -696,8 +692,12 @@ exports.getBooleanInput = getBooleanInput;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setOutput(name, value) {
+    const filePath = process.env['GITHUB_OUTPUT'] || '';
+    if (filePath) {
+        return file_command_1.issueFileCommand('OUTPUT', file_command_1.prepareKeyValueMessage(name, value));
+    }
     process.stdout.write(os.EOL);
-    command_1.issueCommand('set-output', { name }, value);
+    command_1.issueCommand('set-output', { name }, utils_1.toCommandValue(value));
 }
 exports.setOutput = setOutput;
 /**
@@ -826,7 +826,11 @@ exports.group = group;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function saveState(name, value) {
-    command_1.issueCommand('save-state', { name }, value);
+    const filePath = process.env['GITHUB_STATE'] || '';
+    if (filePath) {
+        return file_command_1.issueFileCommand('STATE', file_command_1.prepareKeyValueMessage(name, value));
+    }
+    command_1.issueCommand('save-state', { name }, utils_1.toCommandValue(value));
 }
 exports.saveState = saveState;
 /**
@@ -2786,13 +2790,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.issueCommand = void 0;
+exports.prepareKeyValueMessage = exports.issueFileCommand = void 0;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs = __importStar(__webpack_require__(747));
 const os = __importStar(__webpack_require__(87));
+const uuid_1 = __webpack_require__(840);
 const utils_1 = __webpack_require__(278);
-function issueCommand(command, message) {
+function issueFileCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
         throw new Error(`Unable to find environment variable for file command ${command}`);
@@ -2804,7 +2809,22 @@ function issueCommand(command, message) {
         encoding: 'utf8'
     });
 }
-exports.issueCommand = issueCommand;
+exports.issueFileCommand = issueFileCommand;
+function prepareKeyValueMessage(key, value) {
+    const delimiter = `ghadelimiter_${uuid_1.v4()}`;
+    const convertedValue = utils_1.toCommandValue(value);
+    // These should realistically never happen, but just in case someone finds a
+    // way to exploit uuid generation let's not allow keys or values that contain
+    // the delimiter.
+    if (key.includes(delimiter)) {
+        throw new Error(`Unexpected input: name should not contain the delimiter "${delimiter}"`);
+    }
+    if (convertedValue.includes(delimiter)) {
+        throw new Error(`Unexpected input: value should not contain the delimiter "${delimiter}"`);
+    }
+    return `${key}<<${delimiter}${os.EOL}${convertedValue}${os.EOL}${delimiter}`;
+}
+exports.prepareKeyValueMessage = prepareKeyValueMessage;
 //# sourceMappingURL=file-command.js.map
 
 /***/ }),
