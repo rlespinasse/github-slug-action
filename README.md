@@ -246,15 +246,13 @@ Please, use the current major tag `v4` or a version tag (see [releases pages][re
 - [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1] (in french :fr:)
 - The next one is you. _Don't hesitate to add youself to this list._
 
-[actions]: https://github.com/rlespinasse/github-slug-action/actions
-[license]: https://github.com/rlespinasse/github-slug-action/blob/v4.x/LICENSE
 [examples]: https://github.com/rlespinasse/github-slug-action/tree/v4.x/examples
 [custom-variable]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [releases]: https://github.com/rlespinasse/github-slug-action/releases
 [issue-15]: https://github.com/rlespinasse/github-slug-action/issues/15
 [issue-104]: https://github.com/rlespinasse/github-slug-action/issues/104
 
-[git-revpars]: https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt---shortlength
+[git-revparse]: https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt---shortlength
 [git-core-abbrev]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev
 
 [default-environment-variables]: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
