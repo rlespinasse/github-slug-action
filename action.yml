@@ -89,7 +89,7 @@ runs:
         slug-maxlength: ${{ inputs.slug-maxlength }}
     - id: get-github-repository-name-part
       run: |
-        namepart=$(echo $GITHUB_REPOSITORY | cut -d/ -f1)
+        namepart=$(echo $GITHUB_REPOSITORY | cut -d/ -f2)
         if [ -f "$GITHUB_OUTPUT" ]; then
           echo "github-repository-name-part=${namepart}" >> "$GITHUB_OUTPUT"
         else
