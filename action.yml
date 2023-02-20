@@ -60,10 +60,13 @@ runs:
       with:
         key: GITHUB_REF_NAME
         # Related to https://github.com/rlespinasse/github-slug-action/issues/104
-        value: ${{ env.GITHUB_HEAD_REF || env.GITHUB_REF_NAME }}
+        value: ${{ env.GITHUB_HEAD_REF_RAW || env.GITHUB_REF_NAME_RAW }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-        
+      env:
+        GITHUB_HEAD_REF_RAW: ${{ github.head_ref }}
+        GITHUB_REF_NAME_RAW: ${{ github.ref_name }}
+
     # From Calculated values
     - id: get-github-repository-owner-part
       run: |
