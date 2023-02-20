@@ -26,6 +26,7 @@ runs:
         INPUT_SLUG_MAXLENGTH: ${{ inputs.slug-maxlength }}
         INPUT_SHORT_LENGTH: ${{ inputs.short-length }}
 
+    # From Environment Variables
     - uses: rlespinasse/slugify-value@v1.4.0
       with:
         key: GITHUB_REPOSITORY
@@ -48,30 +49,22 @@ runs:
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
 
-    # Specific values
+    # From Specific values
     - uses: rlespinasse/slugify-value@v1.4.0
       with:
         key: GITHUB_EVENT_REF
         value: ${{ github.event.ref }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-
-    # Calculated values
-    - id: get-github-ref-name
-      run: |
-        refname="${{ github.head_ref || github.ref_name }}"
-        if [ -f "$GITHUB_OUTPUT" ]; then
-          echo "github-ref-name=${refname}" >> "$GITHUB_OUTPUT"
-        else
-          echo "::set-output name=github-ref-name::${refname}"
-        fi
-      shell: bash
     - uses: rlespinasse/slugify-value@v1.4.0
       with:
         key: GITHUB_REF_NAME
-        value: ${{ steps.get-github-ref-name.outputs.github-ref-name }}
+        # Related to https://github.com/rlespinasse/github-slug-action/issues/104
+        value: ${{ github.head_ref || github.ref_name }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
+
+    # From Calculated values
     - id: get-github-repository-owner-part
       run: |
         ownerpart=$(echo $GITHUB_REPOSITORY | cut -d/ -f1)
@@ -103,7 +96,7 @@ runs:
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
 
-    # Short
+    # From sha
     - uses: rlespinasse/shortify-git-revision@v1.6.0
       with:
         name: GITHUB_SHA
