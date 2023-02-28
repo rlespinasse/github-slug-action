@@ -19,7 +19,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [The SHORT variables doesn't have the same lengths as before](#the-short-variables-doesnt-have-the-same-lengths-as-before)
     - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
       - [Known environment variable conflicts](#known-environment-variable-conflicts)
-        - [GITHUB\_REF\_NAME](#github_ref_name)
+        - [GITHUB_REF_NAME](#github_ref_name)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
