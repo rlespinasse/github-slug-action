@@ -24,12 +24,6 @@ When a branch is not supported anymore, the following process occurs
 
 ## Reporting a Vulnerability
 
-You can report a Vulnerability by [my email](mailto:romain.lespinasse@gmail.com).
+You can report a Vulnerability by creating a (https://github.com/rlespinasse/github-slug-action/security/advisories)[draft security advisory] in this project.
 
-_Vulnerability stages :_
-
-- Reported,
-- Confirmed (or declined),
-- Fixed on maintained version series.
-
-After a vulnerability fix, an GitHub issue will be created as document this vulnerability.
+If the vulnerability is confirm, a fix will be produce and the advisory will be publish.
