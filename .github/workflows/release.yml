@@ -5,11 +5,13 @@ on:
     branches:
       - v*.x
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: technote-space/auto-cancel-redundant-workflow@v1
       - uses: actions/checkout@v3
       - run: npm install
       - run: npm run all
