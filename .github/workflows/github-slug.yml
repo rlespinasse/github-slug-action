@@ -11,7 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - run: npm install
+        shell: bash
       - run: npm run all
+        shell: bash
       - uses: ./
       - name: Partial variables
         run: |

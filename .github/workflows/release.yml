@@ -14,7 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
+        shell: bash
       - run: npm run all
+        shell: bash
       - uses: cycjimmy/semantic-release-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
