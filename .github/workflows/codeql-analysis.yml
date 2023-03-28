@@ -10,6 +10,9 @@ on:
   schedule:
     - cron: '0 6 * * 1'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   analyse:
     name: analyze
@@ -19,7 +22,6 @@ jobs:
       matrix:
         language: ['javascript']
     steps:
-      - uses: technote-space/auto-cancel-redundant-workflow@v1
       - uses: actions/checkout@v3
       - uses: github/codeql-action/init@v1
         with:
