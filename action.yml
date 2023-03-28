@@ -2,7 +2,7 @@ name: "GitHub Slug Action"
 description: "GitHub Action to expose slug value of environment variables inside your GitHub workflow"
 author: 'rlespinasse'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
 branding:
   icon: "minimize"
