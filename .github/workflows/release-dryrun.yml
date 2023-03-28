@@ -17,6 +17,8 @@ jobs:
         shell: bash
       - run: npm run all
         shell: bash
+        env:
+          NODE_OPTIONS: '--openssl-legacy-provider'
       - uses: ./
       - uses: cycjimmy/semantic-release-action@v3
         with:

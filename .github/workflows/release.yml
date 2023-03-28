@@ -17,6 +17,8 @@ jobs:
         shell: bash
       - run: npm run all
         shell: bash
+        env:
+          NODE_OPTIONS: '--openssl-legacy-provider'
       - uses: cycjimmy/semantic-release-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
