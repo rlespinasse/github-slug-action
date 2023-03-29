@@ -5,14 +5,18 @@ on:
     branches-ignore:
       - v*.x
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   release-dryrun:
     runs-on: ubuntu-latest
     steps:
-      - uses: technote-space/auto-cancel-redundant-workflow@v1
       - uses: actions/checkout@v3
       - run: npm install
+        shell: bash
       - run: npm run all
+        shell: bash
       - uses: ./
       - uses: cycjimmy/semantic-release-action@v3
         with:
