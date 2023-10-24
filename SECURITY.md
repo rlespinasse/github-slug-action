@@ -21,6 +21,6 @@ Since `2023-10-20`, when a new major version is release,
 
 ## Reporting a Vulnerability
 
-You can report a Vulnerability by creating a (https://github.com/rlespinasse/github-slug-action/security/advisories)[draft security advisory] in this project.
+You can report a Vulnerability by creating a [draft security advisory](https://github.com/rlespinasse/github-slug-action/security/advisories) in this project.
 
 If the vulnerability is confirm, a fix will be produce and the advisory will be publish.
