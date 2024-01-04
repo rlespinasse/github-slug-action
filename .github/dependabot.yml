@@ -6,6 +6,8 @@ updates:
       interval: "weekly"
     groups:
       dependencies:
+        patterns:
+          - "*"
         exclude-patterns:
           - "rlespinasse/slugify-value"
           - "rlespinasse/shortify-git-revision"
