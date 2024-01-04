@@ -6,8 +6,23 @@ updates:
       interval: "weekly"
     groups:
       dependencies:
+        exclude-patterns:
+          - "rlespinasse/slugify-value"
+          - "rlespinasse/shortify-git-revision"
+    reviewers:
+      - "rlespinasse"
+    labels: [ ]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    commit-message:
+      prefix: "feat: "
+    schedule:
+      interval: "weekly"
+    groups:
+      dependencies:
         patterns:
-          - "*"
+          - "rlespinasse/slugify-value"
+          - "rlespinasse/shortify-git-revision"
     reviewers:
       - "rlespinasse"
     labels: [ ]
