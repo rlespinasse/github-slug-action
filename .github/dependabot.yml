@@ -1,14 +1,13 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github/"
     schedule:
       interval: "weekly"
     groups:
       dependencies:
-        exclude-patterns:
-          - "rlespinasse/slugify-value"
-          - "rlespinasse/shortify-git-revision"
+        patterns:
+          - "*"
     reviewers:
       - "rlespinasse"
     labels: [ ]
