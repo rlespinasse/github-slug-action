@@ -394,3 +394,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Release this GitHub Action
         uses: rlespinasse/release-that@v1
+        with:
+          github-token: ${{ secrets.GH_TOKEN }}
