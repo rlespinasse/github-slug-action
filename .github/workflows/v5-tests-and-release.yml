@@ -2,6 +2,117 @@ name: "[v5] Test and Release"
 on: [push, pull_request]
 permissions: read-all
 jobs:
+  check-v4-compatibility:
+    name: "Check v4 compatibility"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Load this action from HEAD
+        uses: ./
+
+      - name: Load using v4
+        uses: rlespinasse/github-slug-action@v4
+        with:
+          prefix: V4_
+
+      - name: Validate // Partial variables
+        run: |
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART }}" ]]
+        shell: bash
+
+      - name: Validate // Slug variables
+        run: |
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG }}" == "${{ env.V4_GITHUB_REF_SLUG }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG }}" ]]
+        shell: bash
+      - name: Validate // Slug variables (Case Sensitive)
+        run: |
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG_CS }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_CS }}" ]]
+        shell: bash
+      - name: Validate // Slug URL variables
+        run: |
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG_URL }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_URL }}" ]]
+        shell: bash
+      - name: Validate // Slug URL variables (Case Sensitive)
+        run: |
+          [[ "${{ env.GITHUB_REPOSITORY_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_HEAD_REF_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_BASE_REF_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_URL_CS }}" ]]
+        shell: bash
+
+      - name: Validate // Ref Name
+        run: |
+          [[ "${{ env.GITHUB_REF_NAME }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
+        shell: bash
+
+      - name: Validate // Short SHA variables
+        run: |
+          [[ "${{ env.GITHUB_SHA_SHORT }}" == "${{ env.V4_GITHUB_SHA_SHORT }}" ]]
+          [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
+        shell: bash
+
+  check-v4-compatibility-without-checkout:
+    name: "Check v4 compatibility (without checkout)"
+    needs:
+      - check-v4-compatibility
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: this-action
+          ref: ${{ github.ref }}
+
+      - name: Load this action from HEAD
+        uses: ./this-action
+
+      - name: Load using v4
+        uses: rlespinasse/github-slug-action@v4
+        with:
+          prefix: V4_
+
+      - name: Validate // Short SHA variables
+        run: |
+          [[ "${{ env.GITHUB_SHA_SHORT }}" == "${{ env.V4_GITHUB_SHA_SHORT }}" ]]
+          [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
+        shell: bash
+
   display:
     name: "Display produced variables"
     strategy:
@@ -13,7 +124,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Load using v5.x
+      - name: Load this action from HEAD
         uses: ./
 
       - name: Partial variables
@@ -97,7 +208,7 @@ jobs:
           path: this-action
           ref: ${{ github.ref }}
 
-      - name: Load using v5.x
+      - name: Load this action from HEAD
         uses: ./this-action
 
       - name: Short SHA variables
