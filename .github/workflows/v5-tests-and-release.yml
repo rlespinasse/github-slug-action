@@ -1,5 +1,6 @@
 name: "[v5] Test and Release"
 on: [push, pull_request]
+permissions: read-all
 jobs:
   display:
     name: "Display produced variables"
@@ -266,6 +267,11 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      id-token: write
+      packages: write
     concurrency:
       group: release-${{ github.ref }}-${{ github.event_name }}
     needs:
