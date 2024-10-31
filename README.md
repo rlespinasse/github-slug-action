@@ -19,7 +19,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [The SHORT variables doesn't have the same lengths as before](#the-short-variables-doesnt-have-the-same-lengths-as-before)
     - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
       - [Known environment variable conflicts](#known-environment-variable-conflicts)
-        - [GITHUB_REF_NAME](#github_ref_name)
+        - [GITHUB\_REF\_NAME](#github_ref_name)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
@@ -56,7 +56,7 @@ Add this in your workflow
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v4
+  uses: rlespinasse/github-slug-action@v5
 ```
 
 <details>
@@ -67,7 +67,7 @@ Add this in your workflow
 
   ```yaml
   - name: Inject slug/short variables
-    uses: rlespinasse/github-slug-action@v4
+    uses: rlespinasse/github-slug-action@v5
     with:
       prefix: CI_
   ```
@@ -76,7 +76,7 @@ Add this in your workflow
 
   ```yaml
   - name: Inject slug/short variables
-    uses: rlespinasse/github-slug-action@v4
+    uses: rlespinasse/github-slug-action@v5
     with:
       slug-maxlength: 80 # Use 'nolimit' to remove use of a max length (Default to 63)
   ```
@@ -85,7 +85,7 @@ Add this in your workflow
 
   ```yaml
   - name: Inject slug/short variables
-    uses: rlespinasse/github-slug-action@v4
+    uses: rlespinasse/github-slug-action@v5
     with:
       short-length: 7 # By default it's up to git to decide, use 8 to have the v3.x behavior
   ```
@@ -102,14 +102,14 @@ Check for more [examples][examples] (OS usage, URL use, ...)
 
 The short sha length is not the same as previous version.
 
-- `v4` let git configuration decide of it (but you can override it),
-- `v3` and before, it's always a length of 8 characters.
+- Since `v4` let git configuration decide of it (but you can override it),
+- With `v3` and before, it's always a length of 8 characters.
 
 So to reproduce previous behavior, use
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v4
+  uses: rlespinasse/github-slug-action@v5
   with:
     short-length: 8 # Same as v3 and before
 ```
@@ -213,7 +213,7 @@ A possible workaround is to use `prefix` input
 
 ```yaml
 - name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v4
+  uses: rlespinasse/github-slug-action@v5
   with:
     prefix: CI_
 ```
@@ -235,7 +235,7 @@ If the `GIT_REFERENCE` value is
 - `v4.x` or after, the branch don't exists anymore following the [end-of-life for a branch](SECURITY.md#end-of-life-of-a-branch) security process.
 - `master`, the branch don't exists anymore, read more about it on the corresponding issue ([EOL issue][issue-15])
 
-Please, use the current major tag `v4` or a version tag (see [releases pages][releases]) in order to fix your workflow.
+Please, use the current major tag `v5` or a version tag (see [releases pages][releases]) in order to fix your workflow.
 
 ## Thanks for talking about us
 
@@ -245,7 +245,7 @@ In English :gb:
 - [Serverless Deploy Previews on GitHub Actions][article-3]
 - [Let's Build a Continuous Delivery and Branching Process with Github Actions, Vercel and Heroku][article-4]
 
-In French :fr: 
+In French :fr:
 
 - [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][article-1]
 - [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1]
@@ -256,7 +256,7 @@ In Chinese :cn:
 
 > The next one is you. _Don't hesitate to add youself to one of these lists._
 
-[examples]: https://github.com/rlespinasse/github-slug-action/tree/v4.x/examples
+[examples]: https://github.com/rlespinasse/github-slug-action/tree/v5.x/examples
 [custom-variable]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
 [releases]: https://github.com/rlespinasse/github-slug-action/releases
 [issue-15]: https://github.com/rlespinasse/github-slug-action/issues/15
