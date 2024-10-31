@@ -138,7 +138,7 @@ jobs:
         continue-on-error: true
       - name: Using wrong short length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "WSL_" | grep "_SHORT" -c)" -eq 0 ]]
           [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
         shell: bash
@@ -179,7 +179,7 @@ jobs:
         continue-on-error: true
       - name: Using empty short length // Validate that the action don't end with an error
         run: |
-          [[ "$(env | grep "ESL_" | grep "_SHORT" | wc -l)" -gt 0 ]]
+          [[ "$(env | grep "ESL_" | grep "_SHORT" -c)" -gt 0 ]]
           [[ "${{ steps.using-empty-short-length.outcome }}" == "success" ]]
           [[ "${{ steps.using-empty-short-length.conclusion }}" == "success" ]]
         shell: bash
@@ -194,7 +194,7 @@ jobs:
         continue-on-error: true
       - name: Using wrong short length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "WSL_" | grep "_SHORT" -c)" -eq 0 ]]
           [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
         shell: bash
@@ -231,7 +231,7 @@ jobs:
         continue-on-error: true
       - name: Using wrong slug max length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "WML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "WML_" | grep "_SLUG" -c)" -eq 0 ]]
           [[ "${{ steps.using-wrong-slug-max-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-wrong-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
@@ -246,7 +246,7 @@ jobs:
         continue-on-error: true
       - name: Using empty slug max length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "EML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "EML_" | grep "_SLUG" -c)" -eq 0 ]]
           [[ "${{ steps.using-empty-slug-max-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-empty-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
@@ -260,7 +260,7 @@ jobs:
           slug-maxlength: "nolimit"
       - name: Using no limit on slug max length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "NLML_" | grep "_SLUG" | wc -l)" -gt 0 ]]
+          [[ "$(env | grep "NLML_" | grep "_SLUG" -c)" -gt 0 ]]
           [[ "${{ steps.using-nolimit-slug-max-length.outcome }}" == "success" ]]
           [[ "${{ steps.using-nolimit-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
