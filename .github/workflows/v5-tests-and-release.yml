@@ -125,7 +125,7 @@ jobs:
           short-length: 4
       - name: Using correct length // Validate that all short variables lengths are equals to short-length
         run: |
-          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "${value}" | wc -m)" -le 5 ] ; done
         shell: bash
 
       # Test 2
@@ -167,7 +167,7 @@ jobs:
           short-length: 4
       - name: Using correct length // Validate that all short variables lengths are equals to short-length
         run: |
-          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "${value}" | wc -m)" -le 5 ] ; done
         shell: bash
 
       # Test 2
@@ -218,7 +218,7 @@ jobs:
           slug-maxlength: 1
       - name: Using correct max length // Validate that all slug variables lengths are equals or under the slug-maxlength
         run: |
-          env | grep "CML_" | grep "_SLUG" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 2 ] ; done
+          env | grep "CML_" | grep "_SLUG" | cut -d"=" -f2 | while read -r value; do [ "$(echo "${value}" | wc -m)" -le 2 ] ; done
         shell: bash
 
       # Test 2
