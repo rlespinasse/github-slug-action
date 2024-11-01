@@ -37,7 +37,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
   <summary>Others <b>Slug-ish</b> commands are available</summary>
   <p>
 
-- `SLUG_URL` on a variable to have a `slug` variable compliant to be used in an URL
+- `SLUG_URL` on a variable to have a `slug` variable compliant to be used in a URL
   - Like `SLUG` but `.`, and `_` are also replaced by `-`
 - `SHORT` on a variable will limit the string size to ~8 characters
   - Useful for _sha_ value
@@ -87,10 +87,10 @@ Add this in your workflow
   - name: Inject slug/short variables
     uses: rlespinasse/github-slug-action@v5
     with:
-      short-length: 7 # By default it's up to git to decide, use 8 to have the v3.x behavior
+      short-length: 7 # By default it's up to Git to decide, use 8 to have the v3.x behavior
   ```
 
-  **Warning**: If you leave it empty, you need to checkout the source first in order to let git decide the size by itself.
+  **Warning**: If you leave it empty, you need to checkout the source first in order to let Git decide the size by itself.
   </p>
 </details>
 
@@ -102,7 +102,7 @@ Check for more [examples][examples] (OS usage, URL use, ...)
 
 The short sha length is not the same as previous version.
 
-- Since `v4` let git configuration decide of it (but you can override it),
+- Since `v4` let Git configuration decide of it (but you can override it),
 - With `v3` and before, it's always a length of 8 characters.
 
 So to reproduce previous behavior, use
@@ -172,7 +172,7 @@ So to reproduce previous behavior, use
 
 ### The SHORT variables doesn't have the same lengths as before
 
-Since `v4`, it's git who manage the short variables by using [git rev-parse][git-revparse] behaviour.
+Since `v4`, it's Git who manage the short variables by using [git rev-parse][git-revparse] behaviour.
 The length of a short sha depends of the size of our repository and can differ over time.
 
 To manage that moving length, you can use `short-length` input
@@ -243,16 +243,16 @@ In English :gb:
 
 - [Action spotlight by Michael Heap][article-2]
 - [Serverless Deploy Previews on GitHub Actions][article-3]
-- [Let's Build a Continuous Delivery and Branching Process with Github Actions, Vercel and Heroku][article-4]
+- [Let's Build a Continuous Delivery and Branching Process with GitHub Actions, Vercel and Heroku][article-4]
 
 In French :fr:
 
 - [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][article-1]
-- [Github Actions : enfin des pipelines accessibles aux développeurs][talk-1]
+- [GitHub Actions : enfin des pipelines accessibles aux développeurs][talk-1]
 
 In Chinese :cn:
 
-- [利用github-slug-action暴漏Github Action上下文中的关键变量][article-5]
+- [利用github-slug-action暴漏GitHub Action上下文中的关键变量][article-5]
 
 > The next one is you. _Don't hesitate to add youself to one of these lists._
 
