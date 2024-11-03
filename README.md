@@ -55,7 +55,7 @@ Additional enhanced environment variables can be compute to help you around GitH
 Add this in your workflow
 
 ```yaml
-- name: Inject slug/short variables
+- name: Inject enhanced GitHub environment variables
   uses: rlespinasse/github-slug-action@v5
 ```
 
@@ -66,7 +66,7 @@ Add this in your workflow
 - With a prefix
 
   ```yaml
-  - name: Inject slug/short variables
+  - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
     with:
       prefix: CI_
@@ -75,7 +75,7 @@ Add this in your workflow
 - With another max length for slug values
 
   ```yaml
-  - name: Inject slug/short variables
+  - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
     with:
       slug-maxlength: 80 # Use 'nolimit' to remove use of a max length (Default to 63)
@@ -84,7 +84,7 @@ Add this in your workflow
 - With another length for short values
 
   ```yaml
-  - name: Inject slug/short variables
+  - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
     with:
       short-length: 7 # By default it's up to Git to decide, use 8 to have the v3.x behavior
@@ -108,7 +108,7 @@ The short sha length is not the same as previous version.
 So to reproduce previous behavior, use
 
 ```yaml
-- name: Inject slug/short variables
+- name: Inject enhanced GitHub environment variables
   uses: rlespinasse/github-slug-action@v5
   with:
     short-length: 8 # Same as v3 and before
@@ -116,15 +116,17 @@ So to reproduce previous behavior, use
 
 ## Available Environment variables
 
-**Note**: If you don't find what you search for, read more about [available `GitHub` variables](docs/github-variables.md), and propose a [new custom variable][custom-variable].
+> [!NOTE]
+> If you don't find what you search for, read more about [available `GitHub` variables](docs/github-variables.md), and propose a [new custom variable][custom-variable].
 
 ### Enhanced variables
 
-- `GITHUB_REF_NAME` will contains the reference name (branch or tag)
+- `GITHUB_REF_POINT` will contains the reference name (branch or tag)
   - based on `GITHUB_HEAD_REF` in a [`pull-request*`][webhooks-and-events] event context,
   - based on `GITHUB_REF` in others event context.
 
-**NOTE:** All enhanced variables are available in all **slug** formats.
+> [!NOTE]
+> All enhanced variables are available in all **slug** formats.
 
 ### Partial variables
 
@@ -135,7 +137,8 @@ So to reproduce previous behavior, use
 
 ### Slug variables
 
-**NOTE:** `_CS` suffix available
+> [!TIP]
+> `_CS` suffix also available
 
 | Variable                                                                                          | Slug version of              | Description                                                                                                          |
 | ------------------------------------------------------------------------------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -149,7 +152,8 @@ So to reproduce previous behavior, use
 
 ### Slug URL variables
 
-**NOTE:** `_CS` suffix available
+> [!TIP]
+> `_CS` suffix also available
 
 | Variable                                                                                                  | Slug URL version of          | Description                                                                                                           |
 | --------------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -184,7 +188,8 @@ To manage that moving length, you can use `short-length` input
 
 ### One of the environment variables doesn't work as intended
 
-[**Note**][naming-conventions]: When you set a custom environment variable, you cannot use any of the default environment variable names. For a complete list of these, see [Default environment variables][default-environment-variables]. **If you attempt to override the value of one of these default environment variables, the assignment is ignored.**
+> [!WARNING]
+> When you set a custom environment variable, you [cannot use any of the default environment variable names][naming-conventions]. For a complete list of these, see [Default environment variables][default-environment-variables]. **If you attempt to override the value of one of these default environment variables, the assignment is ignored.**
 
 If a variable start to be used as default environment variable, the environment variable may have a different behavior than the expected one.
 
@@ -196,13 +201,16 @@ If this append, the `${{ env.GITHUB_AWESOME_VARIABLE }}` and `$GITHUB_AWESOME_VA
 Otherwise the two expression will serve the behavior of this action.
 This will not occurs if you use the `prefix` input to avoid the issue.
 
-**NOTE:** If detected, the maintainers of this action will choose the best course of action depending of the impact.
+> [!IMPORTANT]
+> If detected, the maintainers of this action will choose the best course of action depending of the impact.
 
 #### Known environment variable conflicts
 
 ##### GITHUB_REF_NAME
 
-The behavior is the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
+If you use `v5` or related versions, you need to use `GITHUB_REF_POINT` instead of `GITHUB_REF_NAME`.
+
+Before `v5`, the behavior is the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
 
 - `${{ env.GITHUB_REF_NAME }}` will serve the behavior of this action,
 - `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
@@ -212,10 +220,26 @@ On `pull_request*` workflows, the content will be `<PR-number>/merge` instead of
 A possible workaround is to use `prefix` input
 
 ```yaml
-- name: Inject slug/short variables
-  uses: rlespinasse/github-slug-action@v5
-  with:
-    prefix: CI_
+steps:
+  - name: Inject enhanced GitHub environment variables
+    uses: rlespinasse/github-slug-action@v4
+    with:
+      prefix: CI_
+  - run: |
+      echo "Branch Name: ${CI_GITHUB_REF_NAME}"
+    shell: bash
+```
+
+or to use `v5` and move to `GITHUB_REF_POINT`
+
+```yaml
+steps:
+  - name: Inject enhanced GitHub environment variables
+    uses: rlespinasse/github-slug-action@v5
+  - run: |
+      echo "Branch Name: ${GITHUB_REF_POINT}"
+    shell: bash
+
 ```
 
 Then `${{ env.CI_GITHUB_REF_NAME }}`, and `$CI_GITHUB_REF_NAME` will serve the behavior of this action.

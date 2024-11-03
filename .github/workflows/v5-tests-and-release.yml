@@ -70,11 +70,11 @@ jobs:
 
       - name: Validate // Ref Name
         run: |
-          [[ "${{ env.GITHUB_REF_NAME }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
         shell: bash
 
       - name: Validate // Short SHA variables
@@ -179,11 +179,11 @@ jobs:
 
       - name: Ref Name
         run: |
-          echo "raw                       : ${{ env.GITHUB_REF_NAME }}"
-          echo "slug                      : ${{ env.GITHUB_REF_NAME_SLUG }}"
-          echo "slug url                  : ${{ env.GITHUB_REF_NAME_SLUG_URL }}"
-          echo "slug (Case Sensitive)     : ${{ env.GITHUB_REF_NAME_SLUG_CS }}"
-          echo "slug url (Case Sensitive) : ${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}"
+          echo "raw                       : ${{ env.GITHUB_REF_POINT }}"
+          echo "slug                      : ${{ env.GITHUB_REF_POINT_SLUG }}"
+          echo "slug url                  : ${{ env.GITHUB_REF_POINT_SLUG_URL }}"
+          echo "slug (Case Sensitive)     : ${{ env.GITHUB_REF_POINT_SLUG_CS }}"
+          echo "slug url (Case Sensitive) : ${{ env.GITHUB_REF_POINT_SLUG_URL_CS }}"
         shell: bash
 
       - name: Short SHA variables
