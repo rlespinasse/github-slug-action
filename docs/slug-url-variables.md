@@ -72,8 +72,8 @@ Slug URL the environment variable **GITHUB_REF_NAME**
 The branch or tag ref that triggered the workflow.
 _If neither a branch or tag is available for the event type, the variable will not exist._
 
-| GITHUB_REF | GITHUB_REF_SLUG_URL |
-| ---------- | ------------------- |
+| GITHUB_REF_NAME | GITHUB_REF_SLUG_URL |
+| --------------- | ------------------- |
 | refs/heads/main | main |
 | refs/heads/feat/new_feature | feat-new-feature |
 | refs/tags/v1.0.0 | v1-0-0 |

@@ -20,7 +20,7 @@ Slug the environment variable **GITHUB_REPOSITORY**
 The owner and repository name.
 
 | GITHUB_REPOSITORY | GITHUB_REPOSITORY_SLUG |
-| ----------------- | ---------------------------- |
+| ----------------- | ---------------------- |
 | octocat/Hello-World | octocat-hello-world |
 | rlespinasse/Hello-World.go | rlespinasse-hello-world.go |
 | AnotherPerson/SomeRepository | anotherperson-somerepository |
@@ -57,7 +57,7 @@ The branch or tag ref that triggered the workflow.
 _If neither a branch or tag is available for the event type, the variable will not exist._
 
 | GITHUB_REF | GITHUB_REF_SLUG |
-| ------------------------------ | ------------------- |
+| ---------- | --------------- |
 | refs/heads/main | main |
 | refs/heads/feat/new_feature | feat-new-feature |
 | refs/tags/v1.0.0 | v1.0.0 |
@@ -71,14 +71,14 @@ Slug the environment variable **GITHUB_REF_NAME**
 The branch or tag ref that triggered the workflow.
 _If neither a branch or tag is available for the event type, the variable will not exist._
 
-| GITHUB_REF | GITHUB_REF_SLUG |
-| ------------------------------ | ------------------- |
-| refs/heads/main | main |
-| refs/heads/feat/new_feature | feat-new-feature |
-| refs/tags/v1.0.0 | v1.0.0 |
-| refs/tags/product@1.0.0-rc.2 | product-1.0.0-rc.2 |
-| refs/heads/New_Awesome_Product | new-awesome-product |
-| refs/pull/42/merge | 42-merge |
+| GITHUB_REF_NAME | GITHUB_REF_SLUG |
+| --------------- | --------------- |
+| main | main |
+| feat/new_feature | feat-new-feature |
+| v1.0.0 | v1.0.0 |
+| product@1.0.0-rc.2 | product-1.0.0-rc.2 |
+| New_Awesome_Product | new-awesome-product |
+| 42/merge | 42-merge |
 
 ## GITHUB_HEAD_REF_SLUG
 
@@ -88,7 +88,7 @@ The branch of the head repository.
 _Only set for [`pull-request`][1] event and forked repositories._
 
 | GITHUB_REF | GITHUB_HEAD_REF_SLUG |
-| ------------------------------ | -------------------- |
+| ---------- | -------------------- |
 | refs/heads/main | main |
 | refs/heads/feat/new_feature | feat-new-feature |
 | refs/heads/New_Awesome_Product | new-awesome-product |
@@ -101,7 +101,7 @@ The branch of the base repository.
 _Only set for [`pull-request`][1] event and forked repositories._
 
 | GITHUB_REF | GITHUB_HEAD_REF_SLUG |
-| ------------------------------ | -------------------- |
+| ---------- | -------------------- |
 | refs/heads/main | main |
 | refs/heads/feat/new_feature | feat-new-feature |
 | refs/heads/New_Awesome_Product | new-awesome-product |
@@ -114,7 +114,7 @@ The git reference resource associated to triggered webhook.
 _Only set for [`create`, and `delete`][1] events._
 
 | GITHUB_REF | GITHUB_HEAD_REF_SLUG |
-| ------------------------------ | -------------------- |
+| ---------- | -------------------- |
 | refs/heads/main | main |
 | refs/heads/feat/new_feature | feat-new-feature |
 | refs/heads/New_Awesome_Product | new-awesome-product |
