@@ -17,9 +17,8 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
     - [Short variables](#short-variables)
   - [Troubleshooting](#troubleshooting)
     - [The SHORT variables doesn't have the same lengths as before](#the-short-variables-doesnt-have-the-same-lengths-as-before)
+    - [The GITHUB\_REF\_NAME SLUG/SLUG\_URL variables doesn't work the same way as before](#the-github_ref_name-slugslug_url-variables-doesnt-work-the-same-way-as-before)
     - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
-      - [Known environment variable conflicts](#known-environment-variable-conflicts)
-        - [GITHUB\_REF\_NAME](#github_ref_name)
     - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
   - [Thanks for talking about us](#thanks-for-talking-about-us)
 
@@ -123,53 +122,55 @@ So to reproduce previous behavior, use
 
 - `GITHUB_REF_POINT` will contains the reference name (branch or tag)
   - based on `GITHUB_HEAD_REF` in a [`pull-request*`][webhooks-and-events] event context,
-  - based on `GITHUB_REF` in others event context.
+  - based on `GITHUB_REF_NAME` in others event context.
 
 > [!NOTE]
 > All enhanced variables are available in all **slug** formats.
 
 ### Partial variables
 
-| Variable                                                                               | Partial version of | Description                                            |
-| -------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------ |
-| [GITHUB_REPOSITORY_OWNER_PART](docs/partial-variables.md#github_repository_owner_part) | GITHUB_REPOSITORY  | The Owner part of GITHUB_REPOSITORY variable           |
-| [GITHUB_REPOSITORY_NAME_PART](docs/partial-variables.md#github_repository_name_part)   | GITHUB_REPOSITORY  | The Repository name part of GITHUB_REPOSITORY variable |
+| Variable | Partial version of | Description |
+| -------- | ------------------ | ----------- |
+| [GITHUB_REPOSITORY_OWNER_PART](docs/partial-variables.md#github_repository_owner_part) | GITHUB_REPOSITORY | The Owner part of GITHUB_REPOSITORY variable |
+| [GITHUB_REPOSITORY_NAME_PART](docs/partial-variables.md#github_repository_name_part) | GITHUB_REPOSITORY | The Repository name part of GITHUB_REPOSITORY variable |
 
 ### Slug variables
 
 > [!TIP]
 > `_CS` suffix also available
 
-| Variable                                                                                          | Slug version of              | Description                                                                                                          |
-| ------------------------------------------------------------------------------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| [GITHUB_REPOSITORY_SLUG](docs/slug-variables.md#github_repository_slug)                           | GITHUB_REPOSITORY            | The owner and repository name.                                                                                       |
-| [GITHUB_REPOSITORY<br>_OWNER_PART_SLUG](docs/slug-variables.md#github_repository_owner_part_slug) | GITHUB_REPOSITORY_OWNER_PART | The owner name.                                                                                                      |
-| [GITHUB_REPOSITORY<br>_NAME_PART_SLUG](docs/slug-variables.md#github_repository_name_part_slug)   | GITHUB_REPOSITORY_NAME_PART  | The repository name.                                                                                                 |
-| [GITHUB_REF_SLUG](docs/slug-variables.md#github_ref_slug)                                         | GITHUB_REF                   | The branch or tag ref that triggered the workflow.                                                                   |
-| [GITHUB_HEAD_REF_SLUG](docs/slug-variables.md#github_head_ref_slug)                               | GITHUB_HEAD_REF              | The branch of the head repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
-| [GITHUB_BASE_REF_SLUG](docs/slug-variables.md#github_base_ref_slug)                               | GITHUB_BASE_REF              | The branch of the base repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
-| [GITHUB_EVENT_REF_SLUG](docs/slug-variables.md#github_event_ref_slug)                             | _github.event.ref_           | <br>Only set for [following webhook events][webhooks-and-events]<ul><li>`create`</li><li>`delete`</li></ul>          |
+| Variable | Slug version of | Description |
+| -------- | --------------- | ----------- |
+| [GITHUB_REPOSITORY_SLUG](docs/slug-variables.md#github_repository_slug) | GITHUB_REPOSITORY | The owner and repository name. |
+| [GITHUB_REPOSITORY<br>_OWNER_PART_SLUG](docs/slug-variables.md#github_repository_owner_part_slug) | GITHUB_REPOSITORY_OWNER_PART | The owner name. |
+| [GITHUB_REPOSITORY<br>_NAME_PART_SLUG](docs/slug-variables.md#github_repository_name_part_slug) | GITHUB_REPOSITORY_NAME_PART | The repository name. |
+| [GITHUB_REF_SLUG](docs/slug-variables.md#github_ref_slug) | GITHUB_REF | The branch or tag ref that triggered the workflow. |
+| [GITHUB_REF_NAME_SLUG](docs/slug-variables.md#github_ref_name_slug) | GITHUB_REF_NAME | This value matches the branch or tag name shown on GitHub. Similar to GITHUB_REF_SLUG. |
+| [GITHUB_HEAD_REF_SLUG](docs/slug-variables.md#github_head_ref_slug) | GITHUB_HEAD_REF | The branch of the head repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
+| [GITHUB_BASE_REF_SLUG](docs/slug-variables.md#github_base_ref_slug) | GITHUB_BASE_REF | The branch of the base repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
+| [GITHUB_EVENT_REF_SLUG](docs/slug-variables.md#github_event_ref_slug) | _github.event.ref_ | <br>Only set for [following webhook events][webhooks-and-events]<ul><li>`create`</li><li>`delete`</li></ul> |
 
 ### Slug URL variables
 
 > [!TIP]
 > `_CS` suffix also available
 
-| Variable                                                                                                  | Slug URL version of          | Description                                                                                                           |
-| --------------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| [GITHUB_REPOSITORY_SLUG_URL](docs/slug-url-variables.md#github_repository_slug_url)                       | GITHUB_REPOSITORY            | The owner and repository name.                                                                                        |
-| [GITHUB_REPOSITORY<br>_OWNER_PART_SLUG_URL](docs/slug-variables.md#github_repository_owner_part_slug_url) | GITHUB_REPOSITORY_OWNER_PART | The owner name.                                                                                                       |
-| [GITHUB_REPOSITORY<br>_NAME_PART_SLUG_URL](docs/slug-variables.md#github_repository_name_part_slug_url)   | GITHUB_REPOSITORY_NAME_PART  | The repository name.                                                                                                  |
-| [GITHUB_REF_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url)                                     | GITHUB_REF                   | The branch or tag ref that triggered the workflow.                                                                    |
-| [GITHUB_HEAD_REF_SLUG_URL](docs/slug-url-variables.md#github_head_ref_slug_url)                           | GITHUB_HEAD_REF              | The branch of the head repository.<br>Only set for [pull-request][webhooks-and-events] event and forked repositories. |
-| [GITHUB_BASE_REF_SLUG_URL](docs/slug-url-variables.md#github_base_ref_slug_url)                           | GITHUB_BASE_REF              | The branch of the base repository.<br>Only set for [pull-request][webhooks-and-events] event and forked repositories. |
-| [GITHUB_EVENT_REF_SLUG_URL](docs/slug-url-variables.md#github_event_ref_slug_url)                         | _github.event.ref_           | <br>Only set for [following webhook events][webhooks-and-events]<ul><li>`create`</li><li>`delete`</li></ul>           |
+| Variable | Slug URL version of | Description |
+| -------- | ------------------- | ----------- |
+| [GITHUB_REPOSITORY_SLUG_URL](docs/slug-url-variables.md#github_repository_slug_url) | GITHUB_REPOSITORY | The owner and repository name. |
+| [GITHUB_REPOSITORY<br>_OWNER_PART_SLUG_URL](docs/slug-variables.md#github_repository_owner_part_slug_url) | GITHUB_REPOSITORY_OWNER_PART | The owner name. |
+| [GITHUB_REPOSITORY<br>_NAME_PART_SLUG_URL](docs/slug-variables.md#github_repository_name_part_slug_url) | GITHUB_REPOSITORY_NAME_PART | The repository name. |
+| [GITHUB_REF_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | GITHUB_REF | The branch or tag ref that triggered the workflow. |
+| [GITHUB_REF_NAME_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | GITHUB_REF_NAME | This value matches the branch or tag name shown on GitHub. Similar to GITHUB_REF_SLUG_URL. |
+| [GITHUB_HEAD_REF_SLUG_URL](docs/slug-url-variables.md#github_head_ref_slug_url) | GITHUB_HEAD_REF | The branch of the head repository.<br>Only set for [pull-request][webhooks-and-events] event and forked repositories. |
+| [GITHUB_BASE_REF_SLUG_URL](docs/slug-url-variables.md#github_base_ref_slug_url) | GITHUB_BASE_REF | The branch of the base repository.<br>Only set for [pull-request][webhooks-and-events] event and forked repositories. |
+| [GITHUB_EVENT_REF_SLUG_URL](docs/slug-url-variables.md#github_event_ref_slug_url) | _github.event.ref_ | <br>Only set for [following webhook events][webhooks-and-events]<ul><li>`create`</li><li>`delete`</li></ul> |
 
 ### Short variables
 
-| Variable                                                                                                             | Short version of                             | Description                                                                                                                                                                                                                                             |
-| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [GITHUB_SHA_SHORT](docs/short-variables.md#github_sha_short)                                                         | GITHUB_SHA                                   | The commit SHA that triggered the workflow.                                                                                                                                                                                                             |
+| Variable | Short version of | Description |
+| -------- | ---------------- | ----------- |
+| [GITHUB_SHA_SHORT](docs/short-variables.md#github_sha_short) | GITHUB_SHA | The commit SHA that triggered the workflow. |
 | [GITHUB_EVENT<br>_PULL_REQUEST<br>_HEAD_SHA_SHORT](docs/short-variables.md#github_event_pull_request_head_sha_short) | _github.event<br>.pull_request<br>.head.sha_ | The commit SHA on pull request that trigger workflow.<br>Only set for [following webhook events][webhooks-and-events]<ul><li>`pull_request`</li><li>`pull_request_review`</li><li>`pull_request_review_comment`</li><li>`pull_request_target`</li></ul> |
 
 ## Troubleshooting
@@ -184,7 +185,34 @@ To manage that moving length, you can use `short-length` input
 - set `7` to reproduce `small repository` behavior
 - set `8` to reproduce `v3` behavior
 
-**Warning**: The minimum length is 4, the default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
+> [!WARNING]
+> The minimum length is 4, the default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
+
+### The GITHUB_REF_NAME SLUG/SLUG_URL variables doesn't work the same way as before
+
+> [!TIP]
+> If you use `v5` or related versions, you need to use `GITHUB_REF_POINT` instead of `GITHUB_REF_NAME` to get the behavior of the `v4` action.
+
+Before `v5`, the behavior was the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
+
+- `${{ env.GITHUB_REF_NAME }}` will serve the behavior of this action,
+- `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
+
+On `pull_request*` workflows, the content will be `<PR-number>/merge` instead of the branch name.
+So you need to use `GITHUB_REF_POINT` instead
+
+```yaml
+steps:
+  - name: Inject enhanced GitHub environment variables
+    uses: rlespinasse/github-slug-action@v5
+  - run: |
+      echo "Branch Name: ${GITHUB_REF_POINT}"
+    shell: bash
+
+```
+
+Then `${{ env.GITHUB_REF_POINT }}`, and `$GITHUB_REF_POINT` will serve the behavior of this action.
+And `${{ env.GITHUB_REF_NAME }}`, and `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
 
 ### One of the environment variables doesn't work as intended
 
@@ -203,47 +231,6 @@ This will not occurs if you use the `prefix` input to avoid the issue.
 
 > [!IMPORTANT]
 > If detected, the maintainers of this action will choose the best course of action depending of the impact.
-
-#### Known environment variable conflicts
-
-##### GITHUB_REF_NAME
-
-If you use `v5` or related versions, you need to use `GITHUB_REF_POINT` instead of `GITHUB_REF_NAME`.
-
-Before `v5`, the behavior is the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
-
-- `${{ env.GITHUB_REF_NAME }}` will serve the behavior of this action,
-- `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
-
-On `pull_request*` workflows, the content will be `<PR-number>/merge` instead of the branch name.
-
-A possible workaround is to use `prefix` input
-
-```yaml
-steps:
-  - name: Inject enhanced GitHub environment variables
-    uses: rlespinasse/github-slug-action@v4
-    with:
-      prefix: CI_
-  - run: |
-      echo "Branch Name: ${CI_GITHUB_REF_NAME}"
-    shell: bash
-```
-
-or to use `v5` and move to `GITHUB_REF_POINT`
-
-```yaml
-steps:
-  - name: Inject enhanced GitHub environment variables
-    uses: rlespinasse/github-slug-action@v5
-  - run: |
-      echo "Branch Name: ${GITHUB_REF_POINT}"
-    shell: bash
-
-```
-
-Then `${{ env.CI_GITHUB_REF_NAME }}`, and `$CI_GITHUB_REF_NAME` will serve the behavior of this action.
-And `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
 
 ### An action could not be found at the URI
 
