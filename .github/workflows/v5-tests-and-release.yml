@@ -139,6 +139,7 @@ jobs:
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG }}"
@@ -150,6 +151,7 @@ jobs:
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG_CS }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG_CS }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_CS }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_CS }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_CS }}"
@@ -161,6 +163,7 @@ jobs:
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG_URL }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG_URL }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
@@ -172,12 +175,13 @@ jobs:
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG_URL_CS }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}"
         shell: bash
 
-      - name: Ref Name
+      - name: Ref Point
         run: |
           echo "raw                       : ${{ env.GITHUB_REF_POINT }}"
           echo "slug                      : ${{ env.GITHUB_REF_POINT_SLUG }}"
