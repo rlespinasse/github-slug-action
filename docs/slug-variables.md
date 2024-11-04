@@ -110,7 +110,7 @@ _Only set for [`pull-request`][1] event and forked repositories._
 
 Slug the variable **github.event.ref**
 
-The git reference resource associated to triggered webhook.
+The Git reference resource associated to triggered webhook.
 _Only set for [`create`, and `delete`][1] events._
 
 | GITHUB_REF | GITHUB_HEAD_REF_SLUG |
