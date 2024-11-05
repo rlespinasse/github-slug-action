@@ -23,9 +23,9 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 - `<VAR>_CS` on others variables to keep the value case-sensitive
   - Like `GITHUB_REF_SLUG_CS`
 
-## Use this action
+## Installation
 
-Add this in your workflow, or check for more [examples][examples] (OS usage, URL use, ...)
+Add this step to your workflow
 
 ```yaml
 steps:
@@ -33,8 +33,13 @@ steps:
     uses: rlespinasse/github-slug-action@v5
 ```
 
-> [!TIP]
+> [!CAUTION]
 > Use [Dependabot][dependabot] to maintain your `github-slug-action` version updated in your GitHub workflows.
+
+## Configuration Options
+
+> [!TIP]
+> Check for more [examples][examples] (OS usage, URL use, ...)
 
 ### With a prefix
 
