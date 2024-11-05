@@ -88,10 +88,10 @@ steps:
 
 ### Partial variables
 
-| Variable | Partial version of | Description |
-| -------- | ------------------ | ----------- |
-| [GITHUB_REPOSITORY_OWNER_PART](docs/partial-variables.md#github_repository_owner_part) | GITHUB_REPOSITORY | The Owner part of GITHUB_REPOSITORY variable |
-| [GITHUB_REPOSITORY_NAME_PART](docs/partial-variables.md#github_repository_name_part) | GITHUB_REPOSITORY | The Repository name part of GITHUB_REPOSITORY variable |
+| Variable | Description |
+| -------- | ----------- |
+| [GITHUB_REPOSITORY_OWNER_PART](docs/partial-variables.md#github_repository_owner_part) | The Owner part of GITHUB_REPOSITORY variable |
+| [GITHUB_REPOSITORY_NAME_PART](docs/partial-variables.md#github_repository_name_part) | The Repository name part of GITHUB_REPOSITORY variable |
 
 ### Slug variables
 
