@@ -162,8 +162,8 @@ So to reproduce previous behavior, use
 | [GITHUB_REPOSITORY<br>_NAME_PART_SLUG_URL](docs/slug-variables.md#github_repository_name_part_slug_url) | GITHUB_REPOSITORY_NAME_PART | The repository name. |
 | [GITHUB_REF_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | GITHUB_REF | The branch or tag ref that triggered the workflow. |
 | [GITHUB_REF_NAME_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | GITHUB_REF_NAME | This value matches the branch or tag name shown on GitHub. Similar to GITHUB_REF_SLUG_URL. |
-| [GITHUB_HEAD_REF_SLUG_URL](docs/slug-url-variables.md#github_head_ref_slug_url) | GITHUB_HEAD_REF | The branch of the head repository.<br>Only set for [pull-request][webhooks-and-events] event and forked repositories. |
-| [GITHUB_BASE_REF_SLUG_URL](docs/slug-url-variables.md#github_base_ref_slug_url) | GITHUB_BASE_REF | The branch of the base repository.<br>Only set for [pull-request][webhooks-and-events] event and forked repositories. |
+| [GITHUB_HEAD_REF_SLUG_URL](docs/slug-url-variables.md#github_head_ref_slug_url) | GITHUB_HEAD_REF | The branch of the head repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
+| [GITHUB_BASE_REF_SLUG_URL](docs/slug-url-variables.md#github_base_ref_slug_url) | GITHUB_BASE_REF | The branch of the base repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
 | [GITHUB_EVENT_REF_SLUG_URL](docs/slug-url-variables.md#github_event_ref_slug_url) | _github.event.ref_ | <br>Only set for [following webhook events][webhooks-and-events]<ul><li>`create`</li><li>`delete`</li></ul> |
 
 ### Short variables
@@ -177,7 +177,7 @@ So to reproduce previous behavior, use
 
 ### The SHORT variables doesn't have the same lengths as before
 
-Since `v4`, it's Git who manage the short variables by using [git rev-parse][git-revparse] behaviour.
+Since `v4`, it's Git who manage the short variables by using [`git rev-parse`][git-revparse] behaviour.
 The length of a short sha depends of the size of our repository and can differ over time.
 
 To manage that moving length, you can use `short-length` input
@@ -279,6 +279,7 @@ In Chinese :cn:
 [default-environment-variables]: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
 [dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
 [webhooks-and-events]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
+[event-pull-request]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#pull_request
 [naming-conventions]: https://docs.github.com/en/actions/reference/environment-variables#naming-conventions-for-environment-variables
 
 [article-1]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
