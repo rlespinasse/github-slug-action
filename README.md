@@ -101,7 +101,7 @@ steps:
 ### Slug variables
 
 > [!TIP]
-> `_CS` suffix also available for Case-Sensitive preservation
+> Available in standard and case-sensitive (`_CS`) versions.
 
 | Variable | Description |
 | -------- | ----------- |
@@ -114,10 +114,12 @@ steps:
 | [GITHUB_BASE_REF_SLUG](docs/slug-variables.md#github_base_ref_slug) | The branch of the base repository. |
 | [GITHUB_EVENT_REF_SLUG](docs/slug-variables.md#github_event_ref_slug) | The Git reference resource associated to triggered webhook. |
 
-### Slug URL variables
+### URL-Safe Slug variables
+
+Same as slug variables but URL-compliant
 
 > [!TIP]
-> `_CS` suffix also available for Case-Sensitive preservation
+> Available in standard and case-sensitive (`_CS`) versions.
 
 | Variable | Description |
 | -------- | ----------- |
@@ -139,7 +141,7 @@ steps:
 
 ## Migration from previous versions
 
-### From v4
+### v4 to v5
 
 The **GITHUB_REF_NAME SLUG/SLUG_URL** variables doesn't work the same way as before
 
@@ -167,7 +169,7 @@ steps:
 Then `${{ env.GITHUB_REF_POINT }}`, and `$GITHUB_REF_POINT` will serve the behavior of this action.
 And `${{ env.GITHUB_REF_NAME }}`, and `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
 
-### From v3
+### v3 to v4
 
 Since `v4`, it's Git who manage the short variables by using [`git rev-parse`][git-revparse] behaviour.
 The length of a short sha depends of the size of our repository and can differ over time.
