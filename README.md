@@ -2,26 +2,6 @@
 
 This GitHub Action will expose the slug/short values of [some GitHub environment variables][default-environment-variables] inside your GitHub workflow.
 
-## Table of Contents
-
-- [GitHub Slug action](#github-slug-action)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Use this action](#use-this-action)
-    - [Migration from previous versions](#migration-from-previous-versions)
-  - [Available Environment variables](#available-environment-variables)
-    - [Enhanced variables](#enhanced-variables)
-    - [Partial variables](#partial-variables)
-    - [Slug variables](#slug-variables)
-    - [Slug URL variables](#slug-url-variables)
-    - [Short variables](#short-variables)
-  - [Troubleshooting](#troubleshooting)
-    - [The SHORT variables doesn't have the same lengths as before](#the-short-variables-doesnt-have-the-same-lengths-as-before)
-    - [The GITHUB\_REF\_NAME SLUG/SLUG\_URL variables doesn't work the same way as before](#the-github_ref_name-slugslug_url-variables-doesnt-work-the-same-way-as-before)
-    - [One of the environment variables doesn't work as intended](#one-of-the-environment-variables-doesnt-work-as-intended)
-    - [An action could not be found at the URI](#an-action-could-not-be-found-at-the-uri)
-  - [Thanks for talking about us](#thanks-for-talking-about-us)
-
 ## Overview
 
 `SLUG` on a variable will
@@ -32,9 +12,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 - limit the string size to 63 characters
 - remove trailing `-` characters
 
-<details>
-  <summary>Others <b>Slug-ish</b> commands are available</summary>
-  <p>
+### Others Slug-ish variables are available
 
 - `SLUG_URL` on a variable to have a `slug` variable compliant to be used in a URL
   - Like `SLUG` but `.`, and `_` are also replaced by `-`
@@ -45,78 +23,59 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 - `<VAR>_CS` on others variables to keep the value case-sensitive
   - Like `GITHUB_REF_SLUG_CS`
 
-Additional enhanced environment variables can be compute to help you around GitHub environment variables.
-  </p>
-</details>
-
 ## Use this action
 
-Add this in your workflow
+Add this in your workflow, or check for more [examples][examples] (OS usage, URL use, ...)
 
 ```yaml
-- name: Inject enhanced GitHub environment variables
-  uses: rlespinasse/github-slug-action@v5
+steps:
+  - name: Inject enhanced GitHub environment variables
+    uses: rlespinasse/github-slug-action@v5
 ```
 
-<details>
-  <summary>Others configurations</summary>
-  <p>
+> [!TIP]
+> Use [Dependabot][dependabot] to maintain your `github-slug-action` version updated in your GitHub workflows.
 
-- With a prefix
+### With a prefix
 
-  ```yaml
+```yaml
+steps:
   - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
     with:
       prefix: CI_
-  ```
+```
 
-- With another max length for slug values
+### With another max length for slug values
 
-  ```yaml
+```yaml
+steps:
   - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
     with:
       slug-maxlength: 80 # Use 'nolimit' to remove use of a max length (Default to 63)
-  ```
+```
 
-- With another length for short values
+### With another length for short values
 
-  ```yaml
+```yaml
+steps:
   - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
     with:
       short-length: 7 # By default it's up to Git to decide, use 8 to have the v3.x behavior
-  ```
-
-  **Warning**: If you leave it empty, you need to checkout the source first in order to let Git decide the size by itself.
-  </p>
-</details>
-
-Check for more [examples][examples] (OS usage, URL use, ...)
-
-**Tip:** Use [Dependabot][dependabot] to maintain your `github-slug-action` version updated in your GitHub workflows.
-
-### Migration from previous versions
-
-The short sha length is not the same as previous version.
-
-- Since `v4` let Git configuration decide of it (but you can override it),
-- With `v3` and before, it's always a length of 8 characters.
-
-So to reproduce previous behavior, use
-
-```yaml
-- name: Inject enhanced GitHub environment variables
-  uses: rlespinasse/github-slug-action@v5
-  with:
-    short-length: 8 # Same as v3 and before
 ```
+
+> [!WARNING]
+> If you leave it empty, you need to checkout the source first in order to let Git decide the size by itself.
 
 ## Available Environment variables
 
-> [!NOTE]
-> If you don't find what you search for, read more about [available `GitHub` variables](docs/github-variables.md), and propose a [new custom variable][custom-variable].
+> [!TIP]
+> If you don't find what you search for
+>
+> - Read more about [available `GitHub` variables](docs/github-variables.md), and propose a [new custom variable][custom-variable].
+> - Use your own variable with [slugify-value][slugify-value], or [shortify-git-revision][shortify-git-revision] for git reference.
 
 ### Enhanced variables
 
@@ -137,58 +96,47 @@ So to reproduce previous behavior, use
 ### Slug variables
 
 > [!TIP]
-> `_CS` suffix also available
+> `_CS` suffix also available for Case-Sensitive preservation
 
-| Variable | Slug version of | Description |
-| -------- | --------------- | ----------- |
-| [GITHUB_REPOSITORY_SLUG](docs/slug-variables.md#github_repository_slug) | GITHUB_REPOSITORY | The owner and repository name. |
-| [GITHUB_REPOSITORY<br>_OWNER_PART_SLUG](docs/slug-variables.md#github_repository_owner_part_slug) | GITHUB_REPOSITORY_OWNER_PART | The owner name. |
-| [GITHUB_REPOSITORY<br>_NAME_PART_SLUG](docs/slug-variables.md#github_repository_name_part_slug) | GITHUB_REPOSITORY_NAME_PART | The repository name. |
-| [GITHUB_REF_SLUG](docs/slug-variables.md#github_ref_slug) | GITHUB_REF | The branch or tag ref that triggered the workflow. |
-| [GITHUB_REF_NAME_SLUG](docs/slug-variables.md#github_ref_name_slug) | GITHUB_REF_NAME | This value matches the branch or tag name shown on GitHub. Similar to GITHUB_REF_SLUG. |
-| [GITHUB_HEAD_REF_SLUG](docs/slug-variables.md#github_head_ref_slug) | GITHUB_HEAD_REF | The branch of the head repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
-| [GITHUB_BASE_REF_SLUG](docs/slug-variables.md#github_base_ref_slug) | GITHUB_BASE_REF | The branch of the base repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
-| [GITHUB_EVENT_REF_SLUG](docs/slug-variables.md#github_event_ref_slug) | _github.event.ref_ | <br>Only set for [following webhook events][webhooks-and-events]<ul><li>`create`</li><li>`delete`</li></ul> |
+| Variable | Description |
+| -------- | ----------- |
+| [GITHUB_REPOSITORY_SLUG](docs/slug-variables.md#github_repository_slug) | The owner and repository name. |
+| [GITHUB_REPOSITORY_OWNER_PART_SLUG](docs/slug-variables.md#github_repository_owner_part_slug) | The owner name. |
+| [GITHUB_REPOSITORY_NAME_PART_SLUG](docs/slug-variables.md#github_repository_name_part_slug) | The repository name. |
+| [GITHUB_REF_SLUG](docs/slug-variables.md#github_ref_slug) | The branch or tag ref that triggered the workflow. |
+| [GITHUB_REF_NAME_SLUG](docs/slug-variables.md#github_ref_name_slug) | This value matches the branch or tag name shown on GitHub. |
+| [GITHUB_HEAD_REF_SLUG](docs/slug-variables.md#github_head_ref_slug) | The branch of the head repository. |
+| [GITHUB_BASE_REF_SLUG](docs/slug-variables.md#github_base_ref_slug) | The branch of the base repository. |
+| [GITHUB_EVENT_REF_SLUG](docs/slug-variables.md#github_event_ref_slug) | The Git reference resource associated to triggered webhook. |
 
 ### Slug URL variables
 
 > [!TIP]
-> `_CS` suffix also available
+> `_CS` suffix also available for Case-Sensitive preservation
 
-| Variable | Slug URL version of | Description |
-| -------- | ------------------- | ----------- |
-| [GITHUB_REPOSITORY_SLUG_URL](docs/slug-url-variables.md#github_repository_slug_url) | GITHUB_REPOSITORY | The owner and repository name. |
-| [GITHUB_REPOSITORY<br>_OWNER_PART_SLUG_URL](docs/slug-variables.md#github_repository_owner_part_slug_url) | GITHUB_REPOSITORY_OWNER_PART | The owner name. |
-| [GITHUB_REPOSITORY<br>_NAME_PART_SLUG_URL](docs/slug-variables.md#github_repository_name_part_slug_url) | GITHUB_REPOSITORY_NAME_PART | The repository name. |
-| [GITHUB_REF_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | GITHUB_REF | The branch or tag ref that triggered the workflow. |
-| [GITHUB_REF_NAME_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | GITHUB_REF_NAME | This value matches the branch or tag name shown on GitHub. Similar to GITHUB_REF_SLUG_URL. |
-| [GITHUB_HEAD_REF_SLUG_URL](docs/slug-url-variables.md#github_head_ref_slug_url) | GITHUB_HEAD_REF | The branch of the head repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
-| [GITHUB_BASE_REF_SLUG_URL](docs/slug-url-variables.md#github_base_ref_slug_url) | GITHUB_BASE_REF | The branch of the base repository.<br>Only set for [pull-request][event-pull-request] event and forked repositories. |
-| [GITHUB_EVENT_REF_SLUG_URL](docs/slug-url-variables.md#github_event_ref_slug_url) | _github.event.ref_ | <br>Only set for [following webhook events][webhooks-and-events]<ul><li>`create`</li><li>`delete`</li></ul> |
+| Variable | Description |
+| -------- | ----------- |
+| [GITHUB_REPOSITORY_SLUG_URL](docs/slug-url-variables.md#github_repository_slug_url) | The owner and repository name. |
+| [GITHUB_REPOSITORY_OWNER_PART_SLUG_URL](docs/slug-variables.md#github_repository_owner_part_slug_url) | The owner name. |
+| [GITHUB_REPOSITORY_NAME_PART_SLUG_URL](docs/slug-variables.md#github_repository_name_part_slug_url) | The repository name. |
+| [GITHUB_REF_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | The branch or tag ref that triggered the workflow. |
+| [GITHUB_REF_NAME_SLUG_URL](docs/slug-url-variables.md#github_ref_slug_url) | This value matches the branch or tag name shown on GitHub. |
+| [GITHUB_HEAD_REF_SLUG_URL](docs/slug-url-variables.md#github_head_ref_slug_url) | The branch of the head repository. |
+| [GITHUB_BASE_REF_SLUG_URL](docs/slug-url-variables.md#github_base_ref_slug_url) | The branch of the base repository. |
+| [GITHUB_EVENT_REF_SLUG_URL](docs/slug-url-variables.md#github_event_ref_slug_url) | The Git reference resource associated to triggered webhook. |
 
 ### Short variables
 
-| Variable | Short version of | Description |
-| -------- | ---------------- | ----------- |
-| [GITHUB_SHA_SHORT](docs/short-variables.md#github_sha_short) | GITHUB_SHA | The commit SHA that triggered the workflow. |
-| [GITHUB_EVENT<br>_PULL_REQUEST<br>_HEAD_SHA_SHORT](docs/short-variables.md#github_event_pull_request_head_sha_short) | _github.event<br>.pull_request<br>.head.sha_ | The commit SHA on pull request that trigger workflow.<br>Only set for [following webhook events][webhooks-and-events]<ul><li>`pull_request`</li><li>`pull_request_review`</li><li>`pull_request_review_comment`</li><li>`pull_request_target`</li></ul> |
+| Variable | Description |
+| -------- | ----------- |
+| [GITHUB_SHA_SHORT](docs/short-variables.md#github_sha_short) | The commit SHA that triggered the workflow. |
+| [GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT](docs/short-variables.md#github_event_pull_request_head_sha_short) |  The commit SHA on pull request that trigger workflow. |
 
-## Troubleshooting
+## Migration from previous versions
 
-### The SHORT variables doesn't have the same lengths as before
+### From v4
 
-Since `v4`, it's Git who manage the short variables by using [`git rev-parse`][git-revparse] behaviour.
-The length of a short sha depends of the size of our repository and can differ over time.
-
-To manage that moving length, you can use `short-length` input
-
-- set `7` to reproduce `small repository` behavior
-- set `8` to reproduce `v3` behavior
-
-> [!WARNING]
-> The minimum length is 4, the default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
-
-### The GITHUB_REF_NAME SLUG/SLUG_URL variables doesn't work the same way as before
+The **GITHUB_REF_NAME SLUG/SLUG_URL** variables doesn't work the same way as before
 
 > [!TIP]
 > If you use `v5` or related versions, you need to use `GITHUB_REF_POINT` instead of `GITHUB_REF_NAME` to get the behavior of the `v4` action.
@@ -213,6 +161,31 @@ steps:
 
 Then `${{ env.GITHUB_REF_POINT }}`, and `$GITHUB_REF_POINT` will serve the behavior of this action.
 And `${{ env.GITHUB_REF_NAME }}`, and `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
+
+### From v3
+
+Since `v4`, it's Git who manage the short variables by using [`git rev-parse`][git-revparse] behaviour.
+The length of a short sha depends of the size of our repository and can differ over time.
+
+To manage that moving length, you can use `short-length` input
+
+- set `7` to reproduce `small repository` behavior
+- set `8` to reproduce `v3` behavior
+
+> [!WARNING]
+> The minimum length is 4, the default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
+
+So to reproduce previous behavior, use
+
+```yaml
+steps:
+  - name: Inject enhanced GitHub environment variables
+    uses: rlespinasse/github-slug-action@v5
+    with:
+      short-length: 8 # Same as v3 and before
+```
+
+## Troubleshooting
 
 ### One of the environment variables doesn't work as intended
 
@@ -273,13 +246,15 @@ In Chinese :cn:
 [issue-15]: https://github.com/rlespinasse/github-slug-action/issues/15
 [issue-104]: https://github.com/rlespinasse/github-slug-action/issues/104
 
+[slugify-value]: https://github.com/rlespinasse/slugify-value
+[shortify-git-revision]: https://github.com/rlespinasse/shortify-git-revision
+
 [git-revparse]: https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt---shortlength
 [git-core-abbrev]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev
 
 [default-environment-variables]: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
 [dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
 [webhooks-and-events]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
-[event-pull-request]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#pull_request
 [naming-conventions]: https://docs.github.com/en/actions/reference/environment-variables#naming-conventions-for-environment-variables
 
 [article-1]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
