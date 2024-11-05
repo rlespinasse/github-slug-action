@@ -68,7 +68,7 @@ jobs:
           [[ "${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_URL_CS }}" ]]
         shell: bash
 
-      - name: Validate // Ref Name
+      - name: Validate // Ref Point
         run: |
           [[ "${{ env.GITHUB_REF_POINT }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
           [[ "${{ env.GITHUB_REF_POINT_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
