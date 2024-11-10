@@ -240,6 +240,7 @@ In French :fr:
 
 - [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][article-1]
 - [GitHub Actions : enfin des pipelines accessibles aux développeurs][talk-1]
+  [GitHub-slug-action : 5 ans d'open source pour cette GitHub Action essentielle au CI/CD][article-6]
 
 In Chinese :cn:
 
@@ -269,4 +270,5 @@ In Chinese :cn:
 [article-3]: https://barstool.engineering/serverless-deploy-previews-on-github-actions/
 [article-4]: https://javascript.plainenglish.io/lets-build-a-continuous-delivery-and-branching-process-c27dae09f0b6
 [article-5]: https://eryajf.github.io/HowToStartOpenSource/views/03-github-tips/10-Use-github-slug-action-to-leak-key-variables-in-the-Github-Action-context.html
+[article-6]: https://www.sfeir.dev/5-ans-de-github-slug-action-une-aventure-open-source/
 [talk-1]: https://www.youtube.com/watch?v=F5mBDmOQcvE
