@@ -16,7 +16,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
 
 - `SLUG_URL` on a variable to have a `slug` variable compliant to be used in a URL
   - Like `SLUG` but `.`, and `_` are also replaced by `-`
-- `SHORT` on a variable will limit the string size to ~8 characters
+- `SHORT` on a variable will limit the string size to [~8 characters](#with-another-length-for-short-values)
   - Useful for _sha_ value
 - `<KEY>_PART` on a variable will give a part of a variable defined by a key
   - Like `GITHUB_REPOSITORY_OWNER_PART` for the owner part of `GITHUB_REPOSITORY`
@@ -68,11 +68,19 @@ steps:
   - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
     with:
-      short-length: 7 # By default it's up to Git to decide, use 8 to have the v3.x behavior
+      short-length: 7 # By default it's up to Git to decide, use 8 to have the v3.x behaviour
 ```
 
+The length of a short sha depends of the size of **your repository** and can differ over time :
+
+- set `7` to keep the `small repository` behaviour,
+- set `8` to reproduce `v3` behaviour,
+- set `4` as the minimum length possible.
+
 > [!WARNING]
-> If you leave it empty, you need to checkout the source first in order to let Git decide the size by itself.
+> If you leave it empty, you need to checkout the source first in order to let Git decide the size by itself by using [`git rev-parse`][git-revparse] behaviour.
+>
+> The default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
 
 ## Available Environment variables
 
@@ -146,12 +154,12 @@ Same as slug variables but URL-compliant
 The **GITHUB_REF_NAME SLUG/SLUG_URL** variables doesn't work the same way as before
 
 > [!TIP]
-> If you use `v5` or related versions, you need to use `GITHUB_REF_POINT` instead of `GITHUB_REF_NAME` to get the behavior of the `v4` action.
+> If you use `v5` or related versions, you need to use `GITHUB_REF_POINT` instead of `GITHUB_REF_NAME` to get the behaviour of the `v4` action.
 
-Before `v5`, the behavior was the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
+Before `v5`, the behaviour was the same as the GitHub one except on `pull_request*` workflows ([Ready the full story][issue-104]).
 
-- `${{ env.GITHUB_REF_NAME }}` will serve the behavior of this action,
-- `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
+- `${{ env.GITHUB_REF_NAME }}` will serve the behaviour of this action,
+- `$GITHUB_REF_NAME` will serve the behaviour of GitHub Action.
 
 On `pull_request*` workflows, the content will be `<PR-number>/merge` instead of the branch name.
 So you need to use `GITHUB_REF_POINT` instead
@@ -166,23 +174,23 @@ steps:
 
 ```
 
-Then `${{ env.GITHUB_REF_POINT }}`, and `$GITHUB_REF_POINT` will serve the behavior of this action.
-And `${{ env.GITHUB_REF_NAME }}`, and `$GITHUB_REF_NAME` will serve the behavior of GitHub Action.
+Then `${{ env.GITHUB_REF_POINT }}`, and `$GITHUB_REF_POINT` will serve the behaviour of this action.
+And `${{ env.GITHUB_REF_NAME }}`, and `$GITHUB_REF_NAME` will serve the behaviour of GitHub Action.
 
 ### v3 to v4
 
 Since `v4`, it's Git who manage the short variables by using [`git rev-parse`][git-revparse] behaviour.
-The length of a short sha depends of the size of our repository and can differ over time.
+The length of a short sha depends of the size of **your repository** and can differ over time.
 
 To manage that moving length, you can use `short-length` input
 
-- set `7` to reproduce `small repository` behavior
-- set `8` to reproduce `v3` behavior
+- set `7` to reproduce `small repository` behaviour
+- set `8` to reproduce `v3` behaviour
 
 > [!WARNING]
 > The minimum length is 4, the default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
 
-So to reproduce previous behavior, use
+So to reproduce previous behaviour, use
 
 ```yaml
 steps:
@@ -199,14 +207,14 @@ steps:
 > [!WARNING]
 > When you set a custom environment variable, you [cannot use any of the default environment variable names][naming-conventions]. For a complete list of these, see [Default environment variables][default-environment-variables]. **If you attempt to override the value of one of these default environment variables, the assignment is ignored.**
 
-If a variable start to be used as default environment variable, the environment variable may have a different behavior than the expected one.
+If a variable start to be used as default environment variable, the environment variable may have a different behaviour than the expected one.
 
 If this append, the `${{ env.GITHUB_AWESOME_VARIABLE }}` and `$GITHUB_AWESOME_VARIABLE` expression will not works in the same way.
 
-- `${{ env.GITHUB_AWESOME_VARIABLE }}` will serve the behavior of this action,
-- `$GITHUB_AWESOME_VARIABLE` will serve the behavior of GitHub Action.
+- `${{ env.GITHUB_AWESOME_VARIABLE }}` will serve the behaviour of this action,
+- `$GITHUB_AWESOME_VARIABLE` will serve the behaviour of GitHub Action.
 
-Otherwise the two expression will serve the behavior of this action.
+Otherwise the two expression will serve the behaviour of this action.
 This will not occurs if you use the `prefix` input to avoid the issue.
 
 > [!IMPORTANT]
