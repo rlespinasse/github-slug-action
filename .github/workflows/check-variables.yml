@@ -1,9 +1,10 @@
+---
 name: Compare GitHub Variables
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch: # Manual trigger
   schedule:
-    - cron: '0 0 * * 1'  # Weekly on Monday at midnight
+    - cron: "0 0 * * 1" # Weekly on Monday at midnight
   pull_request:
 
 permissions: read-all
@@ -30,25 +31,25 @@ jobs:
           MISMATCHED_VARS=()
           TEST_VALUES=()
           ACTUAL_VALUES=()
-          
+
           # Get all environment variables
           ALL_ENV=$(env)
-          
+
           # Extract TEST_GITHUB variables
           TEST_VARS=$(echo "$ALL_ENV" | grep "^TEST_GITHUB_" | cut -d= -f1)
-          
+
           # Check for mismatches
           for TEST_VAR in $TEST_VARS; do
             # Get the corresponding GITHUB variable name
             GITHUB_VAR=${TEST_VAR/TEST_GITHUB_/GITHUB_}
-            
+
             # Get the values
             TEST_VALUE="${!TEST_VAR}"
 
             # Check if the GITHUB variable exists
             if [[ -n "${!GITHUB_VAR+x}" ]]; then
               GITHUB_VALUE="${!GITHUB_VAR}"
-              
+
               # Compare values
               if [[ "$TEST_VALUE" != "$GITHUB_VALUE" ]]; then
                 MISMATCHED_VARS+=("$TEST_VAR vs $GITHUB_VAR")
@@ -62,38 +63,38 @@ jobs:
               echo "Skipping $TEST_VAR as $GITHUB_VAR does not exist"
             fi
           done
-          
+
           # Set output for next steps
           if [[ ${#MISMATCHED_VARS[@]} -gt 0 ]]; then
             echo "has_mismatches=true" >> $GITHUB_OUTPUT
-            
+
             # Create a JSON array of mismatched variables for the issue
             MISMATCHED_JSON=$(printf '"%s",' "${MISMATCHED_VARS[@]}" | sed 's/,$//')
             MISMATCHED_JSON="[$MISMATCHED_JSON]"
             echo "mismatched_vars=$MISMATCHED_JSON" >> $GITHUB_OUTPUT
-            
+
             # Create a JSON array of test values
             TEST_JSON=$(printf '"%s",' "${TEST_VALUES[@]}" | sed 's/,$//')
             TEST_JSON="[$TEST_JSON]"
             echo "test_values=$TEST_JSON" >> $GITHUB_OUTPUT
-            
+
             # Create a JSON array of actual values
             ACTUAL_JSON=$(printf '"%s",' "${ACTUAL_VALUES[@]}" | sed 's/,$//')
             ACTUAL_JSON="[$ACTUAL_JSON]"
             echo "actual_values=$ACTUAL_JSON" >> $GITHUB_OUTPUT
-            
+
             # Create summary table
             echo "## GitHub Variable Mismatches" >> $GITHUB_STEP_SUMMARY
             echo "| Variable Pair | TEST Value | GITHUB Value |" >> $GITHUB_STEP_SUMMARY
             echo "| ------------- | ---------- | ------------ |" >> $GITHUB_STEP_SUMMARY
-            
+
             for i in "${!MISMATCHED_VARS[@]}"; do
               echo "| ${MISMATCHED_VARS[$i]} | ${TEST_VALUES[$i]} | ${ACTUAL_VALUES[$i]} |" >> $GITHUB_STEP_SUMMARY
             done
           else
             echo "has_mismatches=false" >> $GITHUB_OUTPUT
             echo "## All GitHub Variables Match" >> $GITHUB_STEP_SUMMARY
-            echo "All action `GITHUB_` variables match their official `GITHUB_` counterparts." >> $GITHUB_STEP_SUMMARY
+            echo "All action GITHUB_ variables match their official GITHUB_ counterparts." >> $GITHUB_STEP_SUMMARY
           fi
         shell: bash
 
@@ -106,19 +107,19 @@ jobs:
             const mismatchedVars = JSON.parse('${{ steps.compare.outputs.mismatched_vars }}');
             const testValues = JSON.parse('${{ steps.compare.outputs.test_values }}');
             const actualValues = JSON.parse('${{ steps.compare.outputs.actual_values }}');
-            
+
             // Create table for issue body
             let tableBody = '| Variable Pair | TEST Value | GITHUB Value |\n';
             tableBody += '| ------------- | ---------- | ------------ |\n';
-            
+
             for (let i = 0; i < mismatchedVars.length; i++) {
               tableBody += `| ${mismatchedVars[i]} | ${testValues[i]} | ${actualValues[i]} |\n`;
             }
-            
+
             // Create the issue
             const issueTitle = `GitHub Variable Mismatches Detected - ${new Date().toISOString().split('T')[0]}`;
             const issueBody = `## GitHub Variable Mismatches Detected\n\nThe following mismatches were found between the action **GITHUB_** variables and their official **GITHUB_** counterparts:\n\n${tableBody}\n\nPlease review these discrepancies and update the test variables as needed.`;
-            
+
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -126,7 +127,7 @@ jobs:
               body: issueBody,
               labels: ['bug']
             });
-            
+
             console.log('Issue created for GitHub variable mismatches');
 
       - name: Fail workflow if mismatches detected
