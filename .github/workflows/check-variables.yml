@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Load environment variables for testing
-        uses: rlespinasse/github-slug-action@v4
+        uses: rlespinasse/github-slug-action@v5
         with:
           prefix: TEST_
 
@@ -98,7 +98,7 @@ jobs:
         shell: bash
 
       - name: Create issue for mismatches
-        if: steps.compare.outputs.has_mismatches == 'true'
+        if: steps.compare.outputs.has_mismatches == 'true' && github.event_name != 'pull_request'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
