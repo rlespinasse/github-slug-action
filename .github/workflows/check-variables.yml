@@ -5,8 +5,6 @@ on:
   schedule:
     - cron: '0 0 * * 1'  # Weekly on Monday at midnight
   pull_request:
-    paths:
-      - .github/workflows/check-variables.yml
 
 permissions: read-all
 
@@ -130,3 +128,9 @@ jobs:
             });
             
             console.log('Issue created for GitHub variable mismatches');
+
+      - name: Fail workflow if mismatches detected
+        if: steps.compare.outputs.has_mismatches == 'true' && github.event_name == 'pull_request'
+        run: |
+          echo "::error::GitHub variable mismatches detected! See the summary for details."
+          exit 1
