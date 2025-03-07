@@ -4,6 +4,11 @@ on:
   workflow_dispatch:  # Manual trigger
   schedule:
     - cron: '0 0 * * 1'  # Weekly on Monday at midnight
+  pull_request:
+    paths:
+      - .github/workflows/check-variables.yml
+
+permissions: read-all
 
 jobs:
   compare-variables:
@@ -83,6 +88,7 @@ jobs:
             echo "## All GitHub Variables Match" >> $GITHUB_STEP_SUMMARY
             echo "All action `GITHUB_` variables match their official `GITHUB_` counterparts." >> $GITHUB_STEP_SUMMARY
           fi
+        shell: bash
 
       - name: Create issue for mismatches
         if: steps.compare.outputs.has_mismatches == 'true'
