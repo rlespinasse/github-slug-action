@@ -98,7 +98,7 @@ jobs:
         shell: bash
 
       - name: Create issue for mismatches
-        if: steps.compare.outputs.has_mismatches == 'true' && github.event_name != 'pull_request'
+        if: steps.compare.outputs.has_mismatches == 'true'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
