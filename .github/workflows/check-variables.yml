@@ -117,14 +117,14 @@ jobs:
             
             // Create the issue
             const issueTitle = `GitHub Variable Mismatches Detected - ${new Date().toISOString().split('T')[0]}`;
-            const issueBody = `## GitHub Variable Mismatches Detected\n\nThe following mismatches were found between the action `GITHUB_` variables and their official `GITHUB_` counterparts:\n\n${tableBody}\n\nPlease review these discrepancies and update the test variables as needed.`;
+            const issueBody = `## GitHub Variable Mismatches Detected\n\nThe following mismatches were found between the action **GITHUB_** variables and their official **GITHUB_** counterparts:\n\n${tableBody}\n\nPlease review these discrepancies and update the test variables as needed.`;
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: issueTitle,
               body: issueBody,
-              labels: ['bug', 'github-variables']
+              labels: ['bug']
             });
             
             console.log('Issue created for GitHub variable mismatches');
