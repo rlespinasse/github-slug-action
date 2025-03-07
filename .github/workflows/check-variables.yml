@@ -13,6 +13,9 @@ permissions: read-all
 jobs:
   compare-variables:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -43,16 +46,22 @@ jobs:
             
             # Get the values
             TEST_VALUE="${!TEST_VAR}"
-            GITHUB_VALUE="${!GITHUB_VAR}"
-            
-            # Compare values
-            if [[ "$TEST_VALUE" != "$GITHUB_VALUE" ]]; then
-              MISMATCHED_VARS+=("$TEST_VAR vs $GITHUB_VAR")
-              TEST_VALUES+=("$TEST_VALUE")
-              ACTUAL_VALUES+=("$GITHUB_VALUE")
-              echo "Mismatch found: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
+
+            # Check if the GITHUB variable exists
+            if [[ -n "${!GITHUB_VAR+x}" ]]; then
+              GITHUB_VALUE="${!GITHUB_VAR}"
+              
+              # Compare values
+              if [[ "$TEST_VALUE" != "$GITHUB_VALUE" ]]; then
+                MISMATCHED_VARS+=("$TEST_VAR vs $GITHUB_VAR")
+                TEST_VALUES+=("$TEST_VALUE")
+                ACTUAL_VALUES+=("$GITHUB_VALUE")
+                echo "Mismatch found: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
+              else
+                echo "Match: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
+              fi
             else
-              echo "Match: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
+              echo "Skipping $TEST_VAR as $GITHUB_VAR does not exist"
             fi
           done
           
@@ -91,7 +100,7 @@ jobs:
         shell: bash
 
       - name: Create issue for mismatches
-        if: steps.compare.outputs.has_mismatches == 'true'
+        if: steps.compare.outputs.has_mismatches == 'true' && github.event_name != 'pull_request'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
