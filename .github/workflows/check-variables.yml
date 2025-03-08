@@ -40,61 +40,63 @@ jobs:
 
           # Check for mismatches
           for TEST_VAR in $TEST_VARS; do
-            # Get the corresponding GITHUB variable name
-            GITHUB_VAR=${TEST_VAR/TEST_GITHUB_/GITHUB_}
+          # Get the corresponding GITHUB variable name
+          GITHUB_VAR=${TEST_VAR/TEST_GITHUB_/GITHUB_}
 
-            # Get the values
-            TEST_VALUE="${!TEST_VAR}"
+          # Get the values
+          TEST_VALUE="${!TEST_VAR}"
 
-            # Check if the GITHUB variable exists
-            if [[ -n "${!GITHUB_VAR+x}" ]]; then
-              GITHUB_VALUE="${!GITHUB_VAR}"
+          # Check if the GITHUB variable exists
+          if [[ -n "${!GITHUB_VAR+x}" ]]; then
+            GITHUB_VALUE="${!GITHUB_VAR}"
 
-              # Compare values
-              if [[ "$TEST_VALUE" != "$GITHUB_VALUE" ]]; then
-                MISMATCHED_VARS+=("$TEST_VAR vs $GITHUB_VAR")
-                TEST_VALUES+=("$TEST_VALUE")
-                ACTUAL_VALUES+=("$GITHUB_VALUE")
-                echo "Mismatch found: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
-              else
-                echo "Match: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
-              fi
+            # Compare values
+            if [[ "$TEST_VALUE" != "$GITHUB_VALUE" ]]; then
+              MISMATCHED_VARS+=("$TEST_VAR vs $GITHUB_VAR")
+              TEST_VALUES+=("$TEST_VALUE")
+              ACTUAL_VALUES+=("$GITHUB_VALUE")
+              echo "Mismatch found: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
             else
-              echo "Skipping $TEST_VAR as $GITHUB_VAR does not exist"
+              echo "Match: $TEST_VAR=$TEST_VALUE, $GITHUB_VAR=$GITHUB_VALUE"
             fi
+          else
+            echo "Skipping $TEST_VAR as $GITHUB_VAR does not exist"
+          fi
           done
 
           # Set output for next steps
           if [[ ${#MISMATCHED_VARS[@]} -gt 0 ]]; then
-            echo "has_mismatches=true" >> $GITHUB_OUTPUT
+          echo "has_mismatches=true" >>"$GITHUB_OUTPUT"
 
-            # Create a JSON array of mismatched variables for the issue
-            MISMATCHED_JSON=$(printf '"%s",' "${MISMATCHED_VARS[@]}" | sed 's/,$//')
-            MISMATCHED_JSON="[$MISMATCHED_JSON]"
-            echo "mismatched_vars=$MISMATCHED_JSON" >> $GITHUB_OUTPUT
+          # Create a JSON array of mismatched variables for the issue
+          MISMATCHED_JSON=$(printf '"%s",' "${MISMATCHED_VARS[@]}" | sed 's/,$//')
+          MISMATCHED_JSON="[$MISMATCHED_JSON]"
+          echo "mismatched_vars=$MISMATCHED_JSON" >>"$GITHUB_OUTPUT"
 
-            # Create a JSON array of test values
-            TEST_JSON=$(printf '"%s",' "${TEST_VALUES[@]}" | sed 's/,$//')
-            TEST_JSON="[$TEST_JSON]"
-            echo "test_values=$TEST_JSON" >> $GITHUB_OUTPUT
+          # Create a JSON array of test values
+          TEST_JSON=$(printf '"%s",' "${TEST_VALUES[@]}" | sed 's/,$//')
+          TEST_JSON="[$TEST_JSON]"
+          echo "test_values=$TEST_JSON" >>"$GITHUB_OUTPUT"
 
-            # Create a JSON array of actual values
-            ACTUAL_JSON=$(printf '"%s",' "${ACTUAL_VALUES[@]}" | sed 's/,$//')
-            ACTUAL_JSON="[$ACTUAL_JSON]"
-            echo "actual_values=$ACTUAL_JSON" >> $GITHUB_OUTPUT
+          # Create a JSON array of actual values
+          ACTUAL_JSON=$(printf '"%s",' "${ACTUAL_VALUES[@]}" | sed 's/,$//')
+          ACTUAL_JSON="[$ACTUAL_JSON]"
+          echo "actual_values=$ACTUAL_JSON" >>"$GITHUB_OUTPUT"
 
-            # Create summary table
-            echo "## GitHub Variable Mismatches" >> $GITHUB_STEP_SUMMARY
-            echo "| Variable Pair | TEST Value | GITHUB Value |" >> $GITHUB_STEP_SUMMARY
-            echo "| ------------- | ---------- | ------------ |" >> $GITHUB_STEP_SUMMARY
+          # Create summary table
+          {
+            echo "## GitHub Variable Mismatches";
+            echo "| Variable Pair | TEST Value | GITHUB Value |";
+            echo "| ------------- | ---------- | ------------ |";
+          } >>"$GITHUB_STEP_SUMMARY"
 
-            for i in "${!MISMATCHED_VARS[@]}"; do
-              echo "| ${MISMATCHED_VARS[$i]} | ${TEST_VALUES[$i]} | ${ACTUAL_VALUES[$i]} |" >> $GITHUB_STEP_SUMMARY
-            done
+          for i in "${!MISMATCHED_VARS[@]}"; do
+            echo "| ${MISMATCHED_VARS[$i]} | ${TEST_VALUES[$i]} | ${ACTUAL_VALUES[$i]} |" >>"$GITHUB_STEP_SUMMARY"
+          done
           else
-            echo "has_mismatches=false" >> $GITHUB_OUTPUT
-            echo "## All GitHub Variables Match" >> $GITHUB_STEP_SUMMARY
-            echo "All action GITHUB_ variables match their official GITHUB_ counterparts." >> $GITHUB_STEP_SUMMARY
+          echo "has_mismatches=false" >>"$GITHUB_OUTPUT"
+          echo "## All GitHub Variables Match" >>"$GITHUB_STEP_SUMMARY"
+          echo "All action GITHUB_ variables match their official GITHUB_ counterparts." >>"$GITHUB_STEP_SUMMARY"
           fi
         shell: bash
 
