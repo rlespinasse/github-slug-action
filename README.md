@@ -20,7 +20,7 @@ This GitHub Action will expose the slug/short values of [some GitHub environment
   - Useful for _sha_ value
 - `<KEY>_PART` on a variable will give a part of a variable defined by a key
   - Like `GITHUB_REPOSITORY_OWNER_PART` for the owner part of `GITHUB_REPOSITORY`
-- `<VAR>_CS` on others variables to keep the value case-sensitive
+- `<VAR>_CS` on other variables to keep the value case-sensitive
   - Like `GITHUB_REF_SLUG_CS`
 
 ## Installation
@@ -71,14 +71,14 @@ steps:
       short-length: 7 # By default it's up to Git to decide, use 8 to have the v3.x behaviour
 ```
 
-The length of a short sha depends of the size of **your repository** and can differ over time :
+The length of a short sha depends on the size of **your repository** and can differ over time :
 
 - set `7` to keep the `small repository` behaviour,
 - set `8` to reproduce `v3` behaviour,
 - set `4` as the minimum length possible.
 
 > [!WARNING]
-> If you leave it empty, you need to checkout the source first in order to let Git decide the size by itself by using [`git rev-parse`][git-revparse] behaviour.
+> If you leave it empty, you need to checkout the source first to let Git decide the size by itself by using [`git rev-parse`][git-revparse] behaviour.
 >
 > The default is the effective value of the [core.abbrev][git-core-abbrev] configuration variable.
 
@@ -92,9 +92,9 @@ The length of a short sha depends of the size of **your repository** and can dif
 
 ### Enhanced variables
 
-- `GITHUB_REF_POINT` will contains the reference name (branch or tag)
+- `GITHUB_REF_POINT` will contain the reference name (branch or tag)
   - based on `GITHUB_HEAD_REF` in a [`pull-request*`][webhooks-and-events] event context,
-  - based on `GITHUB_REF_NAME` in others event context.
+  - based on `GITHUB_REF_NAME` in other event context.
 
 > [!NOTE]
 > All enhanced variables are available in all **slug** formats.
@@ -151,7 +151,7 @@ Same as slug variables but URL-compliant
 
 ### v4 to v5
 
-The **GITHUB_REF_NAME SLUG/SLUG_URL** variables doesn't work the same way as before
+The **GITHUB_REF_NAME SLUG/SLUG_URL** variables don't work the same way as before
 
 > [!TIP]
 > If you use `v5` or related versions, you need to use `GITHUB_REF_POINT` instead of `GITHUB_REF_NAME` to get the behaviour of the `v4` action.
@@ -179,10 +179,10 @@ And `${{ env.GITHUB_REF_NAME }}`, and `$GITHUB_REF_NAME` will serve the behaviou
 
 ### v3 to v4
 
-Since `v4`, it's Git who manage the short variables by using [`git rev-parse`][git-revparse] behaviour.
-The length of a short sha depends of the size of **your repository** and can differ over time.
+Since `v4`, Git manages the short variables using [`git rev-parse`][git-revparse] behaviour.
+The length of a short sha depends on the size of **your repository** and can differ over time.
 
-To manage that moving length, you can use `short-length` input
+To manage that moving length, you can use the `short-length` input
 
 - set `7` to reproduce `small repository` behaviour
 - set `8` to reproduce `v3` behaviour
@@ -207,22 +207,22 @@ steps:
 > [!WARNING]
 > When you set a custom environment variable, you [cannot use any of the default environment variable names][naming-conventions]. For a complete list of these, see [Default environment variables][default-environment-variables]. **If you attempt to override the value of one of these default environment variables, the assignment is ignored.**
 
-If a variable start to be used as default environment variable, the environment variable may have a different behaviour than the expected one.
+If a variable starts to be used as a default environment variable, the environment variable may behave differently than the expected one.
 
 If this append, the `${{ env.GITHUB_AWESOME_VARIABLE }}` and `$GITHUB_AWESOME_VARIABLE` expression will not works in the same way.
 
 - `${{ env.GITHUB_AWESOME_VARIABLE }}` will serve the behaviour of this action,
 - `$GITHUB_AWESOME_VARIABLE` will serve the behaviour of GitHub Action.
 
-Otherwise the two expression will serve the behaviour of this action.
-This will not occurs if you use the `prefix` input to avoid the issue.
+Otherwise, the two expressions will serve the behaviour of this action.
+This will not occur if you use the `prefix` input to avoid the issue.
 
 > [!IMPORTANT]
-> If detected, the maintainers of this action will choose the best course of action depending of the impact.
+> If detected, the maintainers of this action will choose the best course of action depending on the impact.
 
 ### An action could not be found at the URI
 
-If your workflow fail on the `Set up job` task with this kind of log
+If your workflow fails on the `Set up job` task with this kind of log
 
 ```text
 Download action repository 'rlespinasse/github-slug-action@GIT_REFERENCE'
@@ -231,10 +231,10 @@ Download action repository 'rlespinasse/github-slug-action@GIT_REFERENCE'
 
 If the `GIT_REFERENCE` value is
 
-- `v4.x` or after, the branch don't exists anymore following the [end-of-life for a branch](SECURITY.md#end-of-life-of-a-branch) security process.
-- `master`, the branch don't exists anymore, read more about it on the corresponding issue ([EOL issue][issue-15])
+- `v4.x` or after, following the [end-of-life for a branch](SECURITY.md#end-of-life-of-a-branch) security process, this branch can be deleted.
+- `master`, the branch doesn't exist anymore, read more about it on the corresponding issue ([EOL issue][issue-15])
 
-Please, use the current major tag `v5` or a version tag (see [releases pages][releases]) in order to fix your workflow.
+Please, use the current **Major tag** `v5` or a version tag (see [releases pages][releases]) to fix your workflow.
 
 ## Thanks for talking about us
 
@@ -243,18 +243,19 @@ In English :gb:
 - [Action spotlight by Michael Heap][article-2]
 - [Serverless Deploy Previews on GitHub Actions][article-3]
 - [Let's Build a Continuous Delivery and Branching Process with GitHub Actions, Vercel and Heroku][article-4]
+- [Celebrating 5 Years of github-slug-action on sfeir.dev][article-7]
 
 In French :fr:
 
 - [Mettre en place une CI/CD Angular avec GitHub Actions & Netlify][article-1]
 - [GitHub Actions : enfin des pipelines accessibles aux développeurs][talk-1]
-  [GitHub-slug-action : 5 ans d'open source pour cette GitHub Action essentielle au CI/CD][article-6]
+- [GitHub-slug-action : 5 ans d'open source pour cette GitHub Action essentielle au CI/CD][article-6]
 
 In Chinese :cn:
 
 - [利用github-slug-action暴漏GitHub Action上下文中的关键变量][article-5]
 
-> The next one is you. _Don't hesitate to add youself to one of these lists._
+> The next one is you. _Don't hesitate to add yourself to one of these lists._
 
 [examples]: https://github.com/rlespinasse/github-slug-action/tree/v5.x/examples
 [custom-variable]: https://github.com/rlespinasse/github-slug-action/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=
@@ -279,4 +280,5 @@ In Chinese :cn:
 [article-4]: https://javascript.plainenglish.io/lets-build-a-continuous-delivery-and-branching-process-c27dae09f0b6
 [article-5]: https://eryajf.github.io/HowToStartOpenSource/views/03-github-tips/10-Use-github-slug-action-to-leak-key-variables-in-the-Github-Action-context.html
 [article-6]: https://www.sfeir.dev/5-ans-de-github-slug-action-une-aventure-open-source/
+[article-7]: https://www.romainlespinasse.dev/posts/celebrating-5-years-of-github-slug-action/
 [talk-1]: https://www.youtube.com/watch?v=F5mBDmOQcvE
