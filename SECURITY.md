@@ -5,7 +5,7 @@
 | Version | Supported          | End of Support | Branch | Specific Tags |
 | ------- | ------------------ | -------------- | ------ | ------------- |
 | 5.x     | :white_check_mark: |                | v5.x   | v5            |
-| 4.x     | :white_check_mark: | 2025-01-31     | v4.x   | v4            |
+| 4.x     | :x:                | 2025-01-31     |        | v4.x, v4      |
 | 3.x     | :x:                | 2024-01-31     |        | v3.x, v3      |
 | 2.x     | :x:                | 2021-04-05     |        | v2.x, 2.2.0   |
 | 1.x     | :x:                | 2021-04-05     |        | v1.1.x, 1.2.0 |
