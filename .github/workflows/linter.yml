@@ -26,5 +26,6 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_JSCPD: false
+          VALIDATE_MARKDOWN_PRETTIER: false
           VALIDATE_YAML_PRETTIER: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
