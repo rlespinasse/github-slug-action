@@ -1,8 +1,9 @@
-name: '[v4] Test and Release'
+name: "[v5] Test and Release"
 on: [push, pull_request]
+permissions: read-all
 jobs:
-  check-v3compatibility:
-    name: 'Check v3 compatibility'
+  check-v4-compatibility:
+    name: "Check v4 compatibility"
     strategy:
       fail-fast: false
       matrix:
@@ -12,14 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Load using v4.x with prefix
+      - name: Load this action from HEAD
         uses: ./
+
+      - name: Load using v4
+        uses: rlespinasse/github-slug-action@v4
         with:
           prefix: V4_
-          short-length: 8
-
-      - name: Load using v3.x
-        uses: rlespinasse/github-slug-action@v3.x
 
       - name: Validate // Partial variables
         run: |
@@ -68,13 +68,13 @@ jobs:
           [[ "${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_EVENT_REF_SLUG_URL_CS }}" ]]
         shell: bash
 
-      - name: Validate // Ref Name
+      - name: Validate // Ref Point
         run: |
-          [[ "${{ env.GITHUB_REF_NAME }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
-          [[ "${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT }}" == "${{ env.V4_GITHUB_REF_NAME }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG_URL }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_CS }}" ]]
+          [[ "${{ env.GITHUB_REF_POINT_SLUG_URL_CS }}" == "${{ env.V4_GITHUB_REF_NAME_SLUG_URL_CS }}" ]]
         shell: bash
 
       - name: Validate // Short SHA variables
@@ -83,10 +83,10 @@ jobs:
           [[ "${{ env.GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" == "${{ env.V4_GITHUB_EVENT_PULL_REQUEST_HEAD_SHA_SHORT }}" ]]
         shell: bash
 
-  check-v3compatibility-without-checkout:
-    name: 'Check v3 compatibility (without checkout)'
+  check-v4-compatibility-without-checkout:
+    name: "Check v4 compatibility (without checkout)"
     needs:
-      - check-v3compatibility
+      - check-v4-compatibility
     strategy:
       fail-fast: false
       matrix:
@@ -99,14 +99,13 @@ jobs:
           path: this-action
           ref: ${{ github.ref }}
 
-      - name: Load using v4.x with prefix
+      - name: Load this action from HEAD
         uses: ./this-action
+
+      - name: Load using v4
+        uses: rlespinasse/github-slug-action@v4
         with:
           prefix: V4_
-          short-length: 8
-
-      - name: Load using v3.x
-        uses: rlespinasse/github-slug-action@v3.x
 
       - name: Validate // Short SHA variables
         run: |
@@ -115,7 +114,7 @@ jobs:
         shell: bash
 
   display:
-    name: 'Display produced variables'
+    name: "Display produced variables"
     strategy:
       fail-fast: false
       matrix:
@@ -125,7 +124,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Load using v4.x
+      - name: Load this action from HEAD
         uses: ./
 
       - name: Partial variables
@@ -140,48 +139,55 @@ jobs:
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG }}"
         shell: bash
+
       - name: Slug variables (Case Sensitive)
         run: |
           echo "repository       : ${{ env.GITHUB_REPOSITORY_SLUG_CS }}"
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_CS }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_CS }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG_CS }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG_CS }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_CS }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_CS }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_CS }}"
         shell: bash
+
       - name: Slug URL variables
         run: |
           echo "repository       : ${{ env.GITHUB_REPOSITORY_SLUG_URL }}"
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG_URL }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG_URL }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_URL }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_URL }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_URL }}"
         shell: bash
+
       - name: Slug URL variables (Case Sensitive)
         run: |
           echo "repository       : ${{ env.GITHUB_REPOSITORY_SLUG_URL_CS }}"
           echo "repository owner : ${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG_URL_CS }}"
           echo "repository name  : ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG_URL_CS }}"
           echo "ref              : ${{ env.GITHUB_REF_SLUG_URL_CS }}"
+          echo "ref name         : ${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}"
           echo "head ref         : ${{ env.GITHUB_HEAD_REF_SLUG_URL_CS }}"
           echo "base ref         : ${{ env.GITHUB_BASE_REF_SLUG_URL_CS }}"
           echo "event ref        : ${{ env.GITHUB_EVENT_REF_SLUG_URL_CS }}"
         shell: bash
 
-      - name: Ref Name
+      - name: Ref Point
         run: |
-          echo "raw                       : ${{ env.GITHUB_REF_NAME }}"
-          echo "slug                      : ${{ env.GITHUB_REF_NAME_SLUG }}"
-          echo "slug url                  : ${{ env.GITHUB_REF_NAME_SLUG_URL }}"
-          echo "slug (Case Sensitive)     : ${{ env.GITHUB_REF_NAME_SLUG_CS }}"
-          echo "slug url (Case Sensitive) : ${{ env.GITHUB_REF_NAME_SLUG_URL_CS }}"
+          echo "raw                       : ${{ env.GITHUB_REF_POINT }}"
+          echo "slug                      : ${{ env.GITHUB_REF_POINT_SLUG }}"
+          echo "slug url                  : ${{ env.GITHUB_REF_POINT_SLUG_URL }}"
+          echo "slug (Case Sensitive)     : ${{ env.GITHUB_REF_POINT_SLUG_CS }}"
+          echo "slug url (Case Sensitive) : ${{ env.GITHUB_REF_POINT_SLUG_URL_CS }}"
         shell: bash
 
       - name: Short SHA variables
@@ -191,7 +197,7 @@ jobs:
         shell: bash
 
   display-without-checkout:
-    name: 'Display produced variables (without checkout)'
+    name: "Display produced variables (without checkout)"
     needs:
       - display
     strategy:
@@ -206,14 +212,8 @@ jobs:
           path: this-action
           ref: ${{ github.ref }}
 
-      - name: Load using v4.x with prefix
+      - name: Load this action from HEAD
         uses: ./this-action
-        with:
-          prefix: V4_
-          short-length: 8
-
-      - name: Load using v3.x
-        uses: rlespinasse/github-slug-action@v3.x
 
       - name: Short SHA variables
         run: |
@@ -236,11 +236,11 @@ jobs:
       - name: Using correct short length
         uses: ./
         with:
-          prefix: 'CSL_'
+          prefix: "CSL_"
           short-length: 4
       - name: Using correct length // Validate that all short variables lengths are equals to short-length
         run: |
-          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "${#value}" -le 5 ] ; done
         shell: bash
 
       # Test 2
@@ -248,12 +248,12 @@ jobs:
         id: using-wrong-short-length
         uses: ./
         with:
-          prefix: 'WSL_'
-          short-length: 'wrong'
+          prefix: "WSL_"
+          short-length: "wrong"
         continue-on-error: true
       - name: Using wrong short length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "WSL_" | grep "_SHORT" -c)" -eq 0 ]]
           [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
         shell: bash
@@ -278,11 +278,11 @@ jobs:
       - name: Using correct short length
         uses: ./this-action
         with:
-          prefix: 'CSL_'
+          prefix: "CSL_"
           short-length: 4
       - name: Using correct length // Validate that all short variables lengths are equals to short-length
         run: |
-          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 5 ] ; done
+          env | grep "CSL_" | grep "_SHORT" | cut -d"=" -f2 | while read -r value; do [ "${#value}" -le 5 ] ; done
         shell: bash
 
       # Test 2
@@ -290,11 +290,11 @@ jobs:
         id: using-empty-short-length
         uses: ./this-action
         with:
-          prefix: 'ESL_'
+          prefix: "ESL_"
         continue-on-error: true
       - name: Using empty short length // Validate that the action don't end with an error
         run: |
-          [[ "$(env | grep "ESL_" | grep "_SHORT" | wc -l)" -gt 0 ]]
+          [[ "$(env | grep "ESL_" | grep "_SHORT" -c)" -gt 0 ]]
           [[ "${{ steps.using-empty-short-length.outcome }}" == "success" ]]
           [[ "${{ steps.using-empty-short-length.conclusion }}" == "success" ]]
         shell: bash
@@ -304,12 +304,12 @@ jobs:
         id: using-wrong-short-length
         uses: ./this-action
         with:
-          prefix: 'WSL_'
-          short-length: 'wrong'
+          prefix: "WSL_"
+          short-length: "wrong"
         continue-on-error: true
       - name: Using wrong short length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "WSL_" | grep "_SHORT" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "WSL_" | grep "_SHORT" -c)" -eq 0 ]]
           [[ "${{ steps.using-wrong-short-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-wrong-short-length.conclusion }}" == "success" ]]
         shell: bash
@@ -329,11 +329,11 @@ jobs:
       - name: Using correct slug max length
         uses: ./
         with:
-          prefix: 'CML_'
+          prefix: "CML_"
           slug-maxlength: 1
       - name: Using correct max length // Validate that all slug variables lengths are equals or under the slug-maxlength
         run: |
-          env | grep "CML_" | grep "_SLUG" | cut -d"=" -f2 | while read -r value; do [ "$(echo "$value" | wc -m)" -le 2 ] ; done
+          env | grep "CML_" | grep "_SLUG" | cut -d"=" -f2 | while read -r value; do [ "${#value}" -le 2 ] ; done
         shell: bash
 
       # Test 2
@@ -341,12 +341,12 @@ jobs:
         id: using-wrong-slug-max-length
         uses: ./
         with:
-          prefix: 'WML_'
-          slug-maxlength: 'wrong'
+          prefix: "WML_"
+          slug-maxlength: "wrong"
         continue-on-error: true
       - name: Using wrong slug max length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "WML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "WML_" | grep "_SLUG" -c)" -eq 0 ]]
           [[ "${{ steps.using-wrong-slug-max-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-wrong-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
@@ -356,12 +356,12 @@ jobs:
         id: using-empty-slug-max-length
         uses: ./
         with:
-          prefix: 'EML_'
-          slug-maxlength: ''
+          prefix: "EML_"
+          slug-maxlength: ""
         continue-on-error: true
       - name: Using empty slug max length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "EML_" | grep "_SLUG" | wc -l)" -eq 0 ]]
+          [[ "$(env | grep "EML_" | grep "_SLUG" -c)" -eq 0 ]]
           [[ "${{ steps.using-empty-slug-max-length.outcome }}" == "failure" ]]
           [[ "${{ steps.using-empty-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
@@ -371,21 +371,25 @@ jobs:
         id: using-nolimit-slug-max-length
         uses: ./
         with:
-          prefix: 'NLML_'
-          slug-maxlength: 'nolimit'
+          prefix: "NLML_"
+          slug-maxlength: "nolimit"
       - name: Using no limit on slug max length // Validate that the action end with an error
         run: |
-          [[ "$(env | grep "NLML_" | grep "_SLUG" | wc -l)" -gt 0 ]]
+          [[ "$(env | grep "NLML_" | grep "_SLUG" -c)" -gt 0 ]]
           [[ "${{ steps.using-nolimit-slug-max-length.outcome }}" == "success" ]]
           [[ "${{ steps.using-nolimit-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
 
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      id-token: write
+      packages: write
     concurrency:
       group: release-${{ github.ref }}-${{ github.event_name }}
     needs:
-      - check-v3compatibility-without-checkout
       - display-without-checkout
       - input-short-length-without-checkout
       - input-slug-maxlength

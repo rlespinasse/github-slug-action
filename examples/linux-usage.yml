@@ -6,8 +6,8 @@ jobs:
   usage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: rlespinasse/github-slug-action@v4
+      - uses: actions/checkout@v4
+      - uses: rlespinasse/github-slug-action@v5
       - name: Output
         run: |
           echo "Partial variables"

@@ -59,7 +59,12 @@ runs:
     - uses: rlespinasse/slugify-value@v1.4.0
       with:
         key: GITHUB_REF_NAME
-        # Related to https://github.com/rlespinasse/github-slug-action/issues/104
+        value: ${{ github.ref_name }}
+        prefix: ${{ inputs.prefix }}
+        slug-maxlength: ${{ inputs.slug-maxlength }}
+    - uses: rlespinasse/slugify-value@v1.4.0
+      with:
+        key: GITHUB_REF_POINT
         value: ${{ env.GITHUB_HEAD_REF_RAW || env.GITHUB_REF_NAME_RAW }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
