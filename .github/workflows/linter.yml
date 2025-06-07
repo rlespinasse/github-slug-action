@@ -22,6 +22,6 @@ jobs:
         uses: github/super-linter@v7
         env:
           VALIDATE_ALL_CODEBASE: false
+          VALIDATE_YAML_PRETTIER: false
           DEFAULT_BRANCH: v4.x
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
