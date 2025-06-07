@@ -1,27 +1,23 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/.github/"
+  - package-ecosystem: 'github-actions'
+    directory: '/.github/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     groups:
       dependencies:
         patterns:
-          - "*"
-    reviewers:
-      - "rlespinasse"
-    labels: [ ]
-  - package-ecosystem: "github-actions"
-    directory: "/"
+          - '*'
+    labels: []
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     commit-message:
-      prefix: "feat: "
+      prefix: 'feat: '
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     groups:
       dependencies:
         patterns:
-          - "rlespinasse/slugify-value"
-          - "rlespinasse/shortify-git-revision"
-    reviewers:
-      - "rlespinasse"
-    labels: [ ]
+          - 'rlespinasse/slugify-value'
+          - 'rlespinasse/shortify-git-revision'
+    labels: []
