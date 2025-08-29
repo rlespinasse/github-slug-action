@@ -269,10 +269,10 @@ In Chinese :cn:
 [git-revparse]: https://git-scm.com/docs/git-rev-parse#Documentation/git-rev-parse.txt---shortlength
 [git-core-abbrev]: https://git-scm.com/docs/git-config#Documentation/git-config.txt-coreabbrev
 
-[default-environment-variables]: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+[default-environment-variables]: https://docs.github.com/en/actions/reference/workflows-and-actions/variables#default-environment-variables
 [dependabot]: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
 [webhooks-and-events]: https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads
-[naming-conventions]: https://docs.github.com/en/actions/reference/environment-variables#naming-conventions-for-environment-variables
+[naming-conventions]: https://docs.github.com/en/actions/reference/workflows-and-actions/variables#naming-conventions-for-configuration-variables
 
 [article-1]: https://esensconsulting.medium.com/mettre-en-place-une-ci-cd-angular-avec-github-actions-netlify-ca0b59b99ed8
 [article-2]: https://michaelheap.com/github-slug-action/
