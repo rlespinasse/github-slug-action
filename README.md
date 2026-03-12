@@ -19,7 +19,7 @@ steps:
 - **SLUG** -- Lowercase, replace special characters with `-`, limit to 63 characters. _Dots and underscores preserved._
 - **SLUG_URL** -- Same as SLUG, but dots and underscores are also replaced. _Safe for URLs and subdomains._
 - **SHORT** -- Shorten Git SHA values to a unique prefix.
-- **PART** -- Extract portions of a variable (e.g., owner or repo name from `GITHUB_REPOSITORY`).
+- **PART** -- Extract portions of a variable (e.g., owner or repository name from `GITHUB_REPOSITORY`).
 - **_CS** -- Case-sensitive variants of SLUG and SLUG_URL (original casing preserved).
 
 > [!TIP]
@@ -31,7 +31,7 @@ steps:
 | ----- | ------- | ----------- |
 | `prefix` | `""` | Value prepended to each generated variable name |
 | `slug-maxlength` | `63` | Max length of slugified values (`"nolimit"` to disable) |
-| `short-length` | _(git default)_ | Length of short SHA values (minimum `4`) |
+| `short-length` | _(Git default)_ | Length of short SHA values (minimum `4`) |
 
 See the [inputs reference](docs/reference/inputs.md) for details.
 

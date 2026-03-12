@@ -43,7 +43,7 @@ After the action runs, all slug variables are available as environment variables
 
 For a branch named `feat/new_feature` on repository `octocat/Hello-World`, this outputs:
 
-```
+```text
 Repository slug: octocat-hello-world
 Branch slug:     feat-new-feature
 Short SHA:       ffac537e

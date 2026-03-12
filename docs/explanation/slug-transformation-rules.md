@@ -4,7 +4,7 @@ This page explains the transformation algorithms used by the GitHub Slug Action,
 
 ## What is a "slug"?
 
-A slug is a human-readable identifier derived from a string, safe for use in URLs, file names, DNS labels, and other contexts where special characters are problematic. The term originates from publishing, where a "slug" is a short label used to identify a piece of content.
+A slug is a human-readable identifier derived from a string, safe for use in URLs, filenames, DNS labels, and other contexts where special characters are problematic. The term originates from publishing, where a "slug" is a short label used to identify a piece of content.
 
 In CI/CD workflows, branch names, tag names, and repository names often contain characters (`/`, `@`, spaces) that break when used in URLs, Docker tags, Kubernetes labels, or file paths. Slugifying these values makes them safe for such contexts.
 
@@ -18,7 +18,7 @@ The `SLUG` transformation applies the following steps in order:
 4. **Truncate** to a maximum length (default: 63 characters)
 5. **Remove** trailing `-` characters
 
-### Example
+### SLUG examples
 
 | Input | Output |
 | ----- | ------ |
@@ -33,7 +33,7 @@ Note that `.` and `_` are preserved in SLUG output.
 
 The `SLUG_URL` transformation is identical to `SLUG` except that `.` and `_` are also replaced with `-` in step 2. This makes the result safe for use as a URL path segment or subdomain label, where dots and underscores can cause issues.
 
-### Example
+### SLUG_URL examples
 
 | Input | SLUG | SLUG_URL |
 | ----- | ---- | -------- |

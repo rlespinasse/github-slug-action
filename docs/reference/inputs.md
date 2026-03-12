@@ -6,7 +6,7 @@ The GitHub Slug Action accepts the following inputs in the `with:` block.
 | ----- | -------- | ------- | ----------- |
 | `prefix` | No | `""` | Value prepended to each generated variable name. For example, `prefix: CI_` produces `CI_GITHUB_REPOSITORY_SLUG` instead of `GITHUB_REPOSITORY_SLUG`. |
 | `slug-maxlength` | Yes | `63` | Maximum length of slugified values. Accepts a number or `"nolimit"` to disable truncation. Must not be empty. |
-| `short-length` | No | _(git default)_ | Length of shortened SHA values. Minimum `4`. When empty, Git determines the length based on your repository size using [`git rev-parse`][git-revparse]. |
+| `short-length` | No | _(Git default)_ | Length of shortened SHA values. Minimum `4`. When empty, Git determines the length based on your repository size using [`git rev-parse`][git-revparse]. |
 
 ## Notes
 
