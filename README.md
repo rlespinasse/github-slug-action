@@ -6,7 +6,7 @@ This GitHub Action exposes slug and short values of [GitHub environment variable
 
 ```yaml
 steps:
-  - uses: actions/checkout@v4
+  - uses: actions/checkout@v6
   - name: Inject enhanced GitHub environment variables
     uses: rlespinasse/github-slug-action@v5
 ```

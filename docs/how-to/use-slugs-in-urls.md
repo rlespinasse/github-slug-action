@@ -6,7 +6,7 @@ Use `SLUG_URL` variables (not `SLUG`) when building URLs, because `SLUG_URL` als
 
 ```yaml
 steps:
-  - uses: actions/checkout@v4
+  - uses: actions/checkout@v6
   - uses: rlespinasse/github-slug-action@v5
   - run: |
       ./deploy-application.sh --url "https://${{ env.GITHUB_REF_SLUG_URL }}.staging.app.example.com"
@@ -18,7 +18,7 @@ For a branch `feat/new_feature`, this produces `https://feat-new-feature.staging
 
 ```yaml
 steps:
-  - uses: actions/checkout@v4
+  - uses: actions/checkout@v6
   - uses: rlespinasse/github-slug-action@v5
   - run: |
       ./deploy-application.sh --url "https://staging.app.example.com/${{ env.GITHUB_REF_SLUG_URL }}"

@@ -19,7 +19,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Inject enhanced GitHub environment variables
         uses: rlespinasse/github-slug-action@v5
@@ -75,7 +75,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Inject enhanced GitHub environment variables
         uses: rlespinasse/github-slug-action@v5

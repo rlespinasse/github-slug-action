@@ -30,7 +30,7 @@ When `short-length` is left empty, the action uses Git's [`git rev-parse --short
 >
 > ```yaml
 > steps:
->   - uses: actions/checkout@v4
+>   - uses: actions/checkout@v6
 >   - uses: rlespinasse/github-slug-action@v5
 > ```
 >

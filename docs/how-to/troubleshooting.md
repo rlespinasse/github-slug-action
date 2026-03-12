@@ -37,7 +37,7 @@ If `GITHUB_SHA_SHORT` is empty or shorter than expected, ensure you have checked
 
 ```yaml
 steps:
-  - uses: actions/checkout@v4
+  - uses: actions/checkout@v6
   - uses: rlespinasse/github-slug-action@v5
 ```
 
