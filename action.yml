@@ -21,7 +21,7 @@ runs:
   steps:
     - run: $GITHUB_ACTION_PATH/preflight.sh
       id: prefligth
-      shell: bash
+      shell: sh
       env:
         INPUT_SLUG_MAXLENGTH: ${{ inputs.slug-maxlength }}
         INPUT_SHORT_LENGTH: ${{ inputs.short-length }}
@@ -81,7 +81,7 @@ runs:
         else
           echo "::set-output name=github-repository-owner-part::${ownerpart}"
         fi
-      shell: bash
+      shell: sh
     - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
       with:
         key: GITHUB_REPOSITORY_OWNER_PART
