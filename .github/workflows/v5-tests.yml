@@ -1,6 +1,8 @@
 name: "[v5] Test"
 on:
   push:
+    branches:
+      - v5.x
   pull_request:
 permissions: read-all
 jobs:
