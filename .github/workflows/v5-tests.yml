@@ -1,12 +1,7 @@
-name: "[v5] Test and Release"
+name: "[v5] Test"
 on:
   push:
-    branches:
-      - main
   pull_request:
-  schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
 permissions: read-all
 jobs:
   check-v4-compatibility:
@@ -386,32 +381,3 @@ jobs:
           [[ "${{ steps.using-nolimit-slug-max-length.outcome }}" == "success" ]]
           [[ "${{ steps.using-nolimit-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
-
-  release:
-    if: |
-      github.event_name == 'schedule' ||
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && github.ref == 'refs/heads/main')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-      packages: write
-    concurrency:
-      group: release-${{ github.ref }}-${{ github.event_name }}
-    needs:
-      - display-without-checkout
-      - input-short-length-without-checkout
-      - input-slug-maxlength
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-      - name: Release this GitHub Action
-        uses: cycjimmy/semantic-release-action@v4
-        with:
-          semantic_version: 21
-          branches: main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
