@@ -96,7 +96,6 @@ In English :gb:
 - [Action spotlight by Michael Heap][article-2]
 - [Serverless Deploy Previews on GitHub Actions][article-3]
 - [Let's Build a Continuous Delivery and Branching Process with GitHub Actions, Vercel and Heroku][article-4]
-- [Celebrating 5 Years of github-slug-action on sfeir.dev][article-7]
 
 In French :fr:
 
