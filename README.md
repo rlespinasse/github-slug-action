@@ -124,5 +124,4 @@ In Chinese :cn:
 [article-4]: https://javascript.plainenglish.io/lets-build-a-continuous-delivery-and-branching-process-c27dae09f0b6
 [article-5]: https://eryajf.github.io/HowToStartOpenSource/views/03-github-tips/10-Use-github-slug-action-to-leak-key-variables-in-the-Github-Action-context.html
 [article-6]: https://www.sfeir.dev/5-ans-de-github-slug-action-une-aventure-open-source/
-[article-7]: https://www.romainlespinasse.dev/posts/celebrating-5-years-of-github-slug-action/
 [talk-1]: https://www.youtube.com/watch?v=F5mBDmOQcvE
