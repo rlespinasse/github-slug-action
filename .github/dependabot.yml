@@ -4,20 +4,32 @@ updates:
     directory: '/.github/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 5
+    commit-message:
+      prefix: 'build'
+      include: 'scope'
     groups:
       dependencies:
         patterns:
           - '*'
-    labels: []
+        update-types:
+          - 'minor'
+          - 'patch'
   - package-ecosystem: 'github-actions'
     directory: '/'
     commit-message:
-      prefix: 'feat: '
+      prefix: 'build'
+      include: 'scope'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 5
     groups:
       dependencies:
         patterns:
           - 'rlespinasse/slugify-value'
           - 'rlespinasse/shortify-git-revision'
-    labels: []
+        update-types:
+          - 'minor'
+          - 'patch'
