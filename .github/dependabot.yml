@@ -28,7 +28,6 @@ updates:
     groups:
       dependencies:
         patterns:
-          - 'rlespinasse/slugify-value'
           - 'rlespinasse/shortify-git-revision'
         update-types:
           - 'minor'
