@@ -1,5 +1,9 @@
-name: "[v5] Test and Release"
-on: [push, pull_request]
+name: "[v5] Test"
+on:
+  push:
+    branches:
+      - v5.x
+  pull_request:
 permissions: read-all
 jobs:
   check-v4-compatibility:
@@ -379,24 +383,3 @@ jobs:
           [[ "${{ steps.using-nolimit-slug-max-length.outcome }}" == "success" ]]
           [[ "${{ steps.using-nolimit-slug-max-length.conclusion }}" == "success" ]]
         shell: bash
-
-  release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      issues: write
-      id-token: write
-      packages: write
-    concurrency:
-      group: release-${{ github.ref }}-${{ github.event_name }}
-    needs:
-      - display-without-checkout
-      - input-short-length-without-checkout
-      - input-slug-maxlength
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-      - name: Release this GitHub Action
-        uses: rlespinasse/release-that@v1
-        with:
-          github-token: ${{ secrets.GH_TOKEN }}
