@@ -27,42 +27,42 @@ runs:
         INPUT_SHORT_LENGTH: ${{ inputs.short-length }}
 
     # From Environment Variables
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_REPOSITORY
         value: ${{ github.repository }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_REF
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_HEAD_REF
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_BASE_REF
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
 
     # From Specific values
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_EVENT_REF
         value: ${{ github.event.ref }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_REF_NAME
         value: ${{ github.ref_name }}
         prefix: ${{ inputs.prefix }}
         slug-maxlength: ${{ inputs.slug-maxlength }}
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_REF_POINT
         value: ${{ env.GITHUB_HEAD_REF_RAW || env.GITHUB_REF_NAME_RAW }}
@@ -82,7 +82,7 @@ runs:
           echo "::set-output name=github-repository-owner-part::${ownerpart}"
         fi
       shell: bash
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_REPOSITORY_OWNER_PART
         value: ${{ steps.get-github-repository-owner-part.outputs.github-repository-owner-part }}
@@ -97,7 +97,7 @@ runs:
           echo "::set-output name=github-repository-name-part::${namepart}"
         fi
       shell: bash
-    - uses: rlespinasse/slugify-value@a4879db1eb3db9bbee01dca36f98a8236c2b8239 # v1.4.0
+    - uses: rlespinasse/slugify-value@f13019fcc1d95a391d12b618028b003adf29ebca # v1.4.1
       with:
         key: GITHUB_REPOSITORY_NAME_PART
         value: ${{ steps.get-github-repository-name-part.outputs.github-repository-name-part }}
@@ -105,13 +105,13 @@ runs:
         slug-maxlength: ${{ inputs.slug-maxlength }}
 
     # From sha
-    - uses: rlespinasse/shortify-git-revision@c90ba7007ef6c152254d10b9f1a327966ab13077 # v1.6.0
+    - uses: rlespinasse/shortify-git-revision@405d11cea05b4c60f6e3c40f59976143d4ec0c41 # v1.6.1
       with:
         name: GITHUB_SHA
         short-on-error: true
         length: ${{ steps.prefligth.outputs.PREFLIGHT_SHORT_LENGTH }}
         prefix: ${{ inputs.prefix }}
-    - uses: rlespinasse/shortify-git-revision@c90ba7007ef6c152254d10b9f1a327966ab13077 # v1.6.0
+    - uses: rlespinasse/shortify-git-revision@405d11cea05b4c60f6e3c40f59976143d4ec0c41 # v1.6.1
       with:
         name: GITHUB_EVENT_PULL_REQUEST_HEAD_SHA
         revision: ${{ github.event.pull_request.head.sha }}
