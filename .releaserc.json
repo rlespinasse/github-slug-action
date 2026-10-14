@@ -1,0 +1,8 @@
+{
+  "branches": ["v5.x"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/github"
+  ]
+}
