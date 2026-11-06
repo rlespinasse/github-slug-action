@@ -17,7 +17,7 @@ jobs:
         uses: ./
 
       - name: Load using v4
-        uses: rlespinasse/github-slug-action@v4
+        uses: rlespinasse/github-slug-action@v5
         with:
           prefix: V4_
 
@@ -103,7 +103,7 @@ jobs:
         uses: ./this-action
 
       - name: Load using v4
-        uses: rlespinasse/github-slug-action@v4
+        uses: rlespinasse/github-slug-action@v5
         with:
           prefix: V4_
 
